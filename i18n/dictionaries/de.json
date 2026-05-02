@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "title": "ENOX – Internationale Energieberatung",
+    "description": "Energieberatung mit internationaler Reichweite. Wir begleiten Wohn- und Nichtwohngebäude auf dem Weg zur Klimaneutralität."
+  },
+  "nav": {
+    "home": "Startseite",
+    "services": "Leistungen",
+    "about": "Über uns",
+    "career": "Karriere",
+    "contact": "Kontakt",
+    "consultation": "Beratung anfragen"
+  },
+  "hero": {
+    "eyebrow": "Internationale Energieberatung",
+    "title": "Energie effizient. Gebäude zukunftsfähig.",
+    "subtitle": "ENOX begleitet Eigentümer, Architekten und Unternehmen weltweit bei energetischen Sanierungen, Audits und förderfähigen Konzepten.",
+    "ctaPrimary": "Kostenlose Erstberatung",
+    "ctaSecondary": "Leistungen entdecken",
+    "stats": {
+      "projects": "Projekte realisiert",
+      "countries": "Länder betreut",
+      "savings": "Ø Energieeinsparung",
+      "experience": "Jahre Branchenerfahrung"
+    }
+  },
+  "services": {
+    "title": "Unsere Leistungen",
+    "subtitle": "Ganzheitliche Energieberatung für Wohngebäude, Gewerbeimmobilien und kommunale Bauten – international und nach lokalen Standards.",
+    "items": {
+      "residential": {
+        "title": "Wohngebäude",
+        "description": "Energieausweise, iSFP, KfW-Effizienzhaus-Nachweise, Heizlastberechnungen und Sanierungsfahrpläne für private Eigentümer."
+      },
+      "commercial": {
+        "title": "Nichtwohngebäude",
+        "description": "Energieaudits nach DIN EN 16247, BAFA-Module, Energiemanagementsysteme und Wirtschaftlichkeitsanalysen für Unternehmen."
+      },
+      "audit": {
+        "title": "Energieaudit",
+        "description": "Verpflichtende Audits nach EDL-G für Nicht-KMU, inklusive Maßnahmenkatalog und Förderberatung."
+      },
+      "certificate": {
+        "title": "Energieausweis",
+        "description": "Verbrauchs- und Bedarfsausweise nach GEG für Eigentümer, Verwalter und Investoren – schnell und rechtssicher."
+      },
+      "thermography": {
+        "title": "Thermografie",
+        "description": "Bauthermografische Aufnahmen zur Aufdeckung von Wärmebrücken, Leckagen und Schwachstellen der Gebäudehülle."
+      },
+      "photovoltaic": {
+        "title": "Photovoltaik & Speicher",
+        "description": "Auslegung, Wirtschaftlichkeitsrechnung und Förderbegleitung für PV-Anlagen, Batteriespeicher und Wärmepumpen."
+      },
+      "architecture": {
+        "title": "Architektur & Planung",
+        "description": "Grundrissplanung, Bauanträge und Bauleitung mit konsequentem Fokus auf energieeffizientes Bauen."
+      },
+      "international": {
+        "title": "Internationale Projekte",
+        "description": "Beratung in fünf Sprachen, Projekte in Europa, Asien und Lateinamerika nach EU-Taxonomie und ESG-Kriterien."
+      }
+    },
+    "cta": "Mehr erfahren"
+  },
+  "about": {
+    "title": "Über ENOX",
+    "lead": "Gegründet von Enes Talha Aktürk verbindet ENOX deutsche Ingenieurskunst mit globaler Perspektive.",
+    "body": "Als unabhängige Energieberatung begleiten wir Eigentümer, Investoren und Unternehmen entlang der gesamten Wertschöpfungskette eines Gebäudes – von der ersten Bestandsaufnahme über die Konzeption förderfähiger Maßnahmen bis hin zur Umsetzungsbegleitung. Unser interdisziplinäres Team aus Energieberatern, Architekten und Ingenieuren denkt international und arbeitet nach den Standards der Deutschen Energie-Agentur (dena), der KfW und der EU.",
+    "founder": {
+      "title": "Inhaber & Gründer",
+      "name": "Enes Talha Aktürk",
+      "role": "Geschäftsführender Inhaber",
+      "quote": "Energie ist die Sprache, mit der Gebäude die Zukunft mitgestalten. Unsere Aufgabe ist es, jedem Standort die richtigen Worte zu geben."
+    },
+    "values": {
+      "title": "Unsere Werte",
+      "items": {
+        "independence": {
+          "title": "Unabhängigkeit",
+          "description": "Wir vertreten ausschließlich die Interessen unserer Auftraggeber – produkt- und herstellerneutral."
+        },
+        "precision": {
+          "title": "Präzision",
+          "description": "Belastbare Berechnungen, geprüfte Methoden und transparente Dokumentation."
+        },
+        "international": {
+          "title": "Internationalität",
+          "description": "Beratung in fünf Sprachen und Projekterfahrung auf drei Kontinenten."
+        },
+        "sustainability": {
+          "title": "Nachhaltigkeit",
+          "description": "Jede Empfehlung folgt dem Prinzip Effizienz vor Ersatz und CO₂-Minderung."
+        }
+      }
+    }
+  },
+  "career": {
+    "title": "Karriere bei ENOX",
+    "subtitle": "Werde Teil eines Teams, das Energiewende international denkt.",
+    "body": "Wir suchen Menschen, die Verantwortung übernehmen wollen – ob als Energieberater:in, Architekt:in, Bauingenieur:in oder Werkstudent:in. ENOX bietet flexible Arbeitsmodelle, internationale Projekte und kontinuierliche Weiterbildung.",
+    "openings": "Offene Positionen",
+    "positions": {
+      "consultant": {
+        "title": "Energieberater:in (m/w/d)",
+        "location": "Stuttgart · Hamburg · Remote",
+        "type": "Vollzeit"
+      },
+      "architect": {
+        "title": "Projektarchitekt:in (m/w/d)",
+        "location": "Stuttgart",
+        "type": "Vollzeit"
+      },
+      "engineer": {
+        "title": "Bauingenieur:in TGA (m/w/d)",
+        "location": "Hamburg",
+        "type": "Voll- oder Teilzeit"
+      },
+      "intern": {
+        "title": "Werkstudent:in Energiemanagement",
+        "location": "Stuttgart",
+        "type": "20 h / Woche"
+      }
+    },
+    "apply": "Jetzt bewerben",
+    "speculative": "Initiativbewerbung senden"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Sprechen Sie mit uns über Ihr Projekt – auf Deutsch, Englisch, Chinesisch, Spanisch oder Russisch.",
+    "form": {
+      "name": "Name",
+      "email": "E-Mail",
+      "phone": "Telefon (optional)",
+      "language": "Bevorzugte Sprache",
+      "subject": "Betreff",
+      "message": "Ihre Nachricht",
+      "submit": "Anfrage senden",
+      "consent": "Ich stimme der Verarbeitung meiner Daten gemäß Datenschutzerklärung zu."
+    },
+    "info": {
+      "title": "Direkter Draht",
+      "address": "Adresse",
+      "addressValue": "Königstraße 1, 70173 Stuttgart, Deutschland",
+      "phone": "Telefon",
+      "phoneValue": "+49 711 0000000",
+      "email": "E-Mail",
+      "emailValue": "kontakt@enox-energy.com",
+      "hours": "Sprechzeiten",
+      "hoursValue": "Mo–Fr 08:00 – 18:00"
+    }
+  },
+  "footer": {
+    "tagline": "Internationale Energieberatung mit Sitz in Stuttgart.",
+    "company": "Unternehmen",
+    "services": "Leistungen",
+    "legal": "Rechtliches",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz",
+    "terms": "AGB",
+    "rights": "Alle Rechte vorbehalten."
+  },
+  "common": {
+    "language": "Sprache",
+    "menu": "Menü",
+    "close": "Schließen",
+    "readMore": "Mehr erfahren",
+    "owner": "Inhaber: Enes Talha Aktürk"
+  }
+}

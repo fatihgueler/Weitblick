@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "title": "ENOX – International Energy Consulting",
+    "description": "Energy consulting with global reach. We guide residential and commercial buildings on the path to climate neutrality."
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "career": "Careers",
+    "contact": "Contact",
+    "consultation": "Request consultation"
+  },
+  "hero": {
+    "eyebrow": "International Energy Consulting",
+    "title": "Efficient energy. Future-ready buildings.",
+    "subtitle": "ENOX supports owners, architects and companies worldwide with energy retrofits, audits and grant-eligible concepts.",
+    "ctaPrimary": "Free initial consultation",
+    "ctaSecondary": "Discover our services",
+    "stats": {
+      "projects": "Projects delivered",
+      "countries": "Countries served",
+      "savings": "Avg. energy savings",
+      "experience": "Years of experience"
+    }
+  },
+  "services": {
+    "title": "Our services",
+    "subtitle": "Holistic energy consulting for residential, commercial and public buildings – international and aligned with local standards.",
+    "items": {
+      "residential": {
+        "title": "Residential buildings",
+        "description": "Energy certificates, individual renovation roadmaps, KfW efficiency house verifications, heating load calculations and refurbishment plans."
+      },
+      "commercial": {
+        "title": "Non-residential buildings",
+        "description": "Energy audits per DIN EN 16247, BAFA modules, energy management systems and economic feasibility analyses for businesses."
+      },
+      "audit": {
+        "title": "Energy audit",
+        "description": "Mandatory audits under EDL-G for non-SMEs, including measure catalogue and funding advisory."
+      },
+      "certificate": {
+        "title": "Energy certificate",
+        "description": "Consumption and demand certificates per GEG for owners, administrators and investors – fast and legally compliant."
+      },
+      "thermography": {
+        "title": "Thermography",
+        "description": "Building thermography to detect thermal bridges, leakages and weak points of the building envelope."
+      },
+      "photovoltaic": {
+        "title": "Photovoltaics & storage",
+        "description": "Sizing, financial modelling and grant support for PV systems, battery storage and heat pumps."
+      },
+      "architecture": {
+        "title": "Architecture & planning",
+        "description": "Floor plans, building permits and construction supervision with a clear focus on energy-efficient design."
+      },
+      "international": {
+        "title": "International projects",
+        "description": "Consulting in five languages, projects in Europe, Asia and Latin America aligned with the EU taxonomy and ESG criteria."
+      }
+    },
+    "cta": "Learn more"
+  },
+  "about": {
+    "title": "About ENOX",
+    "lead": "Founded by Enes Talha Aktürk, ENOX combines German engineering with a global perspective.",
+    "body": "As an independent energy consultancy we accompany owners, investors and companies along the entire value chain of a building – from initial assessment, through the conception of grant-eligible measures, to implementation supervision. Our interdisciplinary team of energy consultants, architects and engineers thinks internationally and works to the standards of the German Energy Agency (dena), KfW and the EU.",
+    "founder": {
+      "title": "Owner & founder",
+      "name": "Enes Talha Aktürk",
+      "role": "Managing owner",
+      "quote": "Energy is the language buildings use to shape the future. Our task is to give every site the right words."
+    },
+    "values": {
+      "title": "Our values",
+      "items": {
+        "independence": {
+          "title": "Independence",
+          "description": "We represent only our clients' interests – product- and manufacturer-neutral."
+        },
+        "precision": {
+          "title": "Precision",
+          "description": "Robust calculations, audited methods and transparent documentation."
+        },
+        "international": {
+          "title": "International outlook",
+          "description": "Consulting in five languages and project experience across three continents."
+        },
+        "sustainability": {
+          "title": "Sustainability",
+          "description": "Every recommendation follows efficiency before replacement and CO₂ reduction."
+        }
+      }
+    }
+  },
+  "career": {
+    "title": "Careers at ENOX",
+    "subtitle": "Join a team that thinks the energy transition internationally.",
+    "body": "We are looking for people ready to take responsibility – as energy consultants, architects, civil engineers or working students. ENOX offers flexible work models, international projects and continuous professional development.",
+    "openings": "Open positions",
+    "positions": {
+      "consultant": {
+        "title": "Energy consultant (m/f/d)",
+        "location": "Stuttgart · Hamburg · Remote",
+        "type": "Full-time"
+      },
+      "architect": {
+        "title": "Project architect (m/f/d)",
+        "location": "Stuttgart",
+        "type": "Full-time"
+      },
+      "engineer": {
+        "title": "Civil engineer MEP (m/f/d)",
+        "location": "Hamburg",
+        "type": "Full- or part-time"
+      },
+      "intern": {
+        "title": "Working student energy management",
+        "location": "Stuttgart",
+        "type": "20 h / week"
+      }
+    },
+    "apply": "Apply now",
+    "speculative": "Send a speculative application"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Talk to us about your project – in German, English, Chinese, Spanish or Russian.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "language": "Preferred language",
+      "subject": "Subject",
+      "message": "Your message",
+      "submit": "Send request",
+      "consent": "I consent to the processing of my data according to the privacy policy."
+    },
+    "info": {
+      "title": "Direct line",
+      "address": "Address",
+      "addressValue": "Königstraße 1, 70173 Stuttgart, Germany",
+      "phone": "Phone",
+      "phoneValue": "+49 711 0000000",
+      "email": "Email",
+      "emailValue": "contact@enox-energy.com",
+      "hours": "Office hours",
+      "hoursValue": "Mon–Fri 08:00 – 18:00"
+    }
+  },
+  "footer": {
+    "tagline": "International energy consulting based in Stuttgart.",
+    "company": "Company",
+    "services": "Services",
+    "legal": "Legal",
+    "imprint": "Imprint",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "rights": "All rights reserved."
+  },
+  "common": {
+    "language": "Language",
+    "menu": "Menu",
+    "close": "Close",
+    "readMore": "Learn more",
+    "owner": "Owner: Enes Talha Aktürk"
+  }
+}
