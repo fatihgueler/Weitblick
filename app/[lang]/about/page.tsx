@@ -1,5 +1,8 @@
 import { assertLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/getDictionary";
+import { AboutIllustration } from "@/components/illustrations/AboutIllustration";
+import { FounderPortrait } from "@/components/illustrations/FounderPortrait";
+import { TrustBar } from "@/components/illustrations/TrustBar";
 
 export default async function AboutPage({
   params,
@@ -14,21 +17,28 @@ export default async function AboutPage({
   return (
     <>
       <section className="gradient-hero">
-        <div className="container py-20 sm:py-24">
-          <span className="eyebrow">{dict.about.title}</span>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">
-            {dict.about.lead}
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg text-ink-700">{dict.about.body}</p>
+        <div className="container grid gap-10 py-20 sm:py-24 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+          <div>
+            <span className="eyebrow">{dict.about.title}</span>
+            <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">
+              {dict.about.lead}
+            </h1>
+            <p className="mt-6 max-w-3xl text-lg text-ink-700">{dict.about.body}</p>
+          </div>
+          <AboutIllustration className="w-full max-w-md justify-self-center lg:justify-self-end" />
+        </div>
+      </section>
+
+      <section className="bg-white pt-16">
+        <div className="container">
+          <TrustBar />
         </div>
       </section>
 
       <section className="section bg-white">
         <div className="container grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
           <div className="rounded-3xl bg-gradient-to-br from-brand-700 to-brand-900 p-10 text-white shadow-xl">
-            <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/10 text-3xl font-bold">
-              EA
-            </div>
+            <FounderPortrait className="h-28 w-28" />
             <div className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-brand-200">
               {dict.about.founder.title}
             </div>

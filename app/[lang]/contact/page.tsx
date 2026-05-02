@@ -1,5 +1,6 @@
 import { locales, localeNames, assertLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/getDictionary";
+import { ContactIllustration } from "@/components/illustrations/ContactIllustration";
 
 export default async function ContactPage({
   params,
@@ -13,25 +14,23 @@ export default async function ContactPage({
   return (
     <>
       <section className="gradient-hero">
-        <div className="container py-20 sm:py-24">
-          <span className="eyebrow">{dict.nav.contact}</span>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">
-            {dict.contact.title}
-          </h1>
-          <p className="mt-4 max-w-3xl text-lg text-ink-700">
-            {dict.contact.subtitle}
-          </p>
+        <div className="container grid gap-10 py-20 sm:py-24 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+          <div>
+            <span className="eyebrow">{dict.nav.contact}</span>
+            <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">
+              {dict.contact.title}
+            </h1>
+            <p className="mt-4 max-w-2xl text-lg text-ink-700">
+              {dict.contact.subtitle}
+            </p>
+          </div>
+          <ContactIllustration className="w-full max-w-md justify-self-center lg:justify-self-end" />
         </div>
       </section>
 
       <section className="section">
         <div className="container grid gap-12 lg:grid-cols-[1.4fr_1fr]">
-          <form
-            method="post"
-            action="mailto:contact@enox-energy.com"
-            encType="text/plain"
-            className="rounded-3xl border border-brand-900/5 bg-white p-8 shadow-sm"
-          >
+          <form className="rounded-3xl border border-brand-900/5 bg-white p-8 shadow-sm">
             <div className="grid gap-5 sm:grid-cols-2">
               <Field label={dict.contact.form.name} name="name" required />
               <Field
@@ -93,19 +92,19 @@ export default async function ContactPage({
             <h2 className="text-xl font-semibold text-white">
               {dict.contact.info.title}
             </h2>
-            <dl className="mt-6 space-y-5 text-sm">
-              <InfoRow label={dict.contact.info.address} value={dict.contact.info.addressValue} />
-              <InfoRow
-                label={dict.contact.info.phone}
-                value={dict.contact.info.phoneValue}
-                href={`tel:${dict.contact.info.phoneValue.replace(/\s+/g, "")}`}
-              />
-              <InfoRow
-                label={dict.contact.info.email}
-                value={dict.contact.info.emailValue}
-                href={`mailto:${dict.contact.info.emailValue}`}
-              />
-              <InfoRow label={dict.contact.info.hours} value={dict.contact.info.hoursValue} />
+            <p className="mt-4 text-sm leading-relaxed text-brand-100/80">
+              {dict.contact.info.soon}
+            </p>
+
+            <dl className="mt-8 space-y-5 text-sm">
+              <div>
+                <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-300">
+                  {dict.contact.info.hours}
+                </dt>
+                <dd className="mt-1 text-brand-50">
+                  {dict.contact.info.hoursValue}
+                </dd>
+              </div>
             </dl>
 
             <div className="mt-8 rounded-2xl bg-white/5 p-5">
@@ -149,33 +148,6 @@ function Field({
         required={required}
         className="input mt-2"
       />
-    </div>
-  );
-}
-
-function InfoRow({
-  label,
-  value,
-  href,
-}: {
-  label: string;
-  value: string;
-  href?: string;
-}) {
-  return (
-    <div>
-      <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-300">
-        {label}
-      </dt>
-      <dd className="mt-1 text-brand-50">
-        {href ? (
-          <a href={href} className="hover:text-white">
-            {value}
-          </a>
-        ) : (
-          value
-        )}
-      </dd>
     </div>
   );
 }

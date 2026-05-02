@@ -16,16 +16,11 @@ export default async function ImprintPage({
           {dict.footer.imprint}
         </h1>
         <div className="mt-8 space-y-3 text-sm leading-relaxed text-ink-700">
-          <p className="font-semibold text-ink-900">
-            ENOX Energy Consulting
-          </p>
-          <p>{dict.contact.info.addressValue}</p>
-          <p>
-            {dict.contact.info.phone}: {dict.contact.info.phoneValue}
-            <br />
-            {dict.contact.info.email}: {dict.contact.info.emailValue}
-          </p>
+          <p className="font-semibold text-ink-900">ENOX Energy Consulting</p>
           <p>{dict.common.owner}</p>
+          <p className="rounded-2xl bg-brand-50 p-4 text-ink-700">
+            {dict.contact.info.soon}
+          </p>
         </div>
       </div>
     </section>

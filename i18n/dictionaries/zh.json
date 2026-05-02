@@ -140,12 +140,7 @@
     },
     "info": {
       "title": "直接联系",
-      "address": "地址",
-      "addressValue": "Königstraße 1, 70173 斯图加特, 德国",
-      "phone": "电话",
-      "phoneValue": "+49 711 0000000",
-      "email": "电子邮箱",
-      "emailValue": "contact@enox-energy.com",
+      "soon": "地址、电话和邮箱即将公布。在此之前请使用联系表单 — 我们会亲自回复您。",
       "hours": "办公时间",
       "hoursValue": "周一至周五 08:00 – 18:00"
     }

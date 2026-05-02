@@ -140,12 +140,7 @@
     },
     "info": {
       "title": "Direkter Draht",
-      "address": "Adresse",
-      "addressValue": "Königstraße 1, 70173 Stuttgart, Deutschland",
-      "phone": "Telefon",
-      "phoneValue": "+49 711 0000000",
-      "email": "E-Mail",
-      "emailValue": "kontakt@enox-energy.com",
+      "soon": "Adresse, Telefon und E-Mail werden in Kürze veröffentlicht. Bitte nutzen Sie bis dahin das Kontaktformular – wir melden uns persönlich zurück.",
       "hours": "Sprechzeiten",
       "hoursValue": "Mo–Fr 08:00 – 18:00"
     }
