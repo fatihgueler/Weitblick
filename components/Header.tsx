@@ -3,6 +3,7 @@ import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Logo } from "./Logo";
+import { MobileMenu } from "./MobileMenu";
 
 export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const navItems = [
@@ -14,15 +15,19 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-brand-900/5 bg-white/80 backdrop-blur">
-      <div className="container flex h-20 items-center justify-between gap-6">
-        <Link href={`/${lang}`} className="flex items-center gap-3">
-          <Logo className="h-9 w-9" />
+    <header className="sticky top-0 z-40 border-b border-brand-900/5 bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60">
+      <div className="container flex h-16 items-center justify-between gap-4 sm:h-20">
+        <Link
+          href={`/${lang}`}
+          className="flex items-center gap-2.5 transition active:scale-95 sm:gap-3"
+          aria-label="ENOX"
+        >
+          <Logo className="h-9 w-9 sm:h-10 sm:w-10" />
           <div className="leading-tight">
-            <div className="text-lg font-bold tracking-tight text-ink-900">
+            <div className="text-base font-bold tracking-tight text-ink-900 sm:text-lg">
               ENOX
             </div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-700">
+            <div className="text-[9px] font-semibold uppercase tracking-[0.22em] text-brand-700 sm:text-[10px]">
               Energy Consulting
             </div>
           </div>
@@ -30,38 +35,33 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
 
         <nav className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="rounded-full px-4 py-2 text-sm font-medium text-ink-800 transition hover:bg-brand-50 hover:text-brand-800"
-            >
+            <Link key={item.href} href={item.href} className="nav-link">
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <LanguageSwitcher currentLocale={lang} label={dict.common.language} />
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="hidden sm:block">
+            <LanguageSwitcher
+              currentLocale={lang}
+              label={dict.common.language}
+            />
+          </div>
           <Link
             href={`/${lang}/contact`}
-            className="hidden btn-primary md:inline-flex"
+            className="btn-primary hidden lg:inline-flex"
           >
             {dict.nav.consultation}
           </Link>
+          <MobileMenu
+            navItems={navItems}
+            lang={lang}
+            consultationLabel={dict.nav.consultation}
+            languageLabel={dict.common.language}
+          />
         </div>
       </div>
-
-      <nav className="container flex items-center gap-1 overflow-x-auto pb-3 lg:hidden">
-        {navItems.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold text-ink-800 transition hover:bg-brand-50 hover:text-brand-800"
-          >
-            {item.label}
-          </Link>
-        ))}
-      </nav>
     </header>
   );
 }

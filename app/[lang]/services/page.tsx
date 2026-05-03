@@ -25,46 +25,54 @@ export default async function ServicesPage({
 
   return (
     <>
-      <section className="gradient-hero">
-        <div className="container py-20 sm:py-24">
-          <span className="eyebrow">{dict.nav.services}</span>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">
-            {dict.services.title}
-          </h1>
-          <p className="mt-4 max-w-3xl text-lg text-ink-700">
-            {dict.services.subtitle}
-          </p>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICE_KEYS.map((key) => (
-            <ServiceCard
-              key={key}
-              serviceKey={key}
-              title={dict.services.items[key].title}
-              description={dict.services.items[key].description}
-              cta={dict.services.cta}
-              lang={lang}
-            />
-          ))}
+      <section className="relative overflow-hidden gradient-hero">
+        <div className="absolute inset-0 -z-10 grid-bg opacity-50" />
+        <div className="container py-14 sm:py-20 lg:py-28">
+          <div className="max-w-3xl animate-fade-up">
+            <span className="eyebrow">{dict.nav.services}</span>
+            <h1 className="mt-4 heading-1">{dict.services.title}</h1>
+            <p className="mt-5 lead">{dict.services.subtitle}</p>
+          </div>
         </div>
       </section>
 
       <section className="section bg-white">
-        <div className="container rounded-3xl bg-brand-50 px-8 py-12 sm:px-12">
-          <div className="grid gap-6 md:grid-cols-[2fr_1fr] md:items-center">
-            <div>
-              <h2 className="text-2xl font-bold text-ink-900 sm:text-3xl">
-                {dict.hero.ctaPrimary}
-              </h2>
-              <p className="mt-2 text-ink-700">{dict.contact.subtitle}</p>
+        <div className="container grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+          {SERVICE_KEYS.map((key, i) => (
+            <div
+              key={key}
+              className="animate-fade-up"
+              style={{ animationDelay: `${i * 50}ms` }}
+            >
+              <ServiceCard
+                serviceKey={key}
+                title={dict.services.items[key].title}
+                description={dict.services.items[key].description}
+                cta={dict.services.cta}
+                lang={lang}
+              />
             </div>
-            <div className="md:text-right">
-              <Link href={`/${lang}/contact`} className="btn-primary">
-                {dict.nav.consultation}
-              </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="rounded-4xl bg-brand-50 px-6 py-10 sm:px-12 sm:py-14">
+            <div className="grid gap-6 md:grid-cols-[2fr_1fr] md:items-center">
+              <div>
+                <h2 className="heading-2">{dict.hero.ctaPrimary}</h2>
+                <p className="mt-3 lead">{dict.contact.subtitle}</p>
+              </div>
+              <div className="md:text-right">
+                <Link
+                  href={`/${lang}/contact`}
+                  className="btn-primary w-full md:w-auto"
+                >
+                  {dict.nav.consultation}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -27,8 +27,15 @@ export function LanguageSwitcher({
         setOpen(false);
       }
     };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
     document.addEventListener("mousedown", onClick);
-    return () => document.removeEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
   }, []);
 
   const switchTo = (locale: Locale) => {
@@ -45,28 +52,35 @@ export function LanguageSwitcher({
       <button
         type="button"
         aria-label={label}
+        aria-haspopup="listbox"
+        aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-2 rounded-full border border-brand-900/10 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-wider text-ink-800 shadow-sm transition hover:border-brand-700/30 hover:bg-brand-50"
+        className="inline-flex h-11 items-center gap-2 rounded-full border border-brand-900/10 bg-white px-3.5 text-xs font-semibold uppercase tracking-wider text-ink-800 shadow-soft transition active:scale-95 hover:border-brand-700/30 hover:bg-brand-50"
       >
         <GlobeIcon className="h-4 w-4" />
         <span>{localeFlags[currentLocale]}</span>
-        <ChevronIcon className={`h-3 w-3 transition ${open ? "rotate-180" : ""}`} />
+        <ChevronIcon
+          className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`}
+        />
       </button>
       {open && (
-        <ul className="absolute right-0 mt-2 w-44 overflow-hidden rounded-2xl border border-brand-900/10 bg-white shadow-lg">
+        <ul
+          role="listbox"
+          className="absolute right-0 mt-2 w-48 overflow-hidden rounded-2xl border border-brand-900/10 bg-white shadow-lift animate-fade-up"
+        >
           {locales.map((l) => (
             <li key={l}>
               <button
                 type="button"
                 onClick={() => switchTo(l)}
-                className={`flex w-full items-center justify-between px-4 py-2.5 text-sm transition ${
+                className={`flex w-full items-center justify-between px-4 py-3 text-sm transition ${
                   l === currentLocale
                     ? "bg-brand-50 font-semibold text-brand-800"
                     : "text-ink-800 hover:bg-brand-50/60"
                 }`}
               >
                 <span>{localeNames[l]}</span>
-                <span className="text-xs uppercase tracking-wider text-ink-700">
+                <span className="text-xs uppercase tracking-wider text-ink-500">
                   {localeFlags[l]}
                 </span>
               </button>

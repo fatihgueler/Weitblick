@@ -12,13 +12,11 @@ export default async function ImprintPage({
   return (
     <section className="section">
       <div className="container max-w-3xl">
-        <h1 className="text-3xl font-bold text-ink-900 sm:text-4xl">
-          {dict.footer.imprint}
-        </h1>
-        <div className="mt-8 space-y-3 text-sm leading-relaxed text-ink-700">
+        <h1 className="heading-2">{dict.footer.imprint}</h1>
+        <div className="mt-8 space-y-4 text-sm leading-relaxed text-ink-700 sm:text-base">
           <p className="font-semibold text-ink-900">ENOX Energy Consulting</p>
           <p>{dict.common.owner}</p>
-          <p className="rounded-2xl bg-brand-50 p-4 text-ink-700">
+          <p className="rounded-2xl bg-brand-50 p-5 text-ink-700">
             {dict.contact.info.soon}
           </p>
         </div>

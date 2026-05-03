@@ -12,10 +12,8 @@ export default async function PrivacyPage({
   return (
     <section className="section">
       <div className="container max-w-3xl">
-        <h1 className="text-3xl font-bold text-ink-900 sm:text-4xl">
-          {dict.footer.privacy}
-        </h1>
-        <p className="mt-6 text-sm text-ink-700">
+        <h1 className="heading-2">{dict.footer.privacy}</h1>
+        <p className="mt-6 text-sm leading-relaxed text-ink-700 sm:text-base">
           {dict.contact.form.consent}
         </p>
       </div>
