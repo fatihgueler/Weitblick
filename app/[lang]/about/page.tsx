@@ -16,40 +16,34 @@ export default async function AboutPage({
 
   return (
     <>
-      <section className="relative overflow-hidden gradient-hero">
-        <div className="absolute inset-0 -z-10 grid-bg opacity-50" />
-        <div className="container grid gap-10 py-14 sm:py-20 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:gap-16 lg:py-28">
+      <section className="relative overflow-hidden border-b border-ink-200/40 bg-gradient-to-b from-brand-50/60 to-white">
+        <div className="container grid gap-10 py-14 sm:py-16 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:gap-14 lg:py-20">
           <div className="animate-fade-up">
             <span className="eyebrow">{dict.about.title}</span>
             <h1 className="mt-4 heading-1">{dict.about.lead}</h1>
             <p className="mt-5 lead">{dict.about.body}</p>
           </div>
-          <div
-            className="animate-fade-up"
-            style={{ animationDelay: "120ms" }}
-          >
-            <AboutIllustration className="mx-auto w-full max-w-md" />
+          <div className="animate-fade-up" style={{ animationDelay: "120ms" }}>
+            <AboutIllustration className="mx-auto w-full max-w-xs lg:max-w-sm" />
           </div>
         </div>
       </section>
 
       <section className="section-tight bg-white">
         <div className="container">
-          <div className="rounded-4xl border border-brand-900/5 bg-brand-50/40 p-6 sm:p-10">
-            <TrustBar />
-          </div>
+          <TrustBar />
         </div>
       </section>
 
-      <section className="section bg-white">
-        <div className="container grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center lg:gap-16">
-          <div className="relative overflow-hidden rounded-4xl bg-ink-900 p-8 text-white shadow-lift sm:p-10">
+      <section className="section bg-ink-50/40 border-y border-ink-200/40">
+        <div className="container grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center lg:gap-14">
+          <div className="relative overflow-hidden rounded-3xl bg-ink-900 p-8 text-white sm:p-10">
             <div
               aria-hidden="true"
-              className="absolute inset-0 dark-mesh opacity-90"
+              className="absolute inset-0 dark-mesh opacity-80"
             />
             <div className="relative">
-              <FounderPortrait className="h-28 w-28 sm:h-32 sm:w-32" />
+              <FounderPortrait className="h-24 w-24 sm:h-28 sm:w-28" />
               <div className="mt-6 text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-200">
                 {dict.about.founder.title}
               </div>
