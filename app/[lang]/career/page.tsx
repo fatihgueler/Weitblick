@@ -14,16 +14,13 @@ export default async function CareerPage({
 
   return (
     <>
-      <section className="relative overflow-hidden gradient-hero">
-        <div className="absolute inset-0 -z-10 grid-bg opacity-50" />
-        <div className="container py-14 sm:py-20 lg:py-28">
+      <section className="relative overflow-hidden border-b border-ink-200/40 bg-gradient-to-b from-brand-50/60 to-white">
+        <div className="container py-14 sm:py-16 lg:py-20">
           <div className="max-w-3xl animate-fade-up">
             <span className="eyebrow">{dict.nav.career}</span>
             <h1 className="mt-4 heading-1">{dict.career.title}</h1>
             <p className="mt-5 lead">{dict.career.subtitle}</p>
-            <p className="mt-4 text-base text-ink-700 sm:text-lg">
-              {dict.career.body}
-            </p>
+            <p className="mt-4 body">{dict.career.body}</p>
           </div>
         </div>
       </section>

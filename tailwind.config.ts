@@ -44,9 +44,9 @@ const config: Config = {
         display: ["var(--font-display)", "Inter", "system-ui", "sans-serif"],
       },
       fontSize: {
-        "display-sm": ["clamp(2.25rem, 4vw + 1rem, 3rem)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
-        "display": ["clamp(2.75rem, 6vw + 1rem, 4.5rem)", { lineHeight: "1.02", letterSpacing: "-0.025em" }],
-        "display-lg": ["clamp(3rem, 8vw + 1rem, 6rem)", { lineHeight: "1", letterSpacing: "-0.03em" }],
+        "display-sm": ["clamp(1.875rem, 3vw + 0.75rem, 2.5rem)", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
+        "display": ["clamp(2.25rem, 4vw + 1rem, 3.5rem)", { lineHeight: "1.05", letterSpacing: "-0.025em" }],
+        "display-lg": ["clamp(2.5rem, 5vw + 1rem, 4.5rem)", { lineHeight: "1.02", letterSpacing: "-0.03em" }],
       },
       boxShadow: {
         soft: "0 1px 2px rgba(15,26,20,0.04), 0 4px 16px rgba(15,26,20,0.04)",

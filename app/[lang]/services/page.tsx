@@ -25,9 +25,8 @@ export default async function ServicesPage({
 
   return (
     <>
-      <section className="relative overflow-hidden gradient-hero">
-        <div className="absolute inset-0 -z-10 grid-bg opacity-50" />
-        <div className="container py-14 sm:py-20 lg:py-28">
+      <section className="relative overflow-hidden border-b border-ink-200/40 bg-gradient-to-b from-brand-50/60 to-white">
+        <div className="container py-14 sm:py-16 lg:py-20">
           <div className="max-w-3xl animate-fade-up">
             <span className="eyebrow">{dict.nav.services}</span>
             <h1 className="mt-4 heading-1">{dict.services.title}</h1>
@@ -37,7 +36,7 @@ export default async function ServicesPage({
       </section>
 
       <section className="section bg-white">
-        <div className="container grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+        <div className="container grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICE_KEYS.map((key, i) => (
             <div
               key={key}
@@ -56,9 +55,9 @@ export default async function ServicesPage({
         </div>
       </section>
 
-      <section className="section">
+      <section className="section bg-ink-50/40 border-t border-ink-200/40">
         <div className="container">
-          <div className="rounded-4xl bg-brand-50 px-6 py-10 sm:px-12 sm:py-14">
+          <div className="rounded-3xl border border-ink-200/60 bg-white px-6 py-10 sm:px-12 sm:py-12">
             <div className="grid gap-6 md:grid-cols-[2fr_1fr] md:items-center">
               <div>
                 <h2 className="heading-2">{dict.hero.ctaPrimary}</h2>

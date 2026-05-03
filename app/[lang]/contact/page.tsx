@@ -13,19 +13,15 @@ export default async function ContactPage({
 
   return (
     <>
-      <section className="relative overflow-hidden gradient-hero">
-        <div className="absolute inset-0 -z-10 grid-bg opacity-50" />
-        <div className="container grid gap-10 py-14 sm:py-20 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:gap-16 lg:py-24">
+      <section className="relative overflow-hidden border-b border-ink-200/40 bg-gradient-to-b from-brand-50/60 to-white">
+        <div className="container grid gap-10 py-14 sm:py-16 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:gap-14 lg:py-20">
           <div className="animate-fade-up">
             <span className="eyebrow">{dict.nav.contact}</span>
             <h1 className="mt-4 heading-1">{dict.contact.title}</h1>
             <p className="mt-5 lead">{dict.contact.subtitle}</p>
           </div>
-          <div
-            className="animate-fade-up"
-            style={{ animationDelay: "120ms" }}
-          >
-            <ContactIllustration className="mx-auto w-full max-w-md" />
+          <div className="animate-fade-up" style={{ animationDelay: "120ms" }}>
+            <ContactIllustration className="mx-auto w-full max-w-xs lg:max-w-sm" />
           </div>
         </div>
       </section>
