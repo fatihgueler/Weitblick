@@ -14,17 +14,15 @@ export default async function ContactPage({
   return (
     <>
       <section className="relative overflow-hidden gradient-hero">
-        <div className="absolute inset-0 -z-10 grid-bg opacity-50" />
-        <div className="container grid gap-10 py-14 sm:py-20 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:gap-16 lg:py-24">
+        <div className="absolute inset-0 -z-10 grid-bg opacity-60" />
+        <div className="container grid gap-10 py-16 sm:py-20 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:gap-16 lg:py-24">
           <div className="animate-fade-up">
             <span className="eyebrow">{dict.nav.contact}</span>
             <h1 className="mt-4 heading-1">{dict.contact.title}</h1>
             <p className="mt-5 lead">{dict.contact.subtitle}</p>
+            <p className="mt-4 text-xs text-ink-500">{dict.finalCta.trust}</p>
           </div>
-          <div
-            className="animate-fade-up"
-            style={{ animationDelay: "120ms" }}
-          >
+          <div className="animate-fade-up" style={{ animationDelay: "120ms" }}>
             <ContactIllustration className="mx-auto w-full max-w-md" />
           </div>
         </div>
@@ -88,7 +86,7 @@ export default async function ContactPage({
               <input
                 type="checkbox"
                 required
-                className="mt-1 h-5 w-5 rounded border-brand-900/20 text-brand-700 focus:ring-brand-500"
+                className="mt-1 h-5 w-5 rounded border-ink-900/20 text-brand-600 focus:ring-brand-500"
               />
               <span>{dict.contact.form.consent}</span>
             </label>
@@ -99,25 +97,34 @@ export default async function ContactPage({
             </button>
           </form>
 
-          <aside className="relative overflow-hidden rounded-4xl bg-ink-900 p-6 text-brand-50 shadow-lift sm:p-8">
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 dark-mesh opacity-90"
-            />
+          <aside className="relative overflow-hidden rounded-4xl bg-ink-900 p-6 text-white shadow-lift sm:p-8">
+            <div aria-hidden="true" className="absolute inset-0 dark-mesh opacity-90" />
             <div className="relative">
               <h2 className="font-display text-xl font-bold text-white sm:text-2xl">
                 {dict.contact.info.title}
               </h2>
-              <p className="mt-4 text-sm leading-relaxed text-brand-100/85 sm:text-base">
+              <p className="mt-4 text-sm leading-relaxed text-white/75 sm:text-base">
                 {dict.contact.info.soon}
               </p>
 
               <dl className="mt-8 space-y-5 text-sm">
                 <div>
                   <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-300">
+                    {dict.contact.info.response}
+                  </dt>
+                  <dd className="mt-1 inline-flex items-center gap-2 text-base text-white">
+                    <span className="relative inline-flex h-2 w-2">
+                      <span className="absolute inset-0 animate-ping rounded-full bg-brand-400 opacity-70" />
+                      <span className="relative inline-block h-2 w-2 rounded-full bg-brand-400" />
+                    </span>
+                    {dict.contact.info.responseValue}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-300">
                     {dict.contact.info.hours}
                   </dt>
-                  <dd className="mt-1 text-base text-brand-50">
+                  <dd className="mt-1 text-base text-white">
                     {dict.contact.info.hoursValue}
                   </dd>
                 </div>
@@ -130,9 +137,7 @@ export default async function ContactPage({
                 <div className="mt-1 text-base font-semibold text-white">
                   {dict.about.founder.name}
                 </div>
-                <div className="text-xs text-brand-100/80">
-                  {dict.about.founder.role}
-                </div>
+                <div className="text-xs text-white/70">{dict.about.founder.role}</div>
               </div>
             </div>
           </aside>

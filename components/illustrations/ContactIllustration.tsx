@@ -8,84 +8,98 @@ export function ContactIllustration({ className }: { className?: string }) {
     >
       <defs>
         <linearGradient id="contactBg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#dcfce7" />
-          <stop offset="100%" stopColor="#f0fdf4" />
+          <stop offset="0%" stopColor="#dbeafe" />
+          <stop offset="100%" stopColor="#ecfdf5" />
         </linearGradient>
-        <linearGradient id="contactPlane" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#22c55e" />
-          <stop offset="100%" stopColor="#15803d" />
-        </linearGradient>
-        <linearGradient id="contactLeaf" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#86efac" />
-          <stop offset="100%" stopColor="#16a34a" />
+        <linearGradient id="contactAccent" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#10b981" />
+          <stop offset="100%" stopColor="#3b82f6" />
         </linearGradient>
       </defs>
 
       <rect width="480" height="360" rx="24" fill="url(#contactBg)" />
 
-      <g
-        stroke="#15803d"
-        strokeWidth="2"
-        fill="none"
-        strokeDasharray="4 6"
-        opacity="0.55"
-        strokeLinecap="round"
-      >
-        <path d="M40 280 Q160 180 240 200 T440 100" />
+      {/* Form mock */}
+      <g transform="translate(72 56)">
+        <rect width="240" height="240" rx="20" fill="#ffffff" stroke="#0a0c12" strokeOpacity="0.06" />
+        <text x="20" y="34" fontFamily="Inter, sans-serif" fontSize="14" fontWeight="800" fill="#0a0c12">
+          Erstberatung
+        </text>
+        <text x="20" y="50" fontFamily="Inter, sans-serif" fontSize="9" fontWeight="600" fill="#717a8e" letterSpacing="0.16em">
+          IN 2 MIN ZUM ERGEBNIS
+        </text>
+
+        <g transform="translate(20 70)">
+          <rect width="200" height="32" rx="10" fill="#f6f7f9" />
+          <rect x="14" y="12" width="80" height="8" rx="4" fill="#a7afbe" />
+        </g>
+        <g transform="translate(20 110)">
+          <rect width="200" height="32" rx="10" fill="#f6f7f9" />
+          <rect x="14" y="12" width="120" height="8" rx="4" fill="#a7afbe" />
+        </g>
+        <g transform="translate(20 150)">
+          <rect width="200" height="50" rx="10" fill="#f6f7f9" />
+          <rect x="14" y="12" width="100" height="6" rx="3" fill="#d4d8e0" />
+          <rect x="14" y="24" width="160" height="6" rx="3" fill="#d4d8e0" />
+          <rect x="14" y="36" width="80" height="6" rx="3" fill="#d4d8e0" />
+        </g>
+
+        <g transform="translate(20 210)">
+          <rect width="200" height="34" rx="17" fill="#0a0c12" />
+          <text x="100" y="22" fontFamily="Inter, sans-serif" fontSize="11" fontWeight="700" fill="#ffffff" textAnchor="middle">
+            Anfrage senden →
+          </text>
+        </g>
       </g>
 
-      <g transform="translate(280 110)">
-        <path
-          d="M0 0 L160 60 L60 70 L40 130 Z"
-          fill="url(#contactPlane)"
-        />
-        <path d="M60 70 L100 30 L160 60 Z" fill="#0f1a14" opacity="0.35" />
-        <path d="M40 130 L60 70" stroke="#0f1a14" strokeOpacity="0.25" strokeWidth="1" fill="none" />
+      {/* Confirmation card */}
+      <g transform="translate(290 60)">
+        <rect width="158" height="92" rx="16" fill="#0a0c12" />
+        <circle cx="22" cy="22" r="12" fill="#10b981" />
+        <path d="M16 22l4 4 8 -8" stroke="#ffffff" strokeWidth="2.4" fill="none" strokeLinecap="round" strokeLinejoin="round" transform="translate(0 0)" />
+        <text x="44" y="20" fontFamily="Inter, sans-serif" fontSize="9" fontWeight="700" fill="#a7f3d0" letterSpacing="0.16em">
+          BESTÄTIGT
+        </text>
+        <text x="44" y="34" fontFamily="Inter, sans-serif" fontSize="9" fill="#ffffff" opacity="0.7">
+          Antwort &lt; 24 h
+        </text>
+        <rect x="14" y="50" width="130" height="6" rx="3" fill="#ffffff" fillOpacity="0.18" />
+        <rect x="14" y="62" width="100" height="6" rx="3" fill="#ffffff" fillOpacity="0.12" />
+        <rect x="14" y="74" width="120" height="6" rx="3" fill="#ffffff" fillOpacity="0.18" />
       </g>
 
-      <g transform="translate(40 240)">
-        <ellipse cx="40" cy="20" rx="36" ry="8" fill="#15803d" opacity="0.2" />
-        <path
-          d="M0 18C0 -6 24 -22 50 -10C66 -2 80 -10 80 8C80 22 60 30 40 26C20 30 0 28 0 18z"
-          fill="url(#contactLeaf)"
-        />
-        <path d="M8 18 Q40 0 76 8" stroke="#15803d" strokeWidth="1" fill="none" />
+      {/* Connection line */}
+      <g stroke="url(#contactAccent)" strokeWidth="1.5" fill="none" strokeDasharray="3 5" opacity="0.7">
+        <path d="M315 110 Q345 96 360 152" />
       </g>
 
-      <g transform="translate(360 250)" opacity="0.95">
-        <circle r="22" fill="#22c55e" />
-        <path
-          d="M-10 -4l8 8l14 -14"
-          stroke="#fff"
-          strokeWidth="3"
+      {/* Mini analyse card */}
+      <g transform="translate(290 180)">
+        <rect width="158" height="118" rx="16" fill="#ffffff" stroke="#0a0c12" strokeOpacity="0.06" />
+        <text x="14" y="22" fontFamily="Inter, sans-serif" fontSize="9" fontWeight="700" letterSpacing="0.18em" fill="#717a8e">
+          ANALYSE
+        </text>
+        <text x="14" y="46" fontFamily="Inter, sans-serif" fontSize="22" fontWeight="800" fill="#0a0c12">
+          −38%
+        </text>
+        <text x="14" y="62" fontFamily="Inter, sans-serif" fontSize="9" fill="#10b981">
+          Energiebedarf · Schätzung
+        </text>
+        <polyline
+          points="14,98 30,90 46,94 62,82 78,86 94,72 110,78 126,60 142,68"
           fill="none"
+          stroke="url(#contactAccent)"
+          strokeWidth="2"
           strokeLinecap="round"
-          strokeLinejoin="round"
         />
       </g>
 
-      <g transform="translate(95 80)">
-        <rect width="160" height="100" rx="14" fill="#fff" stroke="#bbf7d0" />
-        <rect x="14" y="20" width="80" height="6" rx="3" fill="#bbf7d0" />
-        <rect x="14" y="36" width="120" height="6" rx="3" fill="#dcfce7" />
-        <rect x="14" y="52" width="100" height="6" rx="3" fill="#dcfce7" />
-        <rect x="14" y="68" width="60" height="6" rx="3" fill="#dcfce7" />
-        <circle cx="140" cy="74" r="14" fill="#15803d" />
-        <path
-          d="M134 74l4 4l8 -8"
-          stroke="#fff"
-          strokeWidth="2.4"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </g>
-
-      <g fill="#22c55e" opacity="0.5">
-        <circle cx="60" cy="60" r="3" />
-        <circle cx="420" cy="80" r="3" />
-        <circle cx="450" cy="220" r="4" />
-        <circle cx="200" cy="300" r="3" />
+      {/* Floating accents */}
+      <g fill="#3b82f6" opacity="0.35">
+        <circle cx="36" cy="40" r="3" />
+        <circle cx="44" cy="320" r="4" />
+        <circle cx="450" cy="40" r="3" />
+        <circle cx="448" cy="316" r="4" />
       </g>
     </svg>
   );

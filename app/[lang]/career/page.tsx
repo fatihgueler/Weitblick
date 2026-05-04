@@ -15,8 +15,8 @@ export default async function CareerPage({
   return (
     <>
       <section className="relative overflow-hidden gradient-hero">
-        <div className="absolute inset-0 -z-10 grid-bg opacity-50" />
-        <div className="container py-14 sm:py-20 lg:py-28">
+        <div className="absolute inset-0 -z-10 grid-bg opacity-60" />
+        <div className="container py-16 sm:py-20 lg:py-28">
           <div className="max-w-3xl animate-fade-up">
             <span className="eyebrow">{dict.nav.career}</span>
             <h1 className="mt-4 heading-1">{dict.career.title}</h1>
@@ -59,7 +59,7 @@ export default async function CareerPage({
             ))}
           </ul>
 
-          <div className="mt-12 rounded-4xl border border-dashed border-brand-700/30 bg-brand-50/40 p-6 text-center sm:p-10">
+          <div className="mt-12 rounded-4xl border border-dashed border-brand-500/40 bg-gradient-to-br from-brand-50/60 via-white to-tech-50/40 p-6 text-center sm:p-10">
             <p className="text-sm text-ink-700 sm:text-base">
               {dict.career.subtitle}
             </p>

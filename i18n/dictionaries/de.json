@@ -1,104 +1,270 @@
 {
   "meta": {
-    "title": "ENOX – Internationale Energieberatung",
-    "description": "Energieberatung mit internationaler Reichweite. Wir begleiten Wohn- und Nichtwohngebäude auf dem Weg zur Klimaneutralität."
+    "title": "EnOX – Energieberatung trifft Smart Building",
+    "description": "EnOX kombiniert Energieberatung, Sanierung und intelligente Gebäudelösungen. Ein Partner. Beratung, Umsetzung und Monitoring aus einer Hand."
   },
   "nav": {
-    "home": "Startseite",
+    "home": "Start",
     "services": "Leistungen",
-    "about": "Über uns",
+    "about": "Über EnOX",
     "career": "Karriere",
     "contact": "Kontakt",
-    "consultation": "Beratung anfragen"
+    "consultation": "Erstberatung sichern",
+    "analyze": "Analyse starten"
   },
   "hero": {
-    "eyebrow": "Internationale Energieberatung",
-    "title": "Energie effizient. Gebäude zukunftsfähig.",
-    "subtitle": "ENOX begleitet Eigentümer, Architekten und Unternehmen weltweit bei energetischen Sanierungen, Audits und förderfähigen Konzepten.",
+    "eyebrow": "Energie · Digitalisierung · Smart Building",
+    "title": "Dein Gebäude kann mehr.",
+    "highlight": "Viel mehr.",
+    "subtitle": "EnOX verbindet Energieberatung mit intelligenten Gebäudelösungen. Weniger Verbrauch, mehr Wert, volle Transparenz – aus einer Hand.",
     "ctaPrimary": "Kostenlose Erstberatung",
-    "ctaSecondary": "Leistungen entdecken",
+    "ctaSecondary": "So funktioniert's",
+    "live": "Live-Monitoring aktiv",
     "stats": {
-      "projects": "Projekte realisiert",
-      "countries": "Länder betreut",
-      "savings": "Ø Energieeinsparung",
-      "experience": "Jahre Branchenerfahrung"
+      "projects": "Projekte umgesetzt",
+      "savings": "Ø Einsparung",
+      "roi": "Ø Amortisation",
+      "experience": "Jahre Erfahrung"
+    },
+    "panel": {
+      "consumption": "Verbrauch",
+      "efficiency": "Effizienz",
+      "co2": "CO₂-Ersparnis",
+      "status": "Optimiert"
     }
   },
-  "services": {
-    "title": "Unsere Leistungen",
-    "subtitle": "Ganzheitliche Energieberatung für Wohngebäude, Gewerbeimmobilien und kommunale Bauten – international und nach lokalen Standards.",
+  "problem": {
+    "eyebrow": "Status Quo",
+    "title": "Gebäude verschwenden Energie. Lautlos. Jeden Tag.",
+    "subtitle": "Über 70 % des Bestands ist energetisch nicht zukunftsfähig. Steigende Kosten, neue Pflichten und unsichtbare Verluste machen aus Immobilien Risiken.",
     "items": {
-      "residential": {
-        "title": "Wohngebäude",
-        "description": "Energieausweise, iSFP, KfW-Effizienzhaus-Nachweise, Heizlastberechnungen und Sanierungsfahrpläne für private Eigentümer."
+      "costs": {
+        "title": "Hohe Energiekosten",
+        "description": "Veraltete Technik, undichte Hüllen und falsch eingestellte Anlagen treiben die Betriebskosten Jahr für Jahr."
       },
-      "commercial": {
-        "title": "Nichtwohngebäude",
-        "description": "Energieaudits nach DIN EN 16247, BAFA-Module, Energiemanagementsysteme und Wirtschaftlichkeitsanalysen für Unternehmen."
+      "regulation": {
+        "title": "Wachsender Druck durch GEG, EU & ESG",
+        "description": "Sanierungs- und Berichtspflichten werden zur Pflicht – wer wartet, zahlt drauf."
       },
-      "audit": {
-        "title": "Energieaudit",
-        "description": "Verpflichtende Audits nach EDL-G für Nicht-KMU, inklusive Maßnahmenkatalog und Förderberatung."
+      "blindspot": {
+        "title": "Keine Datentransparenz",
+        "description": "Ohne Monitoring bleiben Einsparpotenziale, Lastspitzen und Schwachstellen unsichtbar."
       },
-      "certificate": {
-        "title": "Energieausweis",
-        "description": "Verbrauchs- und Bedarfsausweise nach GEG für Eigentümer, Verwalter und Investoren – schnell und rechtssicher."
+      "fragmented": {
+        "title": "Zu viele Ansprechpartner",
+        "description": "Beratung, Umsetzung und Technik liegen meist getrennt – das kostet Zeit, Geld und Nerven."
+      }
+    },
+    "solutionTitle": "EnOX denkt das Gebäude neu.",
+    "solutionBody": "Wir analysieren, planen, sanieren und digitalisieren – integriert. Energieberatung trifft Smart-Building-Technologie. Du behältst die Kontrolle, wir den Hebel."
+  },
+  "services": {
+    "title": "Vier Leistungen, ein Team.",
+    "subtitle": "Von der ersten Bestandsaufnahme bis zur dauerhaften Optimierung – alle Disziplinen unter einem Dach.",
+    "items": {
+      "consulting": {
+        "title": "Energieberatung",
+        "tagline": "iSFP · GEG · KfW · BAFA",
+        "description": "Förderfähige Sanierungsfahrpläne, Energieausweise und individuelle Konzepte – BAFA- und dena-konform.",
+        "features": [
+          "Individueller Sanierungsfahrplan (iSFP)",
+          "Energieaudits nach DIN EN 16247",
+          "Förder- und Zuschussmanagement",
+          "GEG- & ESG-Compliance"
+        ]
       },
-      "thermography": {
-        "title": "Thermografie",
-        "description": "Bauthermografische Aufnahmen zur Aufdeckung von Wärmebrücken, Leckagen und Schwachstellen der Gebäudehülle."
+      "renovation": {
+        "title": "Sanierung & Umsetzung",
+        "tagline": "Architektur · Technik · Bauleitung",
+        "description": "Von der Planung bis zur Schlüsselübergabe – wir begleiten die energetische Sanierung als verantwortlicher Partner.",
+        "features": [
+          "Hülle, TGA, Wärmepumpen, Dämmung",
+          "Architektur- und Fachplanung",
+          "Bauleitung & Qualitätskontrolle",
+          "Festpreisgarantien möglich"
+        ]
       },
-      "photovoltaic": {
-        "title": "Photovoltaik & Speicher",
-        "description": "Auslegung, Wirtschaftlichkeitsrechnung und Förderbegleitung für PV-Anlagen, Batteriespeicher und Wärmepumpen."
+      "smart": {
+        "title": "Smart Building & Monitoring",
+        "tagline": "IoT · Daten · Automatisierung",
+        "description": "Intelligente Sensorik, Echtzeit-Daten und Automatisierung machen jedes Gebäude messbar, steuerbar und profitabler.",
+        "features": [
+          "Live-Monitoring von Verbrauch & Klima",
+          "KI-gestützte Anomalie-Erkennung",
+          "Automatisierte Heiz- & Lüftungsregelung",
+          "Dashboards für Owner & Betreiber"
+        ]
       },
-      "architecture": {
-        "title": "Architektur & Planung",
-        "description": "Grundrissplanung, Bauanträge und Bauleitung mit konsequentem Fokus auf energieeffizientes Bauen."
-      },
-      "international": {
-        "title": "Internationale Projekte",
-        "description": "Beratung in fünf Sprachen, Projekte in Europa, Asien und Lateinamerika nach EU-Taxonomie und ESG-Kriterien."
+      "energy": {
+        "title": "Photovoltaik & Energiesysteme",
+        "tagline": "PV · Speicher · Wärmepumpe",
+        "description": "Eigenproduktion statt Bezug. Wir planen PV, Speicher und Sektorenkopplung – wirtschaftlich gerechnet.",
+        "features": [
+          "PV-Auslegung & Wirtschaftlichkeit",
+          "Batteriespeicher & Lastmanagement",
+          "Wärmepumpe & Sektorenkopplung",
+          "E-Mobilität & Ladeinfrastruktur"
+        ]
       }
     },
     "cta": "Mehr erfahren"
   },
+  "usp": {
+    "eyebrow": "Warum EnOX",
+    "title": "Nicht noch ein Energieberater. Ein Operating-System für dein Gebäude.",
+    "subtitle": "Wir denken Energie als Plattform: Beratung, Umsetzung und Daten greifen ineinander – schnell, transparent, skalierbar.",
+    "items": {
+      "endToEnd": {
+        "title": "Alles aus einer Hand",
+        "description": "Von der ersten Analyse bis zum laufenden Betrieb – ein Team, ein Vertrag, eine Verantwortung."
+      },
+      "tech": {
+        "title": "Energie + Technologie",
+        "description": "Klassische Energieberatung kombiniert mit IoT, Echtzeit-Daten und Automatisierung."
+      },
+      "digital": {
+        "title": "Digital & skalierbar",
+        "description": "Schnelle Onboarding-Prozesse, transparente Reports, Standorte parallel betreuen."
+      },
+      "roi": {
+        "title": "Fokus auf Wirtschaftlichkeit",
+        "description": "Jede Maßnahme wird auf ROI, Förderquote und Betriebskostenreduktion geprüft."
+      }
+    }
+  },
+  "process": {
+    "eyebrow": "So funktioniert's",
+    "title": "Drei Schritte zum effizienten Gebäude.",
+    "subtitle": "Klar strukturiert, digital begleitet, mit messbaren Ergebnissen.",
+    "steps": {
+      "analyze": {
+        "step": "01",
+        "title": "Analyse",
+        "description": "Digitaler Quick-Check oder Vor-Ort-Audit. Verbrauchsdaten, Hülle, Technik – wir bewerten den Status quo in Tagen, nicht Wochen."
+      },
+      "concept": {
+        "step": "02",
+        "title": "Konzept",
+        "description": "Individuelle Roadmap mit Maßnahmen, Förderquote, Amortisation und CO₂-Einsparung. Klar priorisiert nach Wirkung pro Euro."
+      },
+      "deploy": {
+        "step": "03",
+        "title": "Umsetzung & Optimierung",
+        "description": "Sanierung, Smart-Building-Integration und kontinuierliches Monitoring – damit Effizienz nicht beim Bauende endet."
+      }
+    },
+    "cta": "Analyse starten"
+  },
+  "proof": {
+    "eyebrow": "Ergebnisse",
+    "title": "Messbar besser.",
+    "subtitle": "Zahlen, denen Eigentümer, Investoren und Betreiber vertrauen.",
+    "stats": {
+      "savings": {
+        "value": "−42 %",
+        "label": "Energiekosten",
+        "description": "Ø Reduktion bei umgesetzten Projekten"
+      },
+      "co2": {
+        "value": "−68 %",
+        "label": "CO₂-Emissionen",
+        "description": "Im 24-Monats-Schnitt nach Sanierung"
+      },
+      "projects": {
+        "value": "350+",
+        "label": "Projekte",
+        "description": "Wohn- & Nichtwohngebäude betreut"
+      },
+      "roi": {
+        "value": "5,8 J.",
+        "label": "Amortisation",
+        "description": "Ø Payback inklusive Förderquote"
+      }
+    },
+    "testimonialsTitle": "Was Kunden sagen",
+    "testimonials": [
+      {
+        "quote": "EnOX hat unseren Bestand transparent gemacht. Wir wissen jetzt zu jeder Stunde, wo Energie verloren geht – und es lohnt sich.",
+        "author": "Dr. Markus Weiß",
+        "role": "Asset Manager · Real-Estate-Fonds"
+      },
+      {
+        "quote": "Endlich ein Partner, der Sanierung und Daten gemeinsam denkt. Das Smart-Monitoring war unser Gamechanger.",
+        "author": "Sandra Bauer",
+        "role": "Geschäftsführerin · Familienunternehmen"
+      },
+      {
+        "quote": "Vom iSFP über die Wärmepumpe bis zur PV-Anlage – ein Ansprechpartner, klare Kommunikation, sauber dokumentiert.",
+        "author": "Thomas Klein",
+        "role": "Eigentümer · Mehrfamilienhaus"
+      }
+    ]
+  },
+  "partners": {
+    "title": "Vertrauen durch Standards & Partner",
+    "items": [
+      "dena Energieeffizienz-Expertenliste",
+      "KfW-zertifiziert",
+      "BAFA-Beratungsmodule",
+      "DIN EN 16247-1",
+      "EU-Taxonomie & ESG"
+    ]
+  },
+  "calculator": {
+    "title": "Was kannst du sparen?",
+    "subtitle": "Schnell-Rechner",
+    "area": "Fläche",
+    "consumption": "Verbrauch heute",
+    "result": "Geschätzte Ersparnis",
+    "resultLabel": "Ø Reduktion 42 % nach Maßnahmen",
+    "co2Label": "CO₂",
+    "paybackLabel": "Amortisation",
+    "cta": "Detailanalyse anfragen"
+  },
+  "finalCta": {
+    "eyebrow": "Nächster Schritt",
+    "title": "Starte jetzt deine Energieanalyse.",
+    "subtitle": "In 2 Minuten zum ersten Ergebnis. Kostenlos, unverbindlich, datengestützt.",
+    "ctaPrimary": "Erstberatung sichern",
+    "ctaSecondary": "Leistungen ansehen",
+    "trust": "Keine Kreditkarte · Antwort innerhalb von 24 h · DSGVO-konform"
+  },
   "about": {
-    "title": "Über ENOX",
-    "lead": "Gegründet von Enes Talha Aktürk verbindet ENOX deutsche Ingenieurskunst mit globaler Perspektive.",
-    "body": "Als unabhängige Energieberatung begleiten wir Eigentümer, Investoren und Unternehmen entlang der gesamten Wertschöpfungskette eines Gebäudes – von der ersten Bestandsaufnahme über die Konzeption förderfähiger Maßnahmen bis hin zur Umsetzungsbegleitung. Unser interdisziplinäres Team aus Energieberatern, Architekten und Ingenieuren denkt international und arbeitet nach den Standards der Deutschen Energie-Agentur (dena), der KfW und der EU.",
+    "title": "Über EnOX",
+    "lead": "Wir bauen das Operating-System für nachhaltige Gebäude.",
+    "body": "EnOX wurde gegründet, weil Energie zu wichtig ist, um in Silos zu bleiben. Wir verbinden klassische Energieberatung mit Smart-Building-Technologie, damit Eigentümer, Investoren und Unternehmen Effizienz nicht nur planen, sondern dauerhaft messen, betreiben und ausbauen können. Unser Team aus Energieberatern, Architekten, Ingenieuren und Software-Spezialisten denkt international und arbeitet nach den Standards von dena, KfW und EU.",
     "founder": {
       "title": "Inhaber & Gründer",
       "name": "Enes Talha Aktürk",
       "role": "Geschäftsführender Inhaber",
-      "quote": "Energie ist die Sprache, mit der Gebäude die Zukunft mitgestalten. Unsere Aufgabe ist es, jedem Standort die richtigen Worte zu geben."
+      "quote": "Energie ist die Sprache, mit der Gebäude die Zukunft mitgestalten. EnOX gibt jedem Standort die richtigen Worte – und die richtigen Daten."
     },
     "values": {
-      "title": "Unsere Werte",
+      "title": "Unsere Prinzipien",
       "items": {
         "independence": {
-          "title": "Unabhängigkeit",
+          "title": "Unabhängig",
           "description": "Wir vertreten ausschließlich die Interessen unserer Auftraggeber – produkt- und herstellerneutral."
         },
-        "precision": {
-          "title": "Präzision",
-          "description": "Belastbare Berechnungen, geprüfte Methoden und transparente Dokumentation."
+        "data": {
+          "title": "Datengetrieben",
+          "description": "Jede Empfehlung basiert auf Messdaten, Berechnungen und nachvollziehbaren Annahmen."
         },
-        "international": {
-          "title": "Internationalität",
-          "description": "Beratung in fünf Sprachen und Projekterfahrung auf drei Kontinenten."
+        "endToEnd": {
+          "title": "End-to-End",
+          "description": "Beratung, Umsetzung und Betrieb aus einer Hand – ohne Übergabeverluste."
         },
-        "sustainability": {
-          "title": "Nachhaltigkeit",
-          "description": "Jede Empfehlung folgt dem Prinzip Effizienz vor Ersatz und CO₂-Minderung."
+        "scalable": {
+          "title": "Skalierbar",
+          "description": "Vom Einfamilienhaus bis zum Portfolio mit hunderten Standorten."
         }
       }
     }
   },
   "career": {
-    "title": "Karriere bei ENOX",
-    "subtitle": "Werde Teil eines Teams, das Energiewende international denkt.",
-    "body": "Wir suchen Menschen, die Verantwortung übernehmen wollen – ob als Energieberater:in, Architekt:in, Bauingenieur:in oder Werkstudent:in. ENOX bietet flexible Arbeitsmodelle, internationale Projekte und kontinuierliche Weiterbildung.",
+    "title": "Karriere bei EnOX",
+    "subtitle": "Bau mit uns das Energie-Backend der Zukunft.",
+    "body": "Wir suchen Menschen, die Energie und Technologie zusammen denken. Ob Energieberater:in, Architekt:in, TGA-Ingenieur:in oder Software-Engineer – bei EnOX gestaltest du Lösungen, die wirken.",
     "openings": "Offene Positionen",
     "positions": {
       "consultant": {
@@ -112,48 +278,51 @@
         "type": "Vollzeit"
       },
       "engineer": {
-        "title": "Bauingenieur:in TGA (m/w/d)",
+        "title": "TGA-Ingenieur:in / Smart Building (m/w/d)",
         "location": "Hamburg",
         "type": "Voll- oder Teilzeit"
       },
-      "intern": {
-        "title": "Werkstudent:in Energiemanagement",
-        "location": "Stuttgart",
-        "type": "20 h / Woche"
+      "software": {
+        "title": "Software Engineer · IoT & Daten (m/w/d)",
+        "location": "Remote · DE",
+        "type": "Vollzeit"
       }
     },
     "apply": "Jetzt bewerben",
     "speculative": "Initiativbewerbung senden"
   },
   "contact": {
-    "title": "Kontakt",
-    "subtitle": "Sprechen Sie mit uns über Ihr Projekt – auf Deutsch, Englisch, Chinesisch, Spanisch oder Russisch.",
+    "title": "Lass uns reden.",
+    "subtitle": "Beschreibe dein Projekt – wir melden uns innerhalb von 24 Stunden mit einer ersten Einschätzung. Kostenlos, unverbindlich.",
     "form": {
       "name": "Name",
       "email": "E-Mail",
       "phone": "Telefon (optional)",
       "language": "Bevorzugte Sprache",
       "subject": "Betreff",
-      "message": "Ihre Nachricht",
+      "message": "Worum geht's?",
       "submit": "Anfrage senden",
       "consent": "Ich stimme der Verarbeitung meiner Daten gemäß Datenschutzerklärung zu."
     },
     "info": {
       "title": "Direkter Draht",
-      "soon": "Adresse, Telefon und E-Mail werden in Kürze veröffentlicht. Bitte nutzen Sie bis dahin das Kontaktformular – wir melden uns persönlich zurück.",
+      "soon": "Adresse, Telefon und E-Mail veröffentlichen wir in Kürze. Bitte nutze bis dahin das Formular – persönliche Antwort innerhalb von 24 h.",
       "hours": "Sprechzeiten",
-      "hoursValue": "Mo–Fr 08:00 – 18:00"
+      "hoursValue": "Mo–Fr 08:00 – 18:00",
+      "response": "Antwortzeit",
+      "responseValue": "< 24 Stunden"
     }
   },
   "footer": {
-    "tagline": "Internationale Energieberatung mit Sitz in Stuttgart.",
+    "tagline": "EnOX – Energieberatung, Sanierung und Smart Building. Aus einer Hand.",
     "company": "Unternehmen",
     "services": "Leistungen",
     "legal": "Rechtliches",
     "imprint": "Impressum",
     "privacy": "Datenschutz",
     "terms": "AGB",
-    "rights": "Alle Rechte vorbehalten."
+    "rights": "Alle Rechte vorbehalten.",
+    "cta": "Jetzt Erstberatung sichern"
   },
   "common": {
     "language": "Sprache",

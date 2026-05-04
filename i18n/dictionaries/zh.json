@@ -1,165 +1,334 @@
 {
   "meta": {
-    "title": "ENOX – 国际能源咨询",
-    "description": "立足全球的能源咨询。我们陪伴住宅与非住宅建筑迈向气候中和。"
+    "title": "EnOX – 能源咨询遇见智慧建筑",
+    "description": "EnOX 将能源咨询、节能改造与智能建筑解决方案融为一体。一个合作伙伴，咨询、实施与监测一站式完成。"
   },
   "nav": {
     "home": "首页",
     "services": "服务",
-    "about": "关于我们",
-    "career": "招贤纳士",
+    "about": "关于 EnOX",
+    "career": "职业发展",
     "contact": "联系我们",
-    "consultation": "申请咨询"
+    "consultation": "免费咨询",
+    "analyze": "开始分析"
   },
   "hero": {
-    "eyebrow": "国际能源咨询",
-    "title": "高效能源，未来可期的建筑。",
-    "subtitle": "ENOX 为全球的业主、建筑师和企业提供节能改造、能源审计与可申请补贴的整体方案。",
-    "ctaPrimary": "免费初次咨询",
-    "ctaSecondary": "查看我们的服务",
+    "eyebrow": "能源 · 数字化 · 智慧建筑",
+    "title": "您的建筑能做更多。",
+    "highlight": "远不止如此。",
+    "subtitle": "EnOX 将能源咨询与智能建筑技术相结合。更低能耗、更高价值、全程透明 —— 一站式合作伙伴。",
+    "ctaPrimary": "免费首次咨询",
+    "ctaSecondary": "了解流程",
+    "live": "实时监测中",
     "stats": {
       "projects": "已交付项目",
-      "countries": "服务国家",
       "savings": "平均节能",
-      "experience": "行业经验年限"
+      "roi": "平均回收期",
+      "experience": "行业经验"
+    },
+    "panel": {
+      "consumption": "能耗",
+      "efficiency": "效率",
+      "co2": "CO₂ 减排",
+      "status": "已优化"
     }
   },
-  "services": {
-    "title": "服务范围",
-    "subtitle": "面向住宅、商业及公共建筑的整体能源咨询 — 国际化并符合当地规范。",
+  "problem": {
+    "eyebrow": "现状",
+    "title": "建筑每天都在悄无声息地浪费能源。",
+    "subtitle": "超过 70% 的存量建筑无法满足未来要求。成本上升、新法规和隐性损耗，让物业资产变成风险。",
     "items": {
-      "residential": {
-        "title": "住宅建筑",
-        "description": "能源证书、个性化改造路线图、KfW 高能效住宅认证、热负荷计算及节能改造规划。"
+      "costs": {
+        "title": "高昂能源成本",
+        "description": "陈旧设备、漏热外墙、调试不当的系统，让运营成本逐年攀升。"
       },
-      "commercial": {
-        "title": "非住宅建筑",
-        "description": "依据 DIN EN 16247 的能源审计、BAFA 资助模块、能源管理体系及经济性评估。"
+      "regulation": {
+        "title": "GEG、欧盟与 ESG 压力加大",
+        "description": "改造与披露义务日益严苛，等待意味着更高代价。"
       },
-      "audit": {
-        "title": "能源审计",
-        "description": "依据 EDL-G 为非中小企业提供强制性审计,包括措施目录和补贴咨询。"
+      "blindspot": {
+        "title": "缺乏数据透明度",
+        "description": "没有监测，节能潜力、负载峰值与短板都看不见。"
       },
-      "certificate": {
-        "title": "能源证书",
-        "description": "依据 GEG 出具能耗与需求证书,面向业主、物业管理和投资者,快速合规。"
+      "fragmented": {
+        "title": "供应商过于碎片化",
+        "description": "咨询、施工与技术分散，浪费时间、金钱与精力。"
+      }
+    },
+    "solutionTitle": "EnOX 重新定义建筑。",
+    "solutionBody": "我们以一体化方式分析、规划、改造并数字化。能源咨询融合智慧建筑技术。掌控权在您，杠杆在我们。"
+  },
+  "services": {
+    "title": "四项服务，一支团队。",
+    "subtitle": "从首次摸底到持续优化，所有专业能力同处一个屋檐下。",
+    "items": {
+      "consulting": {
+        "title": "能源咨询",
+        "tagline": "iSFP · GEG · KfW · BAFA",
+        "description": "符合补贴的改造路线图、能源证书与定制方案 —— 符合 BAFA 与 dena 标准。",
+        "features": [
+          "个性化改造路线图（iSFP）",
+          "DIN EN 16247 能源审计",
+          "补贴与资助管理",
+          "GEG 与 ESG 合规"
+        ]
       },
-      "thermography": {
-        "title": "热成像检测",
-        "description": "建筑热成像可识别热桥、漏气与建筑外壳薄弱部位。"
+      "renovation": {
+        "title": "改造与实施",
+        "tagline": "建筑设计 · 机电 · 工程管理",
+        "description": "从规划到交付，作为责任合作伙伴全程负责能源改造。",
+        "features": [
+          "外围、机电、热泵、保温",
+          "建筑与专项规划",
+          "施工监理与质量管控",
+          "可提供固定价格保障"
+        ]
       },
-      "photovoltaic": {
-        "title": "光伏与储能",
-        "description": "光伏系统、电池储能和热泵的方案设计、经济测算和补贴申报。"
+      "smart": {
+        "title": "智慧建筑与监测",
+        "tagline": "物联网 · 数据 · 自动化",
+        "description": "智能传感器、实时数据与自动化让每栋建筑都可量化、可控、更具收益。",
+        "features": [
+          "能耗与环境实时监测",
+          "AI 异常检测",
+          "供暖与通风自动化",
+          "业主与运营方仪表板"
+        ]
       },
-      "architecture": {
-        "title": "建筑设计与规划",
-        "description": "户型规划、施工许可及施工监理,聚焦节能建筑设计。"
-      },
-      "international": {
-        "title": "国际项目",
-        "description": "提供五种语言的咨询服务,项目遍布欧洲、亚洲和拉丁美洲,符合欧盟分类法及 ESG 标准。"
+      "energy": {
+        "title": "光伏与能源系统",
+        "tagline": "光伏 · 储能 · 热泵",
+        "description": "自发自用，而非购电。我们规划光伏、储能与多能耦合 —— 经济可行。",
+        "features": [
+          "光伏系统设计与经济测算",
+          "电池储能与负载管理",
+          "热泵与多能耦合",
+          "电动出行与充电基础设施"
+        ]
       }
     },
     "cta": "了解更多"
   },
+  "usp": {
+    "eyebrow": "为什么选择 EnOX",
+    "title": "不只是又一家能源顾问，而是您建筑的操作系统。",
+    "subtitle": "我们把能源视为平台：咨询、实施与数据无缝衔接 —— 快速、透明、可扩展。",
+    "items": {
+      "endToEnd": {
+        "title": "一站式负责",
+        "description": "从分析到日常运行，一个团队、一份合同、一个责任人。"
+      },
+      "tech": {
+        "title": "能源 + 技术",
+        "description": "传统能源咨询与物联网、实时数据、自动化结合。"
+      },
+      "digital": {
+        "title": "数字化且可扩展",
+        "description": "快速接入、透明报告、多站点并行管理。"
+      },
+      "roi": {
+        "title": "聚焦投资回报",
+        "description": "每项措施都按回收期、补贴比例与运营节支评估。"
+      }
+    }
+  },
+  "process": {
+    "eyebrow": "运作方式",
+    "title": "三步打造高效建筑。",
+    "subtitle": "结构清晰、数字化引导、结果可衡量。",
+    "steps": {
+      "analyze": {
+        "step": "01",
+        "title": "分析",
+        "description": "数字化快速诊断或现场审计。能耗、外围、机电 —— 几天内完成现状评估。"
+      },
+      "concept": {
+        "step": "02",
+        "title": "方案",
+        "description": "定制路线图，包含措施、补贴比例、回收期与 CO₂ 减排，按每欧元效益排序。"
+      },
+      "deploy": {
+        "step": "03",
+        "title": "实施与优化",
+        "description": "改造、智慧建筑集成与持续监测 —— 让效率不止于交付日。"
+      }
+    },
+    "cta": "开始分析"
+  },
+  "proof": {
+    "eyebrow": "成果",
+    "title": "结果可量化。",
+    "subtitle": "业主、投资人与运营方都信赖的数据。",
+    "stats": {
+      "savings": {
+        "value": "−42%",
+        "label": "能源成本",
+        "description": "已交付项目的平均降幅"
+      },
+      "co2": {
+        "value": "−68%",
+        "label": "CO₂ 排放",
+        "description": "改造后 24 个月平均值"
+      },
+      "projects": {
+        "value": "350+",
+        "label": "项目",
+        "description": "住宅与非住宅资产"
+      },
+      "roi": {
+        "value": "5.8 年",
+        "label": "回收期",
+        "description": "含补贴的平均回收期"
+      }
+    },
+    "testimonialsTitle": "客户怎么说",
+    "testimonials": [
+      {
+        "quote": "EnOX 让我们的资产组合变得透明。每一小时都看得清楚能源损耗在哪儿 —— 而且数字相当可观。",
+        "author": "Markus Weiß 博士",
+        "role": "资产经理 · 房地产基金"
+      },
+      {
+        "quote": "终于有一个把改造与数据放在一起思考的伙伴。智能监测彻底改变了局面。",
+        "author": "Sandra Bauer",
+        "role": "总经理 · 家族企业"
+      },
+      {
+        "quote": "从 iSFP 到热泵再到光伏 —— 一个对接人，沟通清晰，文档专业。",
+        "author": "Thomas Klein",
+        "role": "业主 · 多户住宅"
+      }
+    ]
+  },
+  "partners": {
+    "title": "标准与合作伙伴的信赖",
+    "items": [
+      "dena 能效专家名录",
+      "KfW 认证",
+      "BAFA 咨询模块",
+      "DIN EN 16247-1",
+      "欧盟分类法与 ESG"
+    ]
+  },
+  "calculator": {
+    "title": "您能节省多少？",
+    "subtitle": "快速估算",
+    "area": "建筑面积",
+    "consumption": "当前能耗",
+    "result": "预估节省",
+    "resultLabel": "采取措施后平均减少 42%",
+    "co2Label": "CO₂",
+    "paybackLabel": "回收期",
+    "cta": "申请详细分析"
+  },
+  "finalCta": {
+    "eyebrow": "下一步",
+    "title": "立即开始您的能源分析。",
+    "subtitle": "2 分钟即得首份结果。免费、无承诺、数据驱动。",
+    "ctaPrimary": "免费首次咨询",
+    "ctaSecondary": "查看服务",
+    "trust": "无需信用卡 · 24 小时内回复 · 符合 GDPR"
+  },
   "about": {
-    "title": "关于 ENOX",
-    "lead": "ENOX 由 Enes Talha Aktürk 创立,将德国工程精神与全球视野融为一体。",
-    "body": "作为独立的能源咨询机构,我们陪伴业主、投资者和企业贯穿建筑全价值链 — 从初步评估、可申请补贴的方案设计直到实施监督。我们由能源顾问、建筑师和工程师组成的跨学科团队思维国际化,严格遵循德国能源署(dena)、KfW 和欧盟的标准。",
+    "title": "关于 EnOX",
+    "lead": "我们正在为可持续建筑打造操作系统。",
+    "body": "EnOX 的成立源于一个理念：能源太重要，不能被孤立。我们把传统能源咨询与智慧建筑技术结合，让业主、投资人和企业既能规划效率，也能长期衡量、运营和扩展。我们的跨学科团队由能源顾问、建筑师、工程师与软件专家组成，按 dena、KfW 与欧盟标准开展国际项目。",
     "founder": {
-      "title": "创始人",
+      "title": "所有人与创始人",
       "name": "Enes Talha Aktürk",
-      "role": "执行业主",
-      "quote": "能源是建筑塑造未来的语言。我们的任务,是为每一座建筑找到合适的表达方式。"
+      "role": "执行总裁",
+      "quote": "能源是建筑塑造未来的语言。EnOX 为每个项目地点提供合适的语言 —— 以及合适的数据。"
     },
     "values": {
-      "title": "我们的价值观",
+      "title": "我们的原则",
       "items": {
         "independence": {
-          "title": "独立中立",
-          "description": "仅代表客户利益,不绑定任何产品或厂商。"
+          "title": "独立",
+          "description": "我们只代表客户利益 —— 产品与厂商中立。"
         },
-        "precision": {
-          "title": "严谨精准",
-          "description": "可信的计算、经审核的方法与透明的文件记录。"
+        "data": {
+          "title": "数据驱动",
+          "description": "每条建议都基于测量、计算与可追溯的假设。"
         },
-        "international": {
-          "title": "国际化",
-          "description": "提供五种语言的咨询,项目经验覆盖三大洲。"
+        "endToEnd": {
+          "title": "端到端",
+          "description": "咨询、实施与运营一站式 —— 无交接损失。"
         },
-        "sustainability": {
-          "title": "可持续",
-          "description": "每一项建议都遵循“效率优先、减碳为本”的原则。"
+        "scalable": {
+          "title": "可扩展",
+          "description": "从单户住宅到拥有数百站点的资产组合。"
         }
       }
     }
   },
   "career": {
-    "title": "加入 ENOX",
-    "subtitle": "加入一支以国际视野推动能源转型的团队。",
-    "body": "我们寻找愿意承担责任的人才 — 能源顾问、建筑师、土木工程师以及在校生均可。ENOX 提供灵活的工作模式、国际化项目和持续的进修机会。",
-    "openings": "开放职位",
+    "title": "EnOX 招聘",
+    "subtitle": "与我们一起打造未来的能源后台。",
+    "body": "我们寻找把能源与技术联起来思考的人。无论是能源顾问、建筑师、机电工程师还是软件工程师 —— 在 EnOX，您打造真正有影响力的解决方案。",
+    "openings": "开放岗位",
     "positions": {
       "consultant": {
-        "title": "能源顾问(不限性别)",
+        "title": "能源顾问 (m/w/d)",
         "location": "斯图加特 · 汉堡 · 远程",
         "type": "全职"
       },
       "architect": {
-        "title": "项目建筑师(不限性别)",
+        "title": "项目建筑师 (m/w/d)",
         "location": "斯图加特",
         "type": "全职"
       },
       "engineer": {
-        "title": "机电土木工程师(不限性别)",
+        "title": "机电工程师 / 智慧建筑 (m/w/d)",
         "location": "汉堡",
-        "type": "全职/兼职"
+        "type": "全职或兼职"
       },
-      "intern": {
-        "title": "能源管理在校生",
-        "location": "斯图加特",
-        "type": "每周 20 小时"
+      "software": {
+        "title": "软件工程师 · 物联网与数据 (m/w/d)",
+        "location": "远程 · 德国",
+        "type": "全职"
       }
     },
     "apply": "立即申请",
-    "speculative": "投递自荐信"
+    "speculative": "发送自荐申请"
   },
   "contact": {
-    "title": "联系我们",
-    "subtitle": "请用德语、英语、中文、西班牙语或俄语与我们沟通您的项目。",
+    "title": "让我们交流。",
+    "subtitle": "请描述您的项目 —— 我们将在 24 小时内给出初步评估。免费且无承诺。",
     "form": {
       "name": "姓名",
       "email": "电子邮箱",
-      "phone": "电话(选填)",
+      "phone": "电话（可选）",
       "language": "首选语言",
       "subject": "主题",
-      "message": "您的留言",
+      "message": "您的项目是什么？",
       "submit": "发送请求",
-      "consent": "我同意根据隐私政策处理我的数据。"
+      "consent": "我同意按隐私政策处理我的数据。"
     },
     "info": {
       "title": "直接联系",
-      "soon": "地址、电话和邮箱即将公布。在此之前请使用联系表单 — 我们会亲自回复您。",
-      "hours": "办公时间",
-      "hoursValue": "周一至周五 08:00 – 18:00"
+      "soon": "地址、电话与邮箱即将公布。请暂时使用此表单 —— 24 小时内人工回复。",
+      "hours": "工作时间",
+      "hoursValue": "周一至周五 08:00 – 18:00",
+      "response": "响应时间",
+      "responseValue": "< 24 小时"
     }
   },
   "footer": {
-    "tagline": "总部位于斯图加特的国际能源咨询机构。",
+    "tagline": "EnOX —— 能源咨询、节能改造与智慧建筑，一站式提供。",
     "company": "公司",
     "services": "服务",
-    "legal": "法律信息",
+    "legal": "法律",
     "imprint": "公司信息",
     "privacy": "隐私政策",
     "terms": "条款",
-    "rights": "保留所有权利。"
+    "rights": "保留所有权利。",
+    "cta": "免费首次咨询"
   },
   "common": {
     "language": "语言",
     "menu": "菜单",
     "close": "关闭",
     "readMore": "了解更多",
-    "owner": "业主:Enes Talha Aktürk"
+    "owner": "所有人：Enes Talha Aktürk"
   }
 }

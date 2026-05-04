@@ -14,35 +14,35 @@ export function FounderPortrait({
     >
       <defs>
         <linearGradient id="portraitBg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#15803d" />
-          <stop offset="100%" stopColor="#052e16" />
+          <stop offset="0%" stopColor="#10b981" />
+          <stop offset="100%" stopColor="#1d4ed8" />
         </linearGradient>
         <linearGradient id="portraitRing" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#86efac" />
-          <stop offset="100%" stopColor="#22c55e" />
+          <stop offset="0%" stopColor="#a7f3d0" />
+          <stop offset="100%" stopColor="#3b82f6" />
         </linearGradient>
         <radialGradient id="portraitGlow" cx="0.3" cy="0.3" r="0.7">
-          <stop offset="0%" stopColor="#bbf7d0" stopOpacity="0.7" />
-          <stop offset="100%" stopColor="#15803d" stopOpacity="0" />
+          <stop offset="0%" stopColor="#a7f3d0" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#1d4ed8" stopOpacity="0" />
         </radialGradient>
       </defs>
 
-      <circle cx="120" cy="120" r="120" fill="url(#portraitBg)" />
-      <circle cx="120" cy="120" r="120" fill="url(#portraitGlow)" />
+      <rect x="0" y="0" width="240" height="240" rx="56" fill="url(#portraitBg)" />
+      <rect x="0" y="0" width="240" height="240" rx="56" fill="url(#portraitGlow)" />
 
       <g
         stroke="url(#portraitRing)"
         strokeWidth="2"
         fill="none"
-        opacity="0.55"
+        opacity="0.45"
       >
-        <circle cx="120" cy="120" r="98" strokeDasharray="2 6" />
-        <circle cx="120" cy="120" r="80" strokeDasharray="6 8" />
+        <rect x="14" y="14" width="212" height="212" rx="48" strokeDasharray="2 6" />
+        <rect x="32" y="32" width="176" height="176" rx="36" strokeDasharray="6 8" />
       </g>
 
       <g transform="translate(120 120)">
-        <circle r="62" fill="#0f1a14" opacity="0.45" />
-        <circle r="62" fill="none" stroke="#bbf7d0" strokeOpacity="0.4" />
+        <rect x="-58" y="-58" width="116" height="116" rx="28" fill="#0a0c12" opacity="0.45" />
+        <rect x="-58" y="-58" width="116" height="116" rx="28" fill="none" stroke="#a7f3d0" strokeOpacity="0.45" />
         <text
           x="0"
           y="22"
@@ -51,17 +51,17 @@ export function FounderPortrait({
           fontWeight="800"
           fontSize="56"
           fill="#ffffff"
-          letterSpacing="0.06em"
+          letterSpacing="0.04em"
         >
           {initials}
         </text>
       </g>
 
-      <g transform="translate(40 30)" opacity="0.5">
-        <circle r="34" fill="#22c55e" opacity="0.25" />
+      <g transform="translate(46 30)" opacity="0.55">
+        <circle r="32" fill="#a7f3d0" opacity="0.35" />
       </g>
-      <g transform="translate(200 200)" opacity="0.5">
-        <circle r="44" fill="#22c55e" opacity="0.2" />
+      <g transform="translate(206 206)" opacity="0.55">
+        <circle r="40" fill="#3b82f6" opacity="0.3" />
       </g>
     </svg>
   );

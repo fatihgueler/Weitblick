@@ -1,105 +1,271 @@
 {
   "meta": {
-    "title": "ENOX – International Energy Consulting",
-    "description": "Energy consulting with global reach. We guide residential and commercial buildings on the path to climate neutrality."
+    "title": "EnOX – Energy Consulting Meets Smart Building",
+    "description": "EnOX combines energy consulting, retrofits and intelligent building solutions. One partner. Advisory, delivery and monitoring under one roof."
   },
   "nav": {
     "home": "Home",
     "services": "Services",
-    "about": "About",
+    "about": "About EnOX",
     "career": "Careers",
     "contact": "Contact",
-    "consultation": "Request consultation"
+    "consultation": "Book free consultation",
+    "analyze": "Start analysis"
   },
   "hero": {
-    "eyebrow": "International Energy Consulting",
-    "title": "Efficient energy. Future-ready buildings.",
-    "subtitle": "ENOX supports owners, architects and companies worldwide with energy retrofits, audits and grant-eligible concepts.",
-    "ctaPrimary": "Free initial consultation",
-    "ctaSecondary": "Discover our services",
+    "eyebrow": "Energy · Digitalization · Smart Building",
+    "title": "Your building can do more.",
+    "highlight": "A lot more.",
+    "subtitle": "EnOX combines energy consulting with intelligent building solutions. Lower consumption, higher value, full transparency – from a single partner.",
+    "ctaPrimary": "Book free consultation",
+    "ctaSecondary": "How it works",
+    "live": "Live monitoring active",
     "stats": {
       "projects": "Projects delivered",
-      "countries": "Countries served",
-      "savings": "Avg. energy savings",
+      "savings": "Avg. savings",
+      "roi": "Avg. payback",
       "experience": "Years of experience"
+    },
+    "panel": {
+      "consumption": "Consumption",
+      "efficiency": "Efficiency",
+      "co2": "CO₂ saved",
+      "status": "Optimised"
     }
   },
-  "services": {
-    "title": "Our services",
-    "subtitle": "Holistic energy consulting for residential, commercial and public buildings – international and aligned with local standards.",
+  "problem": {
+    "eyebrow": "Status quo",
+    "title": "Buildings waste energy. Quietly. Every single day.",
+    "subtitle": "Over 70% of the existing stock isn't future-ready. Rising costs, new obligations and invisible losses turn real-estate into a risk.",
     "items": {
-      "residential": {
-        "title": "Residential buildings",
-        "description": "Energy certificates, individual renovation roadmaps, KfW efficiency house verifications, heating load calculations and refurbishment plans."
+      "costs": {
+        "title": "High energy costs",
+        "description": "Outdated tech, leaky envelopes and badly tuned plants drive operating costs up year after year."
       },
-      "commercial": {
-        "title": "Non-residential buildings",
-        "description": "Energy audits per DIN EN 16247, BAFA modules, energy management systems and economic feasibility analyses for businesses."
+      "regulation": {
+        "title": "Mounting GEG, EU & ESG pressure",
+        "description": "Retrofit and reporting duties are tightening – waiting is the most expensive option."
       },
-      "audit": {
-        "title": "Energy audit",
-        "description": "Mandatory audits under EDL-G for non-SMEs, including measure catalogue and funding advisory."
+      "blindspot": {
+        "title": "No data transparency",
+        "description": "Without monitoring, savings, peak loads and weak spots remain invisible."
       },
-      "certificate": {
-        "title": "Energy certificate",
-        "description": "Consumption and demand certificates per GEG for owners, administrators and investors – fast and legally compliant."
+      "fragmented": {
+        "title": "Too many vendors",
+        "description": "Advisory, delivery and tech usually sit in silos – costing time, money and nerves."
+      }
+    },
+    "solutionTitle": "EnOX rethinks the building.",
+    "solutionBody": "We analyse, plan, retrofit and digitise – integrated. Energy consulting meets smart-building tech. You stay in control, we handle the leverage."
+  },
+  "services": {
+    "title": "Four services, one team.",
+    "subtitle": "From the first audit to ongoing optimisation – every discipline under one roof.",
+    "items": {
+      "consulting": {
+        "title": "Energy consulting",
+        "tagline": "iSFP · GEG · KfW · BAFA",
+        "description": "Grant-eligible roadmaps, energy certificates and bespoke concepts – BAFA- and dena-compliant.",
+        "features": [
+          "Individual retrofit roadmap (iSFP)",
+          "Energy audits per DIN EN 16247",
+          "Grant & funding management",
+          "GEG & ESG compliance"
+        ]
       },
-      "thermography": {
-        "title": "Thermography",
-        "description": "Building thermography to detect thermal bridges, leakages and weak points of the building envelope."
+      "renovation": {
+        "title": "Retrofit & delivery",
+        "tagline": "Architecture · MEP · Site management",
+        "description": "From planning to handover – we run the energetic retrofit as your accountable partner.",
+        "features": [
+          "Envelope, MEP, heat pumps, insulation",
+          "Architectural & specialist planning",
+          "Construction supervision & QA",
+          "Fixed-price guarantees available"
+        ]
       },
-      "photovoltaic": {
-        "title": "Photovoltaics & storage",
-        "description": "Sizing, financial modelling and grant support for PV systems, battery storage and heat pumps."
+      "smart": {
+        "title": "Smart building & monitoring",
+        "tagline": "IoT · Data · Automation",
+        "description": "Smart sensors, real-time data and automation make every building measurable, controllable and more profitable.",
+        "features": [
+          "Live consumption & climate monitoring",
+          "AI-powered anomaly detection",
+          "Automated heating & ventilation control",
+          "Dashboards for owners & operators"
+        ]
       },
-      "architecture": {
-        "title": "Architecture & planning",
-        "description": "Floor plans, building permits and construction supervision with a clear focus on energy-efficient design."
-      },
-      "international": {
-        "title": "International projects",
-        "description": "Consulting in five languages, projects in Europe, Asia and Latin America aligned with the EU taxonomy and ESG criteria."
+      "energy": {
+        "title": "PV & energy systems",
+        "tagline": "PV · Storage · Heat pump",
+        "description": "Generate instead of buy. We size PV, storage and sector coupling – financially modelled.",
+        "features": [
+          "PV sizing & financial modelling",
+          "Battery storage & load management",
+          "Heat pump & sector coupling",
+          "E-mobility & charging infrastructure"
+        ]
       }
     },
     "cta": "Learn more"
   },
+  "usp": {
+    "eyebrow": "Why EnOX",
+    "title": "Not yet another energy consultancy. An operating system for your building.",
+    "subtitle": "We treat energy as a platform: advisory, delivery and data plug into each other – fast, transparent, scalable.",
+    "items": {
+      "endToEnd": {
+        "title": "End-to-end ownership",
+        "description": "From the first analysis to ongoing operations – one team, one contract, one accountability."
+      },
+      "tech": {
+        "title": "Energy + technology",
+        "description": "Classic energy consulting combined with IoT, real-time data and automation."
+      },
+      "digital": {
+        "title": "Digital & scalable",
+        "description": "Fast onboarding, transparent reports, multiple sites in parallel."
+      },
+      "roi": {
+        "title": "ROI obsession",
+        "description": "Every measure is checked against payback, grant rate and operational savings."
+      }
+    }
+  },
+  "process": {
+    "eyebrow": "How it works",
+    "title": "Three steps to an efficient building.",
+    "subtitle": "Clearly structured, digitally guided, with measurable outcomes.",
+    "steps": {
+      "analyze": {
+        "step": "01",
+        "title": "Analyse",
+        "description": "Digital quick-check or on-site audit. Consumption, envelope, MEP – we score the status quo in days, not weeks."
+      },
+      "concept": {
+        "step": "02",
+        "title": "Concept",
+        "description": "A bespoke roadmap with measures, grant rate, payback and CO₂ savings. Prioritised by impact per euro."
+      },
+      "deploy": {
+        "step": "03",
+        "title": "Deploy & optimise",
+        "description": "Retrofit, smart-building integration and continuous monitoring – so efficiency doesn't stop on completion day."
+      }
+    },
+    "cta": "Start analysis"
+  },
+  "proof": {
+    "eyebrow": "Outcomes",
+    "title": "Measurably better.",
+    "subtitle": "Numbers owners, investors and operators trust.",
+    "stats": {
+      "savings": {
+        "value": "−42%",
+        "label": "Energy cost",
+        "description": "Avg. reduction across delivered projects"
+      },
+      "co2": {
+        "value": "−68%",
+        "label": "CO₂ emissions",
+        "description": "24-month average post-retrofit"
+      },
+      "projects": {
+        "value": "350+",
+        "label": "Projects",
+        "description": "Residential & commercial assets served"
+      },
+      "roi": {
+        "value": "5.8 yrs",
+        "label": "Payback",
+        "description": "Avg. payback incl. grant rate"
+      }
+    },
+    "testimonialsTitle": "What clients say",
+    "testimonials": [
+      {
+        "quote": "EnOX made our portfolio transparent. We now know hour by hour where energy is lost – and the numbers add up.",
+        "author": "Dr. Markus Weiß",
+        "role": "Asset Manager · Real-estate fund"
+      },
+      {
+        "quote": "Finally a partner who thinks retrofit and data together. The smart monitoring was our gamechanger.",
+        "author": "Sandra Bauer",
+        "role": "CEO · Family business"
+      },
+      {
+        "quote": "From iSFP to heat pump to PV – one point of contact, clear comms, clean documentation.",
+        "author": "Thomas Klein",
+        "role": "Owner · Multi-family home"
+      }
+    ]
+  },
+  "partners": {
+    "title": "Trusted by standards & partners",
+    "items": [
+      "dena energy efficiency expert list",
+      "KfW certified",
+      "BAFA advisory modules",
+      "DIN EN 16247-1",
+      "EU taxonomy & ESG"
+    ]
+  },
+  "calculator": {
+    "title": "How much could you save?",
+    "subtitle": "Quick estimator",
+    "area": "Floor area",
+    "consumption": "Current consumption",
+    "result": "Estimated savings",
+    "resultLabel": "Avg. reduction 42% after measures",
+    "co2Label": "CO₂",
+    "paybackLabel": "Payback",
+    "cta": "Request full analysis"
+  },
+  "finalCta": {
+    "eyebrow": "Next step",
+    "title": "Start your energy analysis now.",
+    "subtitle": "First result in 2 minutes. Free, no commitment, data-driven.",
+    "ctaPrimary": "Book free consultation",
+    "ctaSecondary": "View services",
+    "trust": "No credit card · Reply within 24 h · GDPR compliant"
+  },
   "about": {
-    "title": "About ENOX",
-    "lead": "Founded by Enes Talha Aktürk, ENOX combines German engineering with a global perspective.",
-    "body": "As an independent energy consultancy we accompany owners, investors and companies along the entire value chain of a building – from initial assessment, through the conception of grant-eligible measures, to implementation supervision. Our interdisciplinary team of energy consultants, architects and engineers thinks internationally and works to the standards of the German Energy Agency (dena), KfW and the EU.",
+    "title": "About EnOX",
+    "lead": "We're building the operating system for sustainable real-estate.",
+    "body": "EnOX was founded because energy is too important to be stuck in silos. We combine classic energy consulting with smart-building technology so owners, investors and companies can plan efficiency, then operate and scale it long-term. Our interdisciplinary team of energy consultants, architects, engineers and software specialists thinks internationally and works to dena, KfW and EU standards.",
     "founder": {
       "title": "Owner & founder",
       "name": "Enes Talha Aktürk",
       "role": "Managing owner",
-      "quote": "Energy is the language buildings use to shape the future. Our task is to give every site the right words."
+      "quote": "Energy is the language buildings use to shape the future. EnOX gives every site the right words – and the right data."
     },
     "values": {
-      "title": "Our values",
+      "title": "Our principles",
       "items": {
         "independence": {
-          "title": "Independence",
-          "description": "We represent only our clients' interests – product- and manufacturer-neutral."
+          "title": "Independent",
+          "description": "We represent only our clients' interests – product- and vendor-neutral."
         },
-        "precision": {
-          "title": "Precision",
-          "description": "Robust calculations, audited methods and transparent documentation."
+        "data": {
+          "title": "Data-driven",
+          "description": "Every recommendation rests on measurements, calculations and traceable assumptions."
         },
-        "international": {
-          "title": "International outlook",
-          "description": "Consulting in five languages and project experience across three continents."
+        "endToEnd": {
+          "title": "End-to-end",
+          "description": "Advisory, delivery and operations from one source – no handover losses."
         },
-        "sustainability": {
-          "title": "Sustainability",
-          "description": "Every recommendation follows efficiency before replacement and CO₂ reduction."
+        "scalable": {
+          "title": "Scalable",
+          "description": "From a single-family home to portfolios with hundreds of sites."
         }
       }
     }
   },
   "career": {
-    "title": "Careers at ENOX",
-    "subtitle": "Join a team that thinks the energy transition internationally.",
-    "body": "We are looking for people ready to take responsibility – as energy consultants, architects, civil engineers or working students. ENOX offers flexible work models, international projects and continuous professional development.",
-    "openings": "Open positions",
+    "title": "Careers at EnOX",
+    "subtitle": "Help us build the energy backend of the future.",
+    "body": "We're hiring people who think energy and technology together. Whether you're an energy consultant, architect, MEP engineer or software engineer – at EnOX you build solutions that move the needle.",
+    "openings": "Open roles",
     "positions": {
       "consultant": {
         "title": "Energy consultant (m/f/d)",
@@ -112,48 +278,51 @@
         "type": "Full-time"
       },
       "engineer": {
-        "title": "Civil engineer MEP (m/f/d)",
+        "title": "MEP engineer / smart building (m/f/d)",
         "location": "Hamburg",
         "type": "Full- or part-time"
       },
-      "intern": {
-        "title": "Working student energy management",
-        "location": "Stuttgart",
-        "type": "20 h / week"
+      "software": {
+        "title": "Software engineer · IoT & data (m/f/d)",
+        "location": "Remote · DE",
+        "type": "Full-time"
       }
     },
     "apply": "Apply now",
     "speculative": "Send a speculative application"
   },
   "contact": {
-    "title": "Contact",
-    "subtitle": "Talk to us about your project – in German, English, Chinese, Spanish or Russian.",
+    "title": "Let's talk.",
+    "subtitle": "Tell us about your project – we'll come back within 24 hours with a first assessment. Free, no commitment.",
     "form": {
       "name": "Name",
       "email": "Email",
       "phone": "Phone (optional)",
       "language": "Preferred language",
       "subject": "Subject",
-      "message": "Your message",
+      "message": "What's it about?",
       "submit": "Send request",
       "consent": "I consent to the processing of my data according to the privacy policy."
     },
     "info": {
       "title": "Direct line",
-      "soon": "Address, phone and email will be published shortly. In the meantime, please use the contact form – we'll get back to you personally.",
+      "soon": "Address, phone and email coming soon. In the meantime, please use the form – personal reply within 24 h.",
       "hours": "Office hours",
-      "hoursValue": "Mon–Fri 08:00 – 18:00"
+      "hoursValue": "Mon–Fri 08:00 – 18:00",
+      "response": "Response time",
+      "responseValue": "< 24 hours"
     }
   },
   "footer": {
-    "tagline": "International energy consulting based in Stuttgart.",
+    "tagline": "EnOX – energy consulting, retrofit and smart building. From one source.",
     "company": "Company",
     "services": "Services",
     "legal": "Legal",
     "imprint": "Imprint",
     "privacy": "Privacy",
     "terms": "Terms",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "cta": "Book free consultation"
   },
   "common": {
     "language": "Language",

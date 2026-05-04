@@ -1,24 +1,22 @@
-type Crest = { id: string; label: string };
+type CrestProps = { className?: string };
 
-const crests: Crest[] = [
-  { id: "dena", label: "dena Energieeffizienz-Expertenliste" },
-  { id: "kfw", label: "KfW-zertifiziert" },
-  { id: "bafa", label: "BAFA Beratungsmodule" },
-  { id: "iso", label: "DIN EN 16247-1" },
-  { id: "esg", label: "ESG / EU-Taxonomie" },
-];
-
-export function TrustBar({ className }: { className?: string }) {
+export function TrustBar({
+  items,
+  className,
+}: {
+  items: string[];
+  className?: string;
+}) {
   return (
     <div className={className}>
-      <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
-        {crests.map((crest) => (
+      <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-5">
+        {items.map((label, i) => (
           <li
-            key={crest.id}
-            className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-ink-700"
+            key={label}
+            className="flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-ink-700"
           >
-            <CrestIcon variant={crest.id} className="h-7 w-7 shrink-0" />
-            <span>{crest.label}</span>
+            <CrestIcon variant={`v${i}`} className="h-7 w-7 shrink-0" />
+            <span>{label}</span>
           </li>
         ))}
       </ul>
@@ -32,7 +30,7 @@ function CrestIcon({
 }: {
   variant: string;
   className?: string;
-}) {
+} & CrestProps) {
   return (
     <svg
       viewBox="0 0 32 32"
@@ -41,25 +39,25 @@ function CrestIcon({
       className={className}
     >
       <defs>
-        <linearGradient id={`crest-${variant}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#22c55e" />
-          <stop offset="100%" stopColor="#15803d" />
+        <linearGradient id={`crest-${variant}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#10b981" />
+          <stop offset="100%" stopColor="#1d4ed8" />
         </linearGradient>
       </defs>
       <path
         d="M16 2l12 5v9c0 7-5 12-12 14C9 28 4 23 4 16V7l12-5z"
         fill={`url(#crest-${variant})`}
-        opacity="0.15"
+        opacity="0.12"
       />
       <path
         d="M16 2l12 5v9c0 7-5 12-12 14C9 28 4 23 4 16V7l12-5z"
         fill="none"
-        stroke="#15803d"
+        stroke={`url(#crest-${variant})`}
         strokeWidth="1.5"
       />
       <path
         d="M10 17l4 4l8 -10"
-        stroke="#15803d"
+        stroke="#0a0c12"
         strokeWidth="2.4"
         fill="none"
         strokeLinecap="round"

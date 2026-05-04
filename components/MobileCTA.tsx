@@ -18,7 +18,10 @@ export function MobileCTA({
         href={`/${lang}/contact`}
         className="pointer-events-auto inline-flex w-full max-w-md items-center justify-center gap-2 rounded-full bg-ink-900 px-6 py-3.5 text-sm font-semibold text-white shadow-lift backdrop-blur transition active:scale-[0.98]"
       >
-        <span className="inline-block h-2 w-2 animate-shimmer rounded-full bg-brand-400" />
+        <span className="relative inline-flex h-2 w-2">
+          <span className="absolute inset-0 animate-ping rounded-full bg-brand-400 opacity-70" />
+          <span className="relative inline-block h-2 w-2 rounded-full bg-brand-400" />
+        </span>
         {label}
         <span aria-hidden="true">→</span>
       </Link>

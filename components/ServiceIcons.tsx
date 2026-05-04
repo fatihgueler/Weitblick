@@ -5,59 +5,60 @@ type IconProps = { className?: string };
 const base = "stroke-current";
 
 export const ServiceIcons: Record<string, (p: IconProps) => ReactElement> = {
-  residential: ({ className }) => (
+  consulting: ({ className }) => (
     <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" className={`${base} ${className}`} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 11.5L12 4l9 7.5" />
-      <path d="M5 10v9.5h14V10" />
-      <path d="M10 19.5v-5h4v5" />
+      <path d="M4 5h12l4 4v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" />
+      <path d="M16 5v4h4" />
+      <path d="M7 12h8M7 15h6M7 18h4" />
     </svg>
   ),
-  commercial: ({ className }) => (
+  renovation: ({ className }) => (
     <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" className={`${base} ${className}`} strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="3" width="8" height="18" rx="1" />
-      <rect x="13" y="8" width="8" height="13" rx="1" />
-      <path d="M6 7h2M6 11h2M6 15h2M16 12h2M16 16h2" />
+      <path d="M3 12L12 4l9 8" />
+      <path d="M5 11v9h14v-9" />
+      <path d="M9 20v-5h6v5" />
+      <path d="M14.5 6l3-3m0 0l-3-3m3 3h-7" />
     </svg>
   ),
-  audit: ({ className }) => (
+  smart: ({ className }) => (
     <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" className={`${base} ${className}`} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M9 4h6l4 4v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z" />
-      <path d="M14 4v5h5" />
-      <path d="M8 14l2 2 4-4" />
+      <rect x="3" y="4" width="18" height="14" rx="2" />
+      <path d="M3 10h18" />
+      <circle cx="7" cy="7" r="0.5" fill="currentColor" />
+      <circle cx="10" cy="7" r="0.5" fill="currentColor" />
+      <path d="M6 14l3-3 2 2 3-3 4 4" />
+      <path d="M10 22h4M12 18v4" />
     </svg>
   ),
-  certificate: ({ className }) => (
+  energy: ({ className }) => (
     <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" className={`${base} ${className}`} strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="10" r="5" />
-      <path d="M9 14l-2 6 5-2 5 2-2-6" />
-      <path d="M10 10l2 2 3-3" />
+      <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />
     </svg>
   ),
-  thermography: ({ className }) => (
+  monitoring: ({ className }) => (
     <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" className={`${base} ${className}`} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 4a3 3 0 0 0-6 0v9a4 4 0 1 0 6 0z" />
-      <circle cx="11" cy="17" r="2" />
-      <path d="M11 13V7" />
+      <path d="M3 17l5-6 4 4 4-5 5 6" />
+      <path d="M3 21h18" />
+      <circle cx="8" cy="11" r="1" fill="currentColor" />
+      <circle cx="12" cy="15" r="1" fill="currentColor" />
+      <circle cx="16" cy="10" r="1" fill="currentColor" />
     </svg>
   ),
-  photovoltaic: ({ className }) => (
+  iot: ({ className }) => (
     <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" className={`${base} ${className}`} strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="3" />
-      <path d="M12 4v2M12 18v2M4 12h2M18 12h2M6 6l1.5 1.5M16.5 16.5L18 18M6 18l1.5-1.5M16.5 7.5L18 6" />
+      <circle cx="12" cy="12" r="2" />
+      <path d="M8 12a4 4 0 0 1 8 0M5 12a7 7 0 0 1 14 0M2 12a10 10 0 0 1 20 0" />
     </svg>
   ),
-  architecture: ({ className }) => (
+  shield: ({ className }) => (
     <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" className={`${base} ${className}`} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M4 21V7l8-4 8 4v14" />
-      <path d="M9 21v-7h6v7" />
-      <path d="M4 11h16" />
+      <path d="M12 2l8 4v6c0 5-3.5 9-8 10c-4.5-1-8-5-8-10V6l8-4z" />
+      <path d="M9 12l2 2 4-5" />
     </svg>
   ),
-  international: ({ className }) => (
+  chart: ({ className }) => (
     <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" className={`${base} ${className}`} strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="9" />
-      <path d="M3 12h18" />
-      <path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z" />
+      <path d="M4 20V8M10 20V4M16 20v-7M22 20H2" />
     </svg>
   ),
 };

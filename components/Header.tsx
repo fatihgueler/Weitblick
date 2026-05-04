@@ -15,20 +15,20 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-brand-900/5 bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60">
+    <header className="sticky top-0 z-40 border-b border-ink-900/5 bg-white/75 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60">
       <div className="container flex h-16 items-center justify-between gap-4 sm:h-20">
         <Link
           href={`/${lang}`}
           className="flex items-center gap-2.5 transition active:scale-95 sm:gap-3"
-          aria-label="ENOX"
+          aria-label="EnOX"
         >
           <Logo className="h-9 w-9 sm:h-10 sm:w-10" />
           <div className="leading-tight">
             <div className="text-base font-bold tracking-tight text-ink-900 sm:text-lg">
-              ENOX
+              En<span className="gradient-text">O</span>X
             </div>
-            <div className="text-[9px] font-semibold uppercase tracking-[0.22em] text-brand-700 sm:text-[10px]">
-              Energy Consulting
+            <div className="text-[9px] font-semibold uppercase tracking-[0.22em] text-ink-500 sm:text-[10px]">
+              Energy · Smart Building
             </div>
           </div>
         </Link>
@@ -53,6 +53,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             className="btn-primary hidden lg:inline-flex"
           >
             {dict.nav.consultation}
+            <span aria-hidden="true">→</span>
           </Link>
           <MobileMenu
             navItems={navItems}
