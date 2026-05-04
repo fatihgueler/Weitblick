@@ -57,7 +57,7 @@ export function ServiceCard({
   return (
     <article
       id={serviceKey}
-      className={`card h-full ${tone.ring} relative overflow-hidden`}
+      className={`card group h-full ${tone.ring} relative overflow-hidden`}
     >
       <div
         aria-hidden="true"

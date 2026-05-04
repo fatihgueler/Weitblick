@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 type Strings = {
@@ -80,13 +81,13 @@ export function SavingsCalculator({ strings }: { strings: Strings }) {
             <Tile label={strings.paybackLabel} value={`${payback} J.`} />
           </div>
 
-          <a
+          <Link
             href={strings.ctaHref}
             className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-500 px-5 py-3 text-sm font-semibold text-ink-900 shadow-glow transition hover:bg-brand-400 active:scale-[0.98]"
           >
             {strings.cta}
             <span aria-hidden="true">→</span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
