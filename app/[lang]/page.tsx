@@ -50,19 +50,19 @@ export default async function HomePage({
       {/* HERO ----------------------------------------------------------- */}
       <section className="relative overflow-hidden">
         <div aria-hidden="true" className="absolute inset-0 -z-10 mesh-bg" />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 grid-bg opacity-60" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 grid-bg opacity-50" />
         <div
           aria-hidden="true"
-          className="absolute -top-40 -right-32 -z-10 h-[28rem] w-[28rem] animate-blob rounded-full bg-brand-300/40 blur-3xl"
+          className="absolute -top-40 -right-32 -z-10 h-[32rem] w-[32rem] animate-blob rounded-full bg-brand-300/30 blur-3xl"
         />
         <div
           aria-hidden="true"
-          className="absolute -bottom-40 -left-32 -z-10 h-[28rem] w-[28rem] animate-blob rounded-full bg-tech-300/40 blur-3xl"
+          className="absolute -bottom-40 -left-32 -z-10 h-[32rem] w-[32rem] animate-blob rounded-full bg-tech-300/30 blur-3xl"
           style={{ animationDelay: "5s" }}
         />
 
-        <div className="container grid gap-12 py-14 sm:py-20 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:py-28 lg:items-center">
-          <div className="animate-fade-up">
+        <div className="container relative pt-12 pb-20 sm:pt-16 sm:pb-24 lg:pt-24 lg:pb-32">
+          <div className="mx-auto max-w-4xl text-center animate-fade-up">
             <span className="eyebrow">
               <span className="relative inline-flex h-2 w-2">
                 <span className="absolute inset-0 animate-ping rounded-full bg-brand-500 opacity-70" />
@@ -70,68 +70,73 @@ export default async function HomePage({
               </span>
               {dict.hero.eyebrow}
             </span>
-            <h1 className="mt-6 heading-1">
-              {dict.hero.title}{" "}
+            <h1 className="mt-7 font-display text-[clamp(2.75rem,7vw+0.5rem,5.5rem)] font-black leading-[1] tracking-tighter text-ink-900">
+              {dict.hero.title}
+              <br />
               <span className="gradient-text">{dict.hero.highlight}</span>
             </h1>
-            <p className="mt-6 lead max-w-xl">
+            <p className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-ink-600 sm:text-lg sm:leading-relaxed">
               {dict.hero.subtitle}
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Link href={`/${lang}/contact`} className="btn-primary w-full sm:w-auto">
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link href={`/${lang}/contact`} className="btn-primary btn-lg w-full sm:w-auto">
                 {dict.hero.ctaPrimary}
                 <span aria-hidden="true">→</span>
               </Link>
-              <Link href="#process" className="btn-secondary w-full sm:w-auto">
+              <Link href="#process" className="btn-secondary btn-lg w-full sm:w-auto">
                 {dict.hero.ctaSecondary}
               </Link>
             </div>
 
-            <p className="mt-4 text-xs text-ink-500">
+            <p className="mt-5 text-xs text-ink-500">
               {dict.finalCta.trust}
             </p>
-
-            <dl className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-              {heroStats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-2xl bg-white/70 p-4 ring-1 ring-ink-900/5 backdrop-blur sm:bg-transparent sm:p-0 sm:ring-0"
-                >
-                  <dd className="font-display text-2xl font-extrabold text-ink-900 sm:text-3xl">
-                    {stat.value}
-                  </dd>
-                  <dt className="mt-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-600">
-                    {stat.label}
-                  </dt>
-                </div>
-              ))}
-            </dl>
           </div>
 
-          <div className="relative animate-fade-up" style={{ animationDelay: "120ms" }}>
+          <div className="relative mx-auto mt-14 max-w-5xl animate-fade-up sm:mt-20" style={{ animationDelay: "180ms" }}>
             <div
               aria-hidden="true"
-              className="absolute -inset-8 -z-10 rounded-[2.75rem] bg-gradient-to-br from-brand-200/60 via-tech-100/40 to-transparent blur-2xl"
+              className="absolute -inset-8 -z-10 rounded-[2.75rem] bg-gradient-to-br from-brand-200/40 via-tech-100/30 to-transparent blur-3xl"
             />
-            <HeroIllustration className="w-full rounded-4xl shadow-lift" />
+            <div className="relative overflow-hidden rounded-4xl border border-ink-900/5 bg-white shadow-lift">
+              <HeroIllustration className="w-full" />
 
-            {/* Live status pill */}
-            <div className="absolute -top-3 left-4 inline-flex items-center gap-2 rounded-full bg-ink-900 px-3 py-1.5 text-[11px] font-semibold text-white shadow-lift sm:left-6">
-              <span className="relative inline-flex h-2 w-2">
-                <span className="absolute inset-0 animate-ping rounded-full bg-brand-400 opacity-70" />
-                <span className="relative inline-block h-2 w-2 rounded-full bg-brand-400" />
-              </span>
-              {dict.hero.live}
-            </div>
+              {/* Live status pill */}
+              <div className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-ink-900 px-3 py-1.5 text-[11px] font-semibold text-white shadow-lift sm:top-6 sm:left-6">
+                <span className="relative inline-flex h-2 w-2">
+                  <span className="absolute inset-0 animate-ping rounded-full bg-brand-400 opacity-70" />
+                  <span className="relative inline-block h-2 w-2 rounded-full bg-brand-400" />
+                </span>
+                {dict.hero.live}
+              </div>
 
-            {/* Floating mini-metrics */}
-            <div className="absolute -bottom-5 left-4 right-4 grid grid-cols-3 gap-2 rounded-2xl border border-ink-900/5 bg-white/95 p-3 shadow-lift backdrop-blur sm:left-6 sm:right-6 sm:gap-3 sm:p-4">
-              <Mini label={dict.hero.panel.consumption} value="42" unit="kWh/m²" />
-              <Mini label={dict.hero.panel.co2} value="−68%" />
-              <Mini label={dict.hero.panel.efficiency} value="A+" />
+              {/* Floating mini-metrics */}
+              <div className="absolute bottom-4 left-4 right-4 grid grid-cols-3 gap-2 rounded-2xl border border-ink-900/5 bg-white/95 p-3 shadow-lift backdrop-blur sm:bottom-6 sm:left-6 sm:right-6 sm:gap-4 sm:p-4">
+                <Mini label={dict.hero.panel.consumption} value="42" unit="kWh/m²" />
+                <Mini label={dict.hero.panel.co2} value="−68%" />
+                <Mini label={dict.hero.panel.efficiency} value="A+" />
+              </div>
             </div>
           </div>
+
+          {/* Stats Strip */}
+          <dl className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-4">
+            {heroStats.map((stat, i) => (
+              <div
+                key={stat.label}
+                className="text-center animate-fade-up"
+                style={{ animationDelay: `${260 + i * 60}ms` }}
+              >
+                <dd className="font-display text-3xl font-black tracking-tight text-ink-900 sm:text-4xl">
+                  {stat.value}
+                </dd>
+                <dt className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-500">
+                  {stat.label}
+                </dt>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 

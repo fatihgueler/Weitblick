@@ -61,23 +61,25 @@ export function ServiceCard({
     >
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full ${tone.glow.replace("before:", "")} opacity-30 blur-3xl transition group-hover:opacity-60`}
+        className={`pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full ${tone.glow.replace("before:", "")} opacity-20 blur-3xl transition duration-500 group-hover:scale-125 group-hover:opacity-50`}
       />
-      <div className="flex items-start justify-between gap-3">
+      <div className="relative flex items-start justify-between gap-3">
         <div
-          className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${tone.iconBg} ${tone.iconText} ring-1 ring-ink-900/5 transition group-hover:scale-105`}
+          className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${tone.iconBg} ${tone.iconText} ring-1 ring-ink-900/5 transition duration-300 group-hover:scale-110 group-hover:rotate-3`}
         >
-          <Icon className="h-6 w-6" />
+          <Icon className="h-7 w-7" />
         </div>
         {tagline && <span className={tone.chip}>{tagline}</span>}
       </div>
-      <h3 className="text-xl font-bold tracking-tight text-ink-900">{title}</h3>
-      <p className="text-sm leading-relaxed text-ink-600">{description}</p>
+      <h3 className="relative font-display text-xl font-extrabold tracking-tight text-ink-900 sm:text-[1.375rem]">{title}</h3>
+      <p className="relative text-sm leading-relaxed text-ink-600">{description}</p>
       {features && features.length > 0 && (
-        <ul className="mt-1 space-y-2 text-sm text-ink-700">
+        <ul className="relative mt-1 space-y-2.5 text-sm text-ink-700">
           {features.map((f) => (
-            <li key={f} className="flex items-start gap-2">
-              <CheckIcon className="mt-1 h-3.5 w-3.5 shrink-0 text-brand-600" />
+            <li key={f} className="flex items-start gap-2.5">
+              <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
+                <CheckIcon className="h-2.5 w-2.5" />
+              </span>
               <span>{f}</span>
             </li>
           ))}
@@ -85,10 +87,10 @@ export function ServiceCard({
       )}
       <Link
         href={`/${lang}/services#${serviceKey}`}
-        className="mt-auto inline-flex items-center gap-1 text-sm font-semibold text-ink-900 transition group-hover:gap-2 group-hover:text-brand-700"
+        className="relative mt-auto inline-flex items-center gap-1.5 text-sm font-bold text-ink-900 transition group-hover:gap-3 group-hover:text-brand-700"
       >
         {cta}
-        <span aria-hidden="true">→</span>
+        <span aria-hidden="true" className="transition group-hover:translate-x-0.5">→</span>
       </Link>
     </article>
   );
@@ -100,7 +102,7 @@ function CheckIcon({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="3"
+      strokeWidth="4"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
