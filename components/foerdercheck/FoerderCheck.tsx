@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   computeEstimate,
   formatEuro,
@@ -939,25 +939,35 @@ function TextField({
   hint?: string;
   error?: string;
 }) {
+  const id = useId();
+  const describedBy = error ? `${id}-err` : hint ? `${id}-hint` : undefined;
   return (
     <div>
-      <label className="label">{label}</label>
+      <label className="label" htmlFor={id}>
+        {label}
+      </label>
       <input
+        id={id}
         type={type}
         inputMode={inputMode}
         autoComplete={autoComplete}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         aria-invalid={!!error}
+        aria-describedby={describedBy}
         className={[
           "input mt-2",
           error ? "border-red-400 focus:border-red-500 focus:ring-red-500/15" : "",
         ].join(" ")}
       />
       {error ? (
-        <p className="mt-1.5 text-xs font-medium text-red-600">{error}</p>
+        <p id={`${id}-err`} className="mt-1.5 text-xs font-medium text-red-600">
+          {error}
+        </p>
       ) : hint ? (
-        <p className="mt-1.5 text-xs text-ink-400">{hint}</p>
+        <p id={`${id}-hint`} className="mt-1.5 text-xs text-ink-400">
+          {hint}
+        </p>
       ) : null}
     </div>
   );

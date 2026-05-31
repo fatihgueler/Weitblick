@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { Inter } from "next/font/google";
+import "../globals.css";
 import { getDictionary } from "@/i18n/getDictionary";
 import { locales, isLocale } from "@/i18n/config";
 import { getSiteUrl } from "@/lib/site";
