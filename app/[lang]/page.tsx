@@ -40,15 +40,6 @@ export default async function HomePage({
         <div className="absolute inset-0 -z-10 mesh-bg" />
         <div className="fx-aurora-light -z-10" />
         <div className="absolute inset-0 -z-10 grid-bg opacity-50" />
-        <div
-          aria-hidden="true"
-          className="absolute -top-32 -right-32 -z-10 h-96 w-96 animate-blob rounded-full bg-brand-300/40 blur-3xl"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute -bottom-32 -left-32 -z-10 h-96 w-96 animate-blob rounded-full bg-brand-500/30 blur-3xl"
-          style={{ animationDelay: "4s" }}
-        />
 
         <div className="container grid gap-10 py-12 sm:py-16 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:py-24 lg:items-center">
           <div className="animate-fade-up">

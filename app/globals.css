@@ -150,7 +150,7 @@ body {
    (werden durch den prefers-reduced-motion-Block oben automatisch entschärft)
    =========================================================================== */
 
-.fx-aurora { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.fx-aurora { position: absolute; inset: 0; overflow: hidden; pointer-events: none; transform: translateZ(0); contain: paint; }
 .fx-aurora::before,
 .fx-aurora::after {
   content: "";
@@ -160,7 +160,10 @@ body {
     radial-gradient(38% 38% at 28% 30%, rgba(34, 197, 94, 0.40), transparent 60%),
     radial-gradient(34% 34% at 72% 38%, rgba(16, 185, 129, 0.28), transparent 62%),
     radial-gradient(44% 44% at 52% 82%, rgba(245, 158, 11, 0.18), transparent 60%);
-  filter: blur(48px);
+  filter: blur(40px);
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   animation: aurora-drift 26s ease-in-out infinite alternate;
 }
 .fx-aurora::after { opacity: 0.6; animation-duration: 34s; animation-direction: alternate-reverse; }
@@ -261,7 +264,7 @@ body {
   animation: gradient-pan 8s linear infinite;
 }
 
-.fx-aurora-light { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.fx-aurora-light { position: absolute; inset: 0; overflow: hidden; pointer-events: none; transform: translateZ(0); contain: paint; }
 .fx-aurora-light::before,
 .fx-aurora-light::after {
   content: "";
@@ -271,10 +274,20 @@ body {
     radial-gradient(36% 36% at 25% 28%, rgba(34, 197, 94, 0.18), transparent 60%),
     radial-gradient(34% 34% at 75% 36%, rgba(134, 239, 172, 0.22), transparent 62%),
     radial-gradient(40% 40% at 55% 80%, rgba(245, 158, 11, 0.10), transparent 60%);
-  filter: blur(56px);
+  filter: blur(44px);
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   animation: aurora-drift 30s ease-in-out infinite alternate;
 }
 .fx-aurora-light::after { opacity: 0.6; animation-duration: 38s; animation-direction: alternate-reverse; }
+
+/* Auf kleinen Viewports nur eine Aurora-Ebene + sanftere Unschärfe = flüssiger */
+@media (max-width: 640px) {
+  .fx-aurora::after, .fx-aurora-light::after { display: none; }
+  .fx-aurora::before { filter: blur(32px); }
+  .fx-aurora-light::before { filter: blur(36px); }
+}
 
 /* Cursor-Spotlight für helle Karten (dezenter grüner Schein) */
 .fx-spotlight-light { position: relative; }
