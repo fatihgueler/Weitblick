@@ -9,10 +9,12 @@ on:
   push:
     paths:
       - "i18n/dictionaries/**"
+      - "components/foerdercheck/locales/**"
       - "scripts/validate-content.mjs"
   pull_request:
     paths:
       - "i18n/dictionaries/**"
+      - "components/foerdercheck/locales/**"
       - "scripts/validate-content.mjs"
 
 jobs:

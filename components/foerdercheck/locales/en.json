@@ -1,0 +1,161 @@
+{
+  "intro": {
+    "badge": "Free · No obligation · 60 seconds",
+    "title": "How much funding are you really entitled to?",
+    "highlight": "Up to 70% subsidy",
+    "subtitle": "Find out in under 60 seconds which grants and subsidised loans (BAFA, KfW & tax bonus) are realistic for your project – personally reviewed by Enes Talha Aktürk.",
+    "bullets": [
+      "Tailored to your property",
+      "Checked against current funding programmes",
+      "Personally reviewed by Enes Talha Aktürk"
+    ],
+    "start": "Start funding check",
+    "duration": "Takes about 60 seconds",
+    "privacy": "No costs. Your data is handled in line with GDPR."
+  },
+  "questions": {
+    "goal": {
+      "question": "What is your project about?",
+      "help": "Multiple answers possible – pick everything that applies.",
+      "options": {
+        "heizung": { "label": "Heating / Heat pump", "description": "Heating replacement, heat pump, solar thermal" },
+        "daemmung": { "label": "Insulation & renovation", "description": "Roof, facade, basement ceiling" },
+        "fenster": { "label": "Windows & doors", "description": "Replacement, new glazing" },
+        "solar": { "label": "Photovoltaics & storage", "description": "Solar system, battery, wallbox" },
+        "komplett": { "label": "Full renovation", "description": "Renovation to an efficiency house" },
+        "kaufen": { "label": "Purchase / new build", "description": "Buying or building a property" },
+        "unklar": { "label": "Not sure yet", "description": "I just want to inform myself" }
+      }
+    },
+    "building": {
+      "question": "What type of building is it?",
+      "options": {
+        "efh": { "label": "Detached house" },
+        "mfh": { "label": "Apartment building" },
+        "etw": { "label": "Owner-occupied flat" },
+        "gewerbe": { "label": "Commercial / non-residential" }
+      }
+    },
+    "owner": {
+      "question": "What is your role regarding the property?",
+      "options": {
+        "ja": { "label": "I am the owner" },
+        "kauf": { "label": "I am planning to buy" },
+        "nein": { "label": "I am a tenant", "description": "Note: funding usually goes to owners" }
+      }
+    },
+    "year": {
+      "question": "What year was the building constructed?",
+      "help": "The age affects which programmes apply.",
+      "options": {
+        "vor1979": { "label": "Before 1979", "description": "Often particularly high funding rates" },
+        "1979_2001": { "label": "1979 – 2001" },
+        "nach2002": { "label": "After 2002" },
+        "unklar": { "label": "I'm not sure" }
+      }
+    },
+    "heating": {
+      "question": "How is it currently heated?",
+      "options": {
+        "gas": { "label": "Gas" },
+        "oel": { "label": "Oil" },
+        "fernwaerme": { "label": "District heating" },
+        "waermepumpe": { "label": "Heat pump" },
+        "strom": { "label": "Electric / night storage" },
+        "sonstiges": { "label": "Other / not sure" }
+      }
+    },
+    "timing": {
+      "question": "When would you like to start?",
+      "options": {
+        "sofort": { "label": "As soon as possible" },
+        "3monate": { "label": "Within the next 3 months" },
+        "jahr": { "label": "Within this year" },
+        "info": { "label": "Just gathering information" }
+      }
+    },
+    "finance": {
+      "question": "How would you like to finance it?",
+      "help": "Optional – helps us find the right programmes.",
+      "options": {
+        "eigenkapital": { "label": "Mostly equity" },
+        "kredit": { "label": "Subsidised loan / financing" },
+        "offen": { "label": "Still open" }
+      }
+    }
+  },
+  "calculating": {
+    "title": "Calculating your funding potential …",
+    "steps": [
+      "Analysing your answers",
+      "Matching BAFA & KfW programmes",
+      "Checking tax advantages",
+      "Creating your personal result"
+    ]
+  },
+  "result": {
+    "badge": "Your result is ready",
+    "title": "Good news – funding is available for your project!",
+    "upTo": "Up to",
+    "perYear": "in possible grants & subsidised loans",
+    "breakdownTitle": "How your potential breaks down",
+    "items": {
+      "bafa": "BAFA grant (individual measures)",
+      "kfw": "KfW subsidised loan & repayment bonus",
+      "tax": "Tax bonus (§ 35c EStG)"
+    },
+    "disclaimer": "Non-binding estimate based on your answers. The actual funding amount depends on an individual review and the current funding conditions.",
+    "cta": "Secure your funding potential now",
+    "secondary": "Get the result by email"
+  },
+  "lead": {
+    "title": "Where should we send your funding result?",
+    "subtitle": "Enes Talha Aktürk reviews your funding check personally and gets back to you with the concrete next steps.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email address",
+    "phone": "Phone number",
+    "phoneHint": "For a quick, personal response.",
+    "consent": "I agree that ENOX (Enes Talha Aktürk) may process my details for consulting and contact me. See the privacy policy.",
+    "submit": "Request funding result",
+    "submitting": "Sending …",
+    "securenote": "SSL-encrypted · No spam · Revocable anytime",
+    "errors": {
+      "firstName": "Please enter your first name.",
+      "lastName": "Please enter your last name.",
+      "email": "Please enter a valid email address.",
+      "phone": "Please enter a valid phone number.",
+      "consent": "Please agree to the processing of your data.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "success": {
+    "badge": "Done",
+    "title": "Your funding check is complete!",
+    "subtitle": "We have received your details. You'll get your personal funding result by email shortly – usually within 24 hours.",
+    "bookTitle": "Want to get started right away?",
+    "bookText": "Book your free consultation now and clarify all questions about your funding personally.",
+    "book": "Book a free consultation",
+    "nextTitle": "What happens next",
+    "next": [
+      "We review your details and identify the right funding programmes.",
+      "You receive your personal funding result by email.",
+      "In a free call we plan the next steps together."
+    ],
+    "restart": "Start a new funding check",
+    "resultLabel": "Your estimated funding potential"
+  },
+  "ui": {
+    "step": "Step",
+    "of": "of",
+    "back": "Back",
+    "continue": "Continue",
+    "multiHint": "Multiple choice",
+    "selectedHint": "selected",
+    "skip": "Skip",
+    "resumeTitle": "Continue?",
+    "resumeText": "You haven't finished your funding check yet. Would you like to continue where you left off?",
+    "resumeYes": "Continue",
+    "resumeNo": "Start over"
+  }
+}

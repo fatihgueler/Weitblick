@@ -1,0 +1,161 @@
+{
+  "intro": {
+    "badge": "Kostenlos · Unverbindlich · 60 Sekunden",
+    "title": "Wie viel Förderung steht dir wirklich zu?",
+    "highlight": "Bis zu 70 % Zuschuss",
+    "subtitle": "Finde in unter 60 Sekunden heraus, welche Zuschüsse und Förderkredite (BAFA, KfW & Steuerbonus) für dein Vorhaben realistisch sind – persönlich ausgewertet von Enes Talha Aktürk.",
+    "bullets": [
+      "Auf deine Immobilie zugeschnitten",
+      "Geprüft nach aktuellen Förderprogrammen",
+      "Persönliche Auswertung durch Enes Talha Aktürk"
+    ],
+    "start": "Fördercheck starten",
+    "duration": "Dauert ca. 60 Sekunden",
+    "privacy": "Keine Kosten. Deine Daten werden DSGVO-konform behandelt."
+  },
+  "questions": {
+    "goal": {
+      "question": "Worum geht es bei deinem Vorhaben?",
+      "help": "Mehrfachauswahl möglich – wähle alles, was zutrifft.",
+      "options": {
+        "heizung": { "label": "Heizung / Wärmepumpe", "description": "Heizungstausch, Wärmepumpe, Solarthermie" },
+        "daemmung": { "label": "Dämmung & Sanierung", "description": "Dach, Fassade, Kellerdecke" },
+        "fenster": { "label": "Fenster & Türen", "description": "Austausch, neue Verglasung" },
+        "solar": { "label": "Photovoltaik & Speicher", "description": "Solaranlage, Stromspeicher, Wallbox" },
+        "komplett": { "label": "Komplettsanierung", "description": "Sanierung zum Effizienzhaus" },
+        "kaufen": { "label": "Kauf / Neubau", "description": "Erwerb oder Bau einer Immobilie" },
+        "unklar": { "label": "Noch unklar", "description": "Ich möchte mich erst informieren" }
+      }
+    },
+    "building": {
+      "question": "Um welche Art von Gebäude geht es?",
+      "options": {
+        "efh": { "label": "Einfamilienhaus" },
+        "mfh": { "label": "Mehrfamilienhaus" },
+        "etw": { "label": "Eigentumswohnung" },
+        "gewerbe": { "label": "Gewerbe / Nichtwohngebäude" }
+      }
+    },
+    "owner": {
+      "question": "In welcher Rolle bist du bei der Immobilie?",
+      "options": {
+        "ja": { "label": "Ich bin Eigentümer:in" },
+        "kauf": { "label": "Ich plane den Kauf" },
+        "nein": { "label": "Ich bin Mieter:in", "description": "Hinweis: Förderungen erhalten meist Eigentümer" }
+      }
+    },
+    "year": {
+      "question": "Aus welchem Baujahr stammt das Gebäude?",
+      "help": "Das Alter beeinflusst, welche Programme infrage kommen.",
+      "options": {
+        "vor1979": { "label": "Vor 1979", "description": "Oft besonders hohe Förderquoten" },
+        "1979_2001": { "label": "1979 – 2001" },
+        "nach2002": { "label": "Nach 2002" },
+        "unklar": { "label": "Weiß ich nicht genau" }
+      }
+    },
+    "heating": {
+      "question": "Wie wird aktuell geheizt?",
+      "options": {
+        "gas": { "label": "Gas" },
+        "oel": { "label": "Öl" },
+        "fernwaerme": { "label": "Fernwärme" },
+        "waermepumpe": { "label": "Wärmepumpe" },
+        "strom": { "label": "Strom / Nachtspeicher" },
+        "sonstiges": { "label": "Sonstiges / Unklar" }
+      }
+    },
+    "timing": {
+      "question": "Wann möchtest du dein Vorhaben umsetzen?",
+      "options": {
+        "sofort": { "label": "So schnell wie möglich" },
+        "3monate": { "label": "In den nächsten 3 Monaten" },
+        "jahr": { "label": "Innerhalb dieses Jahres" },
+        "info": { "label": "Erst mal nur informieren" }
+      }
+    },
+    "finance": {
+      "question": "Wie möchtest du finanzieren?",
+      "help": "Optional – hilft uns, die passenden Programme zu finden.",
+      "options": {
+        "eigenkapital": { "label": "Überwiegend Eigenkapital" },
+        "kredit": { "label": "Förderkredit / Finanzierung" },
+        "offen": { "label": "Noch offen" }
+      }
+    }
+  },
+  "calculating": {
+    "title": "Wir berechnen dein Förderpotenzial …",
+    "steps": [
+      "Angaben werden ausgewertet",
+      "BAFA- & KfW-Programme werden abgeglichen",
+      "Steuerliche Vorteile werden geprüft",
+      "Dein persönliches Ergebnis wird erstellt"
+    ]
+  },
+  "result": {
+    "badge": "Dein Ergebnis steht fest",
+    "title": "Gute Nachrichten – für dein Vorhaben ist Förderung drin!",
+    "upTo": "Bis zu",
+    "perYear": "an möglichen Zuschüssen & Förderkrediten",
+    "breakdownTitle": "So setzt sich dein Potenzial zusammen",
+    "items": {
+      "bafa": "BAFA-Zuschuss (Einzelmaßnahmen)",
+      "kfw": "KfW-Förderkredit & Tilgungszuschuss",
+      "tax": "Steuerlicher Bonus (§ 35c EStG)"
+    },
+    "disclaimer": "Unverbindliche Schätzung auf Basis deiner Angaben. Die tatsächliche Förderhöhe hängt von der individuellen Prüfung und den jeweils aktuellen Förderbedingungen ab.",
+    "cta": "Förderpotenzial jetzt sichern",
+    "secondary": "Ergebnis per E-Mail erhalten"
+  },
+  "lead": {
+    "title": "Wohin dürfen wir dein Förderergebnis senden?",
+    "subtitle": "Enes Talha Aktürk wertet deinen Fördercheck persönlich aus und meldet sich mit den konkreten nächsten Schritten.",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "E-Mail-Adresse",
+    "phone": "Telefonnummer",
+    "phoneHint": "Für eine schnelle, persönliche Rückmeldung.",
+    "consent": "Ich bin damit einverstanden, dass ENOX (Enes Talha Aktürk) meine Angaben zur Beratung verarbeitet und mich kontaktiert. Hinweise in der Datenschutzerklärung.",
+    "submit": "Förderergebnis anfordern",
+    "submitting": "Wird gesendet …",
+    "securenote": "SSL-verschlüsselt · Kein Spam · Jederzeit widerrufbar",
+    "errors": {
+      "firstName": "Bitte gib deinen Vornamen ein.",
+      "lastName": "Bitte gib deinen Nachnamen ein.",
+      "email": "Bitte gib eine gültige E-Mail-Adresse ein.",
+      "phone": "Bitte gib eine gültige Telefonnummer ein.",
+      "consent": "Bitte stimme der Verarbeitung deiner Daten zu.",
+      "generic": "Leider hat etwas nicht geklappt. Bitte versuche es erneut."
+    }
+  },
+  "success": {
+    "badge": "Geschafft",
+    "title": "Dein Fördercheck ist abgeschlossen!",
+    "subtitle": "Wir haben deine Angaben erhalten. Du bekommst dein persönliches Förderergebnis in Kürze per E-Mail – in der Regel innerhalb von 24 Stunden.",
+    "bookTitle": "Direkt durchstarten?",
+    "bookText": "Sichere dir jetzt dein kostenloses Beratungsgespräch und kläre alle Fragen zu deiner Förderung persönlich.",
+    "book": "Kostenloses Beratungsgespräch buchen",
+    "nextTitle": "So geht es weiter",
+    "next": [
+      "Wir prüfen deine Angaben und identifizieren die passenden Förderprogramme.",
+      "Du erhältst dein persönliches Förderergebnis per E-Mail.",
+      "Im kostenlosen Gespräch planen wir die nächsten Schritte."
+    ],
+    "restart": "Neuen Fördercheck starten",
+    "resultLabel": "Dein geschätztes Förderpotenzial"
+  },
+  "ui": {
+    "step": "Schritt",
+    "of": "von",
+    "back": "Zurück",
+    "continue": "Weiter",
+    "multiHint": "Mehrfachauswahl möglich",
+    "selectedHint": "ausgewählt",
+    "skip": "Überspringen",
+    "resumeTitle": "Weitermachen?",
+    "resumeText": "Du hast deinen Fördercheck noch nicht abgeschlossen. Möchtest du dort weitermachen, wo du aufgehört hast?",
+    "resumeYes": "Weitermachen",
+    "resumeNo": "Neu starten"
+  }
+}

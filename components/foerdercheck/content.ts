@@ -1,6 +1,16 @@
 // Inhalt & Logik des ENOX-Förderchecks.
-// Eigenständige, mehrsprachige Funnel-Daten – bewusst getrennt von den großen
-// Seiten-Wörterbüchern, damit der Funnel kompakt und wartbar bleibt.
+//
+// WICHTIG FÜR REDAKTEURE:
+// Die sichtbaren TEXTE des Förderchecks liegen NICHT in dieser Datei, sondern in
+//   components/foerdercheck/locales/de.json   (Deutsch)
+//   components/foerdercheck/locales/en.json   (Englisch)
+// Dort können sie gefahrlos bearbeitet werden – siehe INHALTE-BEARBEITEN.md.
+//
+// Diese Datei enthält nur die STRUKTUR (Reihenfolge der Fragen, interne Werte,
+// Icons) und die BERECHNUNGSLOGIK. Beides bitte unverändert lassen.
+
+import deText from "./locales/de.json";
+import enText from "./locales/en.json";
 
 export type FunnelLocale = "de" | "en";
 
@@ -129,376 +139,152 @@ export type FunnelContent = {
 };
 
 /* -------------------------------------------------------------------------- */
-/*  Inhalt: Deutsch                                                           */
+/*  Struktur des Fragebogens – NICHT vom Klienten bearbeiten.                  */
+/*  Reihenfolge, interne Werte (value) und Icons. Die Texte dazu stehen in     */
+/*  den JSON-Dateien unter ./locales/ und werden unten zusammengeführt.        */
 /* -------------------------------------------------------------------------- */
 
-const de: FunnelContent = {
-  intro: {
-    badge: "Kostenlos · Unverbindlich · 60 Sekunden",
-    title: "Wie viel Förderung steht dir wirklich zu?",
-    highlight: "Bis zu 70 % Zuschuss",
-    subtitle:
-      "Finde in unter 60 Sekunden heraus, welche Zuschüsse und Förderkredite (BAFA, KfW & Steuerbonus) für dein Vorhaben realistisch sind – persönlich ausgewertet von Enes Talha Aktürk.",
-    bullets: [
-      "Auf deine Immobilie zugeschnitten",
-      "Geprüft nach aktuellen Förderprogrammen",
-      "Persönliche Auswertung durch Enes Talha Aktürk",
-    ],
-    start: "Fördercheck starten",
-    duration: "Dauert ca. 60 Sekunden",
-    privacy: "Keine Kosten. Deine Daten werden DSGVO-konform behandelt.",
-  },
-  questions: [
-    {
-      id: "goal",
-      type: "multi",
-      question: "Worum geht es bei deinem Vorhaben?",
-      help: "Mehrfachauswahl möglich – wähle alles, was zutrifft.",
-      options: [
-        { value: "heizung", label: "Heizung / Wärmepumpe", description: "Heizungstausch, Wärmepumpe, Solarthermie", icon: "heat" },
-        { value: "daemmung", label: "Dämmung & Sanierung", description: "Dach, Fassade, Kellerdecke", icon: "insulation" },
-        { value: "fenster", label: "Fenster & Türen", description: "Austausch, neue Verglasung", icon: "window" },
-        { value: "solar", label: "Photovoltaik & Speicher", description: "Solaranlage, Stromspeicher, Wallbox", icon: "solar" },
-        { value: "komplett", label: "Komplettsanierung", description: "Sanierung zum Effizienzhaus", icon: "renovation" },
-        { value: "kaufen", label: "Kauf / Neubau", description: "Erwerb oder Bau einer Immobilie", icon: "buy" },
-        { value: "unklar", label: "Noch unklar", description: "Ich möchte mich erst informieren", icon: "question" },
-      ],
-    },
-    {
-      id: "building",
-      type: "single",
-      question: "Um welche Art von Gebäude geht es?",
-      options: [
-        { value: "efh", label: "Einfamilienhaus", icon: "house" },
-        { value: "mfh", label: "Mehrfamilienhaus", icon: "building" },
-        { value: "etw", label: "Eigentumswohnung", icon: "apartment" },
-        { value: "gewerbe", label: "Gewerbe / Nichtwohngebäude", icon: "commercial" },
-      ],
-    },
-    {
-      id: "owner",
-      type: "single",
-      question: "In welcher Rolle bist du bei der Immobilie?",
-      options: [
-        { value: "ja", label: "Ich bin Eigentümer:in", icon: "owner" },
-        { value: "kauf", label: "Ich plane den Kauf", icon: "owner-plan" },
-        { value: "nein", label: "Ich bin Mieter:in", description: "Hinweis: Förderungen erhalten meist Eigentümer", icon: "tenant" },
-      ],
-    },
-    {
-      id: "year",
-      type: "single",
-      question: "Aus welchem Baujahr stammt das Gebäude?",
-      help: "Das Alter beeinflusst, welche Programme infrage kommen.",
-      options: [
-        { value: "vor1979", label: "Vor 1979", description: "Oft besonders hohe Förderquoten", icon: "old" },
-        { value: "1979_2001", label: "1979 – 2001", icon: "mid" },
-        { value: "nach2002", label: "Nach 2002", icon: "new" },
-        { value: "unklar", label: "Weiß ich nicht genau", icon: "question" },
-      ],
-    },
-    {
-      id: "heating",
-      type: "single",
-      question: "Wie wird aktuell geheizt?",
-      options: [
-        { value: "gas", label: "Gas", icon: "gas" },
-        { value: "oel", label: "Öl", icon: "oil" },
-        { value: "fernwaerme", label: "Fernwärme", icon: "district" },
-        { value: "waermepumpe", label: "Wärmepumpe", icon: "heatpump" },
-        { value: "strom", label: "Strom / Nachtspeicher", icon: "power" },
-        { value: "sonstiges", label: "Sonstiges / Unklar", icon: "more" },
-      ],
-    },
-    {
-      id: "timing",
-      type: "single",
-      question: "Wann möchtest du dein Vorhaben umsetzen?",
-      options: [
-        { value: "sofort", label: "So schnell wie möglich", icon: "rocket" },
-        { value: "3monate", label: "In den nächsten 3 Monaten", icon: "calendar" },
-        { value: "jahr", label: "Innerhalb dieses Jahres", icon: "clock" },
-        { value: "info", label: "Erst mal nur informieren", icon: "info" },
-      ],
-    },
-    {
-      id: "finance",
-      type: "single",
-      question: "Wie möchtest du finanzieren?",
-      help: "Optional – hilft uns, die passenden Programme zu finden.",
-      options: [
-        { value: "eigenkapital", label: "Überwiegend Eigenkapital", icon: "wallet" },
-        { value: "kredit", label: "Förderkredit / Finanzierung", icon: "bank" },
-        { value: "offen", label: "Noch offen", icon: "open" },
-      ],
-    },
-  ],
-  calculating: {
-    title: "Wir berechnen dein Förderpotenzial …",
-    steps: [
-      "Angaben werden ausgewertet",
-      "BAFA- & KfW-Programme werden abgeglichen",
-      "Steuerliche Vorteile werden geprüft",
-      "Dein persönliches Ergebnis wird erstellt",
-    ],
-  },
-  result: {
-    badge: "Dein Ergebnis steht fest",
-    title: "Gute Nachrichten – für dein Vorhaben ist Förderung drin!",
-    upTo: "Bis zu",
-    perYear: "an möglichen Zuschüssen & Förderkrediten",
-    breakdownTitle: "So setzt sich dein Potenzial zusammen",
-    items: {
-      bafa: "BAFA-Zuschuss (Einzelmaßnahmen)",
-      kfw: "KfW-Förderkredit & Tilgungszuschuss",
-      tax: "Steuerlicher Bonus (§ 35c EStG)",
-    },
-    disclaimer:
-      "Unverbindliche Schätzung auf Basis deiner Angaben. Die tatsächliche Förderhöhe hängt von der individuellen Prüfung und den jeweils aktuellen Förderbedingungen ab.",
-    cta: "Förderpotenzial jetzt sichern",
-    secondary: "Ergebnis per E-Mail erhalten",
-  },
-  lead: {
-    title: "Wohin dürfen wir dein Förderergebnis senden?",
-    subtitle:
-      "Enes Talha Aktürk wertet deinen Fördercheck persönlich aus und meldet sich mit den konkreten nächsten Schritten.",
-    firstName: "Vorname",
-    lastName: "Nachname",
-    email: "E-Mail-Adresse",
-    phone: "Telefonnummer",
-    phoneHint: "Für eine schnelle, persönliche Rückmeldung.",
-    consent:
-      "Ich bin damit einverstanden, dass ENOX (Enes Talha Aktürk) meine Angaben zur Beratung verarbeitet und mich kontaktiert. Hinweise in der Datenschutzerklärung.",
-    submit: "Förderergebnis anfordern",
-    submitting: "Wird gesendet …",
-    securenote: "SSL-verschlüsselt · Kein Spam · Jederzeit widerrufbar",
-    errors: {
-      firstName: "Bitte gib deinen Vornamen ein.",
-      lastName: "Bitte gib deinen Nachnamen ein.",
-      email: "Bitte gib eine gültige E-Mail-Adresse ein.",
-      phone: "Bitte gib eine gültige Telefonnummer ein.",
-      consent: "Bitte stimme der Verarbeitung deiner Daten zu.",
-      generic: "Leider hat etwas nicht geklappt. Bitte versuche es erneut.",
-    },
-  },
-  success: {
-    badge: "Geschafft",
-    title: "Dein Fördercheck ist abgeschlossen!",
-    subtitle:
-      "Wir haben deine Angaben erhalten. Du bekommst dein persönliches Förderergebnis in Kürze per E-Mail – in der Regel innerhalb von 24 Stunden.",
-    bookTitle: "Direkt durchstarten?",
-    bookText:
-      "Sichere dir jetzt dein kostenloses Beratungsgespräch und kläre alle Fragen zu deiner Förderung persönlich.",
-    book: "Kostenloses Beratungsgespräch buchen",
-    nextTitle: "So geht es weiter",
-    next: [
-      "Wir prüfen deine Angaben und identifizieren die passenden Förderprogramme.",
-      "Du erhältst dein persönliches Förderergebnis per E-Mail.",
-      "Im kostenlosen Gespräch planen wir die nächsten Schritte.",
-    ],
-    restart: "Neuen Fördercheck starten",
-    resultLabel: "Dein geschätztes Förderpotenzial",
-  },
-  ui: {
-    step: "Schritt",
-    of: "von",
-    back: "Zurück",
-    continue: "Weiter",
-    multiHint: "Mehrfachauswahl möglich",
-    selectedHint: "ausgewählt",
-    skip: "Überspringen",
-    resumeTitle: "Weitermachen?",
-    resumeText: "Du hast deinen Fördercheck noch nicht abgeschlossen. Möchtest du dort weitermachen, wo du aufgehört hast?",
-    resumeYes: "Weitermachen",
-    resumeNo: "Neu starten",
-  },
+type QuestionSkeleton = {
+  id: string;
+  type: "single" | "multi";
+  min?: number;
+  options: { value: string; icon?: IconKey }[];
 };
 
+const questionSkeleton: QuestionSkeleton[] = [
+  {
+    id: "goal",
+    type: "multi",
+    options: [
+      { value: "heizung", icon: "heat" },
+      { value: "daemmung", icon: "insulation" },
+      { value: "fenster", icon: "window" },
+      { value: "solar", icon: "solar" },
+      { value: "komplett", icon: "renovation" },
+      { value: "kaufen", icon: "buy" },
+      { value: "unklar", icon: "question" },
+    ],
+  },
+  {
+    id: "building",
+    type: "single",
+    options: [
+      { value: "efh", icon: "house" },
+      { value: "mfh", icon: "building" },
+      { value: "etw", icon: "apartment" },
+      { value: "gewerbe", icon: "commercial" },
+    ],
+  },
+  {
+    id: "owner",
+    type: "single",
+    options: [
+      { value: "ja", icon: "owner" },
+      { value: "kauf", icon: "owner-plan" },
+      { value: "nein", icon: "tenant" },
+    ],
+  },
+  {
+    id: "year",
+    type: "single",
+    options: [
+      { value: "vor1979", icon: "old" },
+      { value: "1979_2001", icon: "mid" },
+      { value: "nach2002", icon: "new" },
+      { value: "unklar", icon: "question" },
+    ],
+  },
+  {
+    id: "heating",
+    type: "single",
+    options: [
+      { value: "gas", icon: "gas" },
+      { value: "oel", icon: "oil" },
+      { value: "fernwaerme", icon: "district" },
+      { value: "waermepumpe", icon: "heatpump" },
+      { value: "strom", icon: "power" },
+      { value: "sonstiges", icon: "more" },
+    ],
+  },
+  {
+    id: "timing",
+    type: "single",
+    options: [
+      { value: "sofort", icon: "rocket" },
+      { value: "3monate", icon: "calendar" },
+      { value: "jahr", icon: "clock" },
+      { value: "info", icon: "info" },
+    ],
+  },
+  {
+    id: "finance",
+    type: "single",
+    options: [
+      { value: "eigenkapital", icon: "wallet" },
+      { value: "kredit", icon: "bank" },
+      { value: "offen", icon: "open" },
+    ],
+  },
+];
+
 /* -------------------------------------------------------------------------- */
-/*  Inhalt: Englisch                                                          */
+/*  Texte (aus den JSON-Dateien) + Zusammenführung mit der Struktur            */
 /* -------------------------------------------------------------------------- */
 
-const en: FunnelContent = {
-  intro: {
-    badge: "Free · No obligation · 60 seconds",
-    title: "How much funding are you really entitled to?",
-    highlight: "Up to 70% subsidy",
-    subtitle:
-      "Find out in under 60 seconds which grants and subsidised loans (BAFA, KfW & tax bonus) are realistic for your project – personally reviewed by Enes Talha Aktürk.",
-    bullets: [
-      "Tailored to your property",
-      "Checked against current funding programmes",
-      "Personally reviewed by Enes Talha Aktürk",
-    ],
-    start: "Start funding check",
-    duration: "Takes about 60 seconds",
-    privacy: "No costs. Your data is handled in line with GDPR.",
-  },
-  questions: [
-    {
-      id: "goal",
-      type: "multi",
-      question: "What is your project about?",
-      help: "Multiple answers possible – pick everything that applies.",
-      options: [
-        { value: "heizung", label: "Heating / Heat pump", description: "Heating replacement, heat pump, solar thermal", icon: "heat" },
-        { value: "daemmung", label: "Insulation & renovation", description: "Roof, facade, basement ceiling", icon: "insulation" },
-        { value: "fenster", label: "Windows & doors", description: "Replacement, new glazing", icon: "window" },
-        { value: "solar", label: "Photovoltaics & storage", description: "Solar system, battery, wallbox", icon: "solar" },
-        { value: "komplett", label: "Full renovation", description: "Renovation to an efficiency house", icon: "renovation" },
-        { value: "kaufen", label: "Purchase / new build", description: "Buying or building a property", icon: "buy" },
-        { value: "unklar", label: "Not sure yet", description: "I just want to inform myself", icon: "question" },
-      ],
-    },
-    {
-      id: "building",
-      type: "single",
-      question: "What type of building is it?",
-      options: [
-        { value: "efh", label: "Detached house", icon: "house" },
-        { value: "mfh", label: "Apartment building", icon: "building" },
-        { value: "etw", label: "Owner-occupied flat", icon: "apartment" },
-        { value: "gewerbe", label: "Commercial / non-residential", icon: "commercial" },
-      ],
-    },
-    {
-      id: "owner",
-      type: "single",
-      question: "What is your role regarding the property?",
-      options: [
-        { value: "ja", label: "I am the owner", icon: "owner" },
-        { value: "kauf", label: "I am planning to buy", icon: "owner-plan" },
-        { value: "nein", label: "I am a tenant", description: "Note: funding usually goes to owners", icon: "tenant" },
-      ],
-    },
-    {
-      id: "year",
-      type: "single",
-      question: "What year was the building constructed?",
-      help: "The age affects which programmes apply.",
-      options: [
-        { value: "vor1979", label: "Before 1979", description: "Often particularly high funding rates", icon: "old" },
-        { value: "1979_2001", label: "1979 – 2001", icon: "mid" },
-        { value: "nach2002", label: "After 2002", icon: "new" },
-        { value: "unklar", label: "I'm not sure", icon: "question" },
-      ],
-    },
-    {
-      id: "heating",
-      type: "single",
-      question: "How is it currently heated?",
-      options: [
-        { value: "gas", label: "Gas", icon: "gas" },
-        { value: "oel", label: "Oil", icon: "oil" },
-        { value: "fernwaerme", label: "District heating", icon: "district" },
-        { value: "waermepumpe", label: "Heat pump", icon: "heatpump" },
-        { value: "strom", label: "Electric / night storage", icon: "power" },
-        { value: "sonstiges", label: "Other / not sure", icon: "more" },
-      ],
-    },
-    {
-      id: "timing",
-      type: "single",
-      question: "When would you like to start?",
-      options: [
-        { value: "sofort", label: "As soon as possible", icon: "rocket" },
-        { value: "3monate", label: "Within the next 3 months", icon: "calendar" },
-        { value: "jahr", label: "Within this year", icon: "clock" },
-        { value: "info", label: "Just gathering information", icon: "info" },
-      ],
-    },
-    {
-      id: "finance",
-      type: "single",
-      question: "How would you like to finance it?",
-      help: "Optional – helps us find the right programmes.",
-      options: [
-        { value: "eigenkapital", label: "Mostly equity", icon: "wallet" },
-        { value: "kredit", label: "Subsidised loan / financing", icon: "bank" },
-        { value: "offen", label: "Still open", icon: "open" },
-      ],
-    },
-  ],
-  calculating: {
-    title: "Calculating your funding potential …",
-    steps: [
-      "Analysing your answers",
-      "Matching BAFA & KfW programmes",
-      "Checking tax advantages",
-      "Creating your personal result",
-    ],
-  },
-  result: {
-    badge: "Your result is ready",
-    title: "Good news – funding is available for your project!",
-    upTo: "Up to",
-    perYear: "in possible grants & subsidised loans",
-    breakdownTitle: "How your potential breaks down",
-    items: {
-      bafa: "BAFA grant (individual measures)",
-      kfw: "KfW subsidised loan & repayment bonus",
-      tax: "Tax bonus (§ 35c EStG)",
-    },
-    disclaimer:
-      "Non-binding estimate based on your answers. The actual funding amount depends on an individual review and the current funding conditions.",
-    cta: "Secure your funding potential now",
-    secondary: "Get the result by email",
-  },
-  lead: {
-    title: "Where should we send your funding result?",
-    subtitle:
-      "Enes Talha Aktürk reviews your funding check personally and gets back to you with the concrete next steps.",
-    firstName: "First name",
-    lastName: "Last name",
-    email: "Email address",
-    phone: "Phone number",
-    phoneHint: "For a quick, personal response.",
-    consent:
-      "I agree that ENOX (Enes Talha Aktürk) may process my details for consulting and contact me. See the privacy policy.",
-    submit: "Request funding result",
-    submitting: "Sending …",
-    securenote: "SSL-encrypted · No spam · Revocable anytime",
-    errors: {
-      firstName: "Please enter your first name.",
-      lastName: "Please enter your last name.",
-      email: "Please enter a valid email address.",
-      phone: "Please enter a valid phone number.",
-      consent: "Please agree to the processing of your data.",
-      generic: "Something went wrong. Please try again.",
-    },
-  },
-  success: {
-    badge: "Done",
-    title: "Your funding check is complete!",
-    subtitle:
-      "We have received your details. You'll get your personal funding result by email shortly – usually within 24 hours.",
-    bookTitle: "Want to get started right away?",
-    bookText:
-      "Book your free consultation now and clarify all questions about your funding personally.",
-    book: "Book a free consultation",
-    nextTitle: "What happens next",
-    next: [
-      "We review your details and identify the right funding programmes.",
-      "You receive your personal funding result by email.",
-      "In a free call we plan the next steps together.",
-    ],
-    restart: "Start a new funding check",
-    resultLabel: "Your estimated funding potential",
-  },
-  ui: {
-    step: "Step",
-    of: "of",
-    back: "Back",
-    continue: "Continue",
-    multiHint: "Multiple choice",
-    selectedHint: "selected",
-    skip: "Skip",
-    resumeTitle: "Continue?",
-    resumeText: "You haven't finished your funding check yet. Would you like to continue where you left off?",
-    resumeYes: "Continue",
-    resumeNo: "Start over",
-  },
+type OptionText = { label: string; description?: string };
+type QuestionText = {
+  question: string;
+  help?: string;
+  options: Record<string, OptionText>;
 };
+
+/** Form der Dateien in ./locales – nur Texte, keine Struktur/Logik. */
+type FunnelText = {
+  intro: FunnelContent["intro"];
+  questions: Record<string, QuestionText>;
+  calculating: FunnelContent["calculating"];
+  result: FunnelContent["result"];
+  lead: FunnelContent["lead"];
+  success: FunnelContent["success"];
+  ui: FunnelContent["ui"];
+};
+
+/** Führt Struktur (Skeleton) und Texte (JSON) zu fertigem Funnel-Inhalt zusammen. */
+function assemble(text: FunnelText): FunnelContent {
+  const questions: QuestionDef[] = questionSkeleton.map((q) => {
+    const qt = text.questions[q.id];
+    const options: OptionDef[] = q.options.map((o) => {
+      const ot = qt?.options?.[o.value];
+      return {
+        value: o.value,
+        label: ot?.label ?? "",
+        description: ot?.description,
+        icon: o.icon,
+      };
+    });
+    return {
+      id: q.id,
+      type: q.type,
+      question: qt?.question ?? "",
+      help: qt?.help,
+      min: q.min,
+      options,
+    };
+  });
+
+  return {
+    intro: text.intro,
+    questions,
+    calculating: text.calculating,
+    result: text.result,
+    lead: text.lead,
+    success: text.success,
+    ui: text.ui,
+  };
+}
+
+const de: FunnelContent = assemble(deText);
+const en: FunnelContent = assemble(enText);
 
 export const funnelContent: Record<FunnelLocale, FunnelContent> = { de, en };
 
