@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "regions": ["fra1"],
+  "headers": [
+    {
+      "source": "/(de|en|zh|es|ru)/foerdercheck",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors 'self' https://*.linktr.ee https://linktr.ee https://*.beacons.ai https://*.bio.link;"
+        }
+      ]
+    }
+  ]
+}

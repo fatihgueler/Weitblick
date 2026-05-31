@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { assertLocale, isLocale } from "@/i18n/config";
 import { getFunnelContent } from "@/components/foerdercheck/content";
 import { FoerderCheck } from "@/components/foerdercheck/FoerderCheck";
+import { getSiteUrl } from "@/lib/site";
 
 export const viewport: Viewport = {
   themeColor: "#15803d",
@@ -21,8 +22,10 @@ export async function generateMetadata({
   const { content } = getFunnelContent(lang);
   const title = `${content.intro.title} | ENOX`;
   return {
+    metadataBase: getSiteUrl(),
     title,
     description: content.intro.subtitle,
+    alternates: { canonical: `/${lang}/foerdercheck` },
     robots: { index: true, follow: true },
     openGraph: {
       title,

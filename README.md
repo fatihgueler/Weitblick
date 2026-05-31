@@ -18,6 +18,15 @@ oder über das `/{locale}`-Präfix in der URL gewählt werden können:
 
 Die Übersetzungen liegen in [`i18n/dictionaries`](./i18n/dictionaries/).
 
+## Fördercheck
+
+Unter `/{sprache}/foerdercheck` läuft ein mehrstufiger, animierter
+Fördercheck-Funnel zur Lead-Generierung: Fragebogen → geschätztes
+Förderpotenzial (BAFA/KfW/Steuerbonus) → Kontaktformular → E-Mail an Enes
++ Termin-Button. Mit `?embed=1` startet ein chrome-freier Embed-Modus
+(für iFrames). Einrichtung, ENV-Variablen und Linktree-Anbindung: siehe
+[`SETUP.md`](./SETUP.md).
+
 ## Tech-Stack
 
 - [Next.js 14](https://nextjs.org/) (App Router) mit Locale-Routing

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Inter } from "next/font/google";
 import { getDictionary } from "@/i18n/getDictionary";
 import { locales, isLocale } from "@/i18n/config";
+import { getSiteUrl } from "@/lib/site";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { MobileCTA } from "@/components/MobileCTA";
@@ -40,6 +41,7 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const dict = await getDictionary(lang);
   return {
+    metadataBase: getSiteUrl(),
     title: dict.meta.title,
     description: dict.meta.description,
     alternates: {
