@@ -14,18 +14,21 @@ export default async function ContactPage({
   return (
     <>
       <section className="relative overflow-hidden gradient-hero">
+        <div className="fx-aurora-light -z-10" />
         <div className="absolute inset-0 -z-10 grid-bg opacity-50" />
         <div className="container grid gap-10 py-14 sm:py-20 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:gap-16 lg:py-24">
           <div className="animate-fade-up">
             <span className="eyebrow">{dict.nav.contact}</span>
-            <h1 className="mt-4 heading-1">{dict.contact.title}</h1>
+            <h1 className="mt-4 heading-1">
+              <span className="text-gradient-brand">{dict.contact.title}</span>
+            </h1>
             <p className="mt-5 lead">{dict.contact.subtitle}</p>
           </div>
           <div
             className="animate-fade-up"
             style={{ animationDelay: "120ms" }}
           >
-            <ContactIllustration className="mx-auto w-full max-w-md" />
+            <ContactIllustration className="fx-float mx-auto w-full max-w-md" />
           </div>
         </div>
       </section>
@@ -93,7 +96,7 @@ export default async function ContactPage({
               <span>{dict.contact.form.consent}</span>
             </label>
 
-            <button type="submit" className="btn-primary mt-6 w-full sm:w-auto">
+            <button type="submit" className="btn-primary fx-sheen mt-6 w-full sm:w-auto">
               {dict.contact.form.submit}
               <span aria-hidden="true">→</span>
             </button>
@@ -104,6 +107,7 @@ export default async function ContactPage({
               aria-hidden="true"
               className="absolute inset-0 dark-mesh opacity-90"
             />
+            <div aria-hidden="true" className="fx-aurora opacity-50" />
             <div className="relative">
               <h2 className="font-display text-xl font-bold text-white sm:text-2xl">
                 {dict.contact.info.title}

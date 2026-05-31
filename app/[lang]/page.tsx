@@ -2,6 +2,7 @@ import Link from "next/link";
 import { assertLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/getDictionary";
 import { ServiceCard, type ServiceKey } from "@/components/ServiceCard";
+import { Reveal } from "@/components/Reveal";
 import { HeroIllustration } from "@/components/illustrations/HeroIllustration";
 import { AboutIllustration } from "@/components/illustrations/AboutIllustration";
 import { FounderPortrait } from "@/components/illustrations/FounderPortrait";
@@ -37,6 +38,7 @@ export default async function HomePage({
     <>
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 mesh-bg" />
+        <div className="fx-aurora-light -z-10" />
         <div className="absolute inset-0 -z-10 grid-bg opacity-50" />
         <div
           aria-hidden="true"
@@ -55,7 +57,7 @@ export default async function HomePage({
               {dict.hero.eyebrow}
             </span>
             <h1 className="mt-6 heading-1">
-              {dict.hero.title}
+              <span className="text-gradient-brand">{dict.hero.title}</span>
             </h1>
             <p className="mt-5 lead max-w-xl">
               {dict.hero.subtitle}
@@ -100,7 +102,7 @@ export default async function HomePage({
               aria-hidden="true"
               className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-brand-200/60 via-brand-100/30 to-transparent blur-2xl"
             />
-            <HeroIllustration className="w-full rounded-4xl shadow-lift" />
+            <HeroIllustration className="fx-float w-full rounded-4xl shadow-lift" />
             <div className="absolute -bottom-5 left-4 right-4 grid grid-cols-3 gap-2 rounded-2xl border border-brand-900/5 bg-white/95 p-3 shadow-lift backdrop-blur sm:left-6 sm:right-6 sm:gap-3 sm:p-4">
               <Mini label="kWh/m²·a" value="42" />
               <Mini label="CO₂ −%" value="62" />
@@ -123,19 +125,15 @@ export default async function HomePage({
 
       <section className="section bg-white">
         <div className="container">
-          <div className="mx-auto max-w-3xl text-center">
+          <Reveal className="mx-auto max-w-3xl text-center">
             <span className="eyebrow">{dict.nav.services}</span>
             <h2 className="mt-4 heading-2">{dict.services.title}</h2>
             <p className="mt-4 lead">{dict.services.subtitle}</p>
-          </div>
+          </Reveal>
 
           <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
             {SERVICE_KEYS.map((key, i) => (
-              <div
-                key={key}
-                className="animate-fade-up"
-                style={{ animationDelay: `${i * 60}ms` }}
-              >
+              <Reveal key={key} delay={(i % 4) * 80}>
                 <ServiceCard
                   serviceKey={key}
                   title={dict.services.items[key].title}
@@ -143,7 +141,7 @@ export default async function HomePage({
                   cta={dict.services.cta}
                   lang={lang}
                 />
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -151,11 +149,11 @@ export default async function HomePage({
 
       <section className="section bg-gradient-to-b from-white to-brand-50/40">
         <div className="container grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <div className="order-2 lg:order-1">
-            <AboutIllustration className="w-full" />
-          </div>
+          <Reveal className="order-2 lg:order-1">
+            <AboutIllustration className="fx-float-slow w-full" />
+          </Reveal>
 
-          <div className="order-1 lg:order-2">
+          <Reveal delay={120} className="order-1 lg:order-2">
             <span className="eyebrow">{dict.about.title}</span>
             <h2 className="mt-4 heading-2">{dict.about.lead}</h2>
             <p className="mt-5 lead">{dict.about.body}</p>
@@ -185,17 +183,18 @@ export default async function HomePage({
               {dict.common.readMore}
               <span aria-hidden="true">→</span>
             </Link>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="section">
         <div className="container">
-          <div className="relative overflow-hidden rounded-4xl bg-ink-900 px-6 py-14 text-center shadow-lift sm:rounded-5xl sm:px-12 sm:py-20">
+          <Reveal className="relative overflow-hidden rounded-4xl bg-ink-900 px-6 py-14 text-center shadow-lift sm:rounded-5xl sm:px-12 sm:py-20">
             <div
               aria-hidden="true"
               className="absolute inset-0 dark-mesh opacity-90"
             />
+            <div aria-hidden="true" className="fx-aurora opacity-60" />
             <div
               aria-hidden="true"
               className="absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-brand-500/30 blur-3xl"
@@ -210,14 +209,14 @@ export default async function HomePage({
               <div className="mt-8 flex justify-center">
                 <Link
                   href={`/${lang}/contact`}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-400 px-7 py-3.5 text-sm font-semibold text-ink-900 shadow-glow transition hover:bg-brand-300 active:scale-95"
+                  className="fx-sheen inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-400 to-brand-500 px-7 py-3.5 text-sm font-bold text-ink-950 shadow-glow transition hover:shadow-[0_14px_50px_-6px_rgba(34,197,94,0.95)] active:scale-95"
                 >
                   {dict.nav.consultation}
                   <span aria-hidden="true">→</span>
                 </Link>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>

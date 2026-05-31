@@ -29,8 +29,8 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         >
           <Logo className="h-9 w-9 sm:h-10 sm:w-10" />
           <div className="leading-tight">
-            <div className="text-base font-bold tracking-tight text-ink-900 sm:text-lg">
-              ENOX
+            <div className="text-base font-extrabold tracking-tight sm:text-lg">
+              <span className="text-gradient-brand">ENOX</span>
             </div>
             <div className="text-[9px] font-semibold uppercase tracking-[0.22em] text-brand-700 sm:text-[10px]">
               Energy Consulting
