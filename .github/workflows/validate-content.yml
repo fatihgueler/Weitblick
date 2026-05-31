@@ -1,0 +1,28 @@
+name: Inhalte prüfen
+
+# Läuft automatisch, sobald jemand eine Text-/Inhaltsdatei ändert –
+# direkt auf GitHub oder in einem Pull Request. Schlägt die Prüfung fehl,
+# erscheint ein rotes ❌ und die fehlerhafte Änderung fällt sofort auf,
+# bevor sie veröffentlicht wird.
+
+on:
+  push:
+    paths:
+      - "i18n/dictionaries/**"
+      - "scripts/validate-content.mjs"
+  pull_request:
+    paths:
+      - "i18n/dictionaries/**"
+      - "scripts/validate-content.mjs"
+
+jobs:
+  validate:
+    name: Sprachdateien validieren
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: JSON-Inhalte prüfen
+        run: node scripts/validate-content.mjs
