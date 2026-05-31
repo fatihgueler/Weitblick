@@ -63,14 +63,14 @@ export default async function FoerderCheckPage({
   // Die fixe Mobile-CTA der Hauptseite würde den Funnel überlagern -> hier aus.
   // Im Embed-Modus (z. B. Linktree-iFrame) zusätzlich Header & Footer ausblenden.
   const hideCss = embed
-    ? `[data-chrome]{display:none!important}main{padding-bottom:0!important;min-height:100vh!important}body{background:#070d0a!important}`
+    ? `[data-chrome]{display:none!important}main{padding-bottom:0!important;min-height:100vh!important}body{background:#ffffff!important}`
     : `[data-chrome="mobilecta"]{display:none!important}main{padding-bottom:0!important}`;
 
   return (
     <>
       {/* eslint-disable-next-line react/no-danger */}
       <style dangerouslySetInnerHTML={{ __html: hideCss }} />
-      <section id="top" className="relative overflow-hidden bg-ink-950">
+      <section id="top" className="relative overflow-hidden bg-white">
         <FoerderCheck
           funnelLocale={funnelLocale}
           content={content}

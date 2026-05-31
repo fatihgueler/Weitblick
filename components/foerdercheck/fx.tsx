@@ -147,7 +147,7 @@ export function GaugeRing({
   return (
     <div className="relative" style={{ width: size, height: size }}>
       <svg viewBox="0 0 132 132" className="h-full w-full -rotate-90">
-        <circle cx="66" cy="66" r={r} fill="none" stroke="rgba(255,255,255,0.10)" strokeWidth="10" />
+        <circle cx="66" cy="66" r={r} fill="none" stroke="rgba(21,128,61,0.12)" strokeWidth="10" />
         <circle
           cx="66"
           cy="66"
@@ -204,9 +204,9 @@ export function HeroArt({ className }: { className?: string }) {
 
       {/* Orbit-Ring */}
       <g className="fx-spin-slow" style={{ transformOrigin: "160px 150px" }}>
-        <circle cx="160" cy="150" r="104" stroke="rgba(255,255,255,0.14)" strokeWidth="1.5" strokeDasharray="2 10" />
-        <circle cx="160" cy="46" r="4" fill="#fcd34d" />
-        <circle cx="264" cy="150" r="3" fill="#86efac" />
+        <circle cx="160" cy="150" r="104" stroke="rgba(21,128,61,0.18)" strokeWidth="1.5" strokeDasharray="2 10" />
+        <circle cx="160" cy="46" r="4" fill="#f59e0b" />
+        <circle cx="264" cy="150" r="3" fill="#22c55e" />
       </g>
 
       {/* Zentrales Hexagon (ENOX-Mark) */}
@@ -233,16 +233,16 @@ export function HeroArt({ className }: { className?: string }) {
 
       {/* Floating-Pill „€" */}
       <g className="fx-float-slow" style={{ transformOrigin: "center", animationDelay: "0.5s" }}>
-        <rect x="34" y="168" width="92" height="40" rx="20" className="glass" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" />
-        <text x="56" y="194" fontFamily="Inter, sans-serif" fontWeight="800" fontSize="20" fill="#fcd34d">
+        <rect x="34" y="168" width="92" height="40" rx="20" fill="#ffffff" stroke="rgba(21,128,61,0.12)" />
+        <text x="56" y="194" fontFamily="Inter, sans-serif" fontWeight="800" fontSize="20" fill="#f59e0b">
           €
         </text>
-        <rect x="74" y="180" width="40" height="6" rx="3" fill="rgba(255,255,255,0.35)" />
-        <rect x="74" y="192" width="26" height="6" rx="3" fill="rgba(255,255,255,0.2)" />
+        <rect x="74" y="180" width="40" height="6" rx="3" fill="rgba(21,128,61,0.30)" />
+        <rect x="74" y="192" width="26" height="6" rx="3" fill="rgba(21,128,61,0.16)" />
       </g>
 
       {/* Sparkles */}
-      <g fill="#fcd34d">
+      <g fill="#f59e0b">
         <path className="fx-float" d="M250 40c.5 4 2 5.5 6 6-4 .5-5.5 2-6 6-.5-4-2-5.5-6-6 4-.5 5.5-2 6-6Z" />
         <path className="fx-float-slow" d="M58 96c.4 3 1.5 4 4.5 4.5-3 .4-4 1.5-4.5 4.5-.4-3-1.5-4-4.5-4.5 3-.4 4-1.5 4.5-4.5Z" />
       </g>

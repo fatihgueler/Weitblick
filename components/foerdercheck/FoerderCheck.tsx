@@ -197,14 +197,11 @@ export function FoerderCheck({
   const stepClass = dir === "fwd" ? "step-fwd" : "step-back";
 
   return (
-    <div className="relative min-h-[100svh] w-full overflow-hidden text-white">
-      {/* Premium-Hintergrund */}
-      <div aria-hidden className="fx-aurora -z-10" />
-      <div aria-hidden className="fx-grain -z-10" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(80%_60%_at_50%_-10%,rgba(34,197,94,0.18),transparent_60%)]"
-      />
+    <div className="relative min-h-[100svh] w-full overflow-hidden text-ink-900">
+      {/* Heller Premium-Hintergrund – konsistent mit der Website */}
+      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50/70 via-white to-white" />
+      <div aria-hidden className="fx-aurora-light -z-10" />
+      <div aria-hidden className="absolute inset-0 -z-10 grid-bg opacity-40" />
 
       <div className="mx-auto flex min-h-[100svh] w-full max-w-2xl flex-col px-4 py-6 sm:py-10">
         {showProgress && (
@@ -313,23 +310,23 @@ function ProgressHeader({
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-sm font-semibold text-white/70 transition hover:bg-white/10 hover:text-white"
+          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-sm font-semibold text-ink-600 transition hover:bg-brand-50 hover:text-ink-900"
         >
           <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <path d="m15 18-6-6 6-6" />
           </svg>
           {ui.back}
         </button>
-        <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
+        <span className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-500">
           {ui.step} {step} {ui.of} {total}
         </span>
       </div>
-      <div className="relative mt-3 h-2 w-full overflow-hidden rounded-full bg-white/10">
+      <div className="relative mt-3 h-2 w-full overflow-hidden rounded-full bg-brand-100">
         <div
-          className="relative h-full rounded-full bg-gradient-to-r from-brand-400 via-brand-500 to-accent-400 transition-[width] duration-700 ease-out"
+          className="relative h-full rounded-full bg-gradient-to-r from-brand-500 via-brand-600 to-accent-500 transition-[width] duration-700 ease-out"
           style={{ width: `${pct}%` }}
         >
-          <span className="absolute right-0 top-1/2 h-3 w-3 -translate-y-1/2 translate-x-1/2 rounded-full bg-white shadow-[0_0_12px_2px_rgba(134,239,172,0.9)]" />
+          <span className="absolute right-0 top-1/2 h-3 w-3 -translate-y-1/2 translate-x-1/2 rounded-full bg-white shadow-[0_0_10px_2px_rgba(34,197,94,0.7)] ring-1 ring-brand-500" />
         </div>
       </div>
     </div>
@@ -348,21 +345,21 @@ function Intro({ content, onStart }: { content: FunnelContent; onStart: () => vo
         <HeroArt className="mx-auto w-full" />
       </div>
 
-      <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-200 backdrop-blur">
-        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-400" />
+      <span className="inline-flex items-center gap-2 rounded-full border border-brand-700/15 bg-brand-50/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-800 backdrop-blur">
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-500" />
         {intro.badge}
       </span>
 
       <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
-        <span className="text-gradient">{intro.title}</span>
+        <span className="text-gradient-brand">{intro.title}</span>
       </h1>
 
-      <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent-400 to-accent-500 px-4 py-1.5 text-sm font-bold text-ink-950 shadow-[0_8px_30px_-8px_rgba(245,158,11,0.7)] sm:text-base">
+      <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent-400 to-accent-500 px-4 py-1.5 text-sm font-bold text-ink-950 shadow-[0_8px_30px_-8px_rgba(245,158,11,0.6)] sm:text-base">
         <SparkIcon className="h-4 w-4" />
         {intro.highlight}
       </div>
 
-      <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
+      <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-ink-700 sm:text-lg">
         {intro.subtitle}
       </p>
 
@@ -370,11 +367,11 @@ function Intro({ content, onStart }: { content: FunnelContent; onStart: () => vo
         {intro.bullets.map((b, i) => (
           <li
             key={b}
-            className="glass fx-pop flex items-start gap-3 rounded-2xl px-4 py-3"
+            className="fx-pop flex items-start gap-3 rounded-2xl border border-brand-900/5 bg-white/80 px-4 py-3 shadow-soft backdrop-blur"
             style={{ animationDelay: `${i * 90}ms` }}
           >
-            <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-brand-300" />
-            <span className="text-sm font-medium text-white/85">{b}</span>
+            <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" />
+            <span className="text-sm font-medium text-ink-800">{b}</span>
           </li>
         ))}
       </ul>
@@ -382,16 +379,16 @@ function Intro({ content, onStart }: { content: FunnelContent; onStart: () => vo
       <button
         type="button"
         onClick={onStart}
-        className="fx-sheen group mt-9 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-400 to-brand-600 px-8 py-4 text-base font-bold text-ink-950 shadow-[0_10px_40px_-8px_rgba(34,197,94,0.8)] transition hover:shadow-[0_14px_50px_-6px_rgba(34,197,94,0.95)] active:scale-[0.98] sm:w-auto"
+        className="fx-sheen group mt-9 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-700 px-8 py-4 text-base font-bold text-white shadow-[0_10px_40px_-8px_rgba(34,197,94,0.7)] transition hover:shadow-[0_14px_50px_-6px_rgba(34,197,94,0.9)] active:scale-[0.98] sm:w-auto"
       >
         {intro.start}
         <span aria-hidden className="transition group-hover:translate-x-1">→</span>
       </button>
-      <p className="mt-4 flex items-center justify-center gap-2 text-xs text-white/50">
+      <p className="mt-4 flex items-center justify-center gap-2 text-xs text-ink-500">
         <ClockIcon className="h-3.5 w-3.5" />
         {intro.duration}
       </p>
-      <p className="mt-1 text-xs text-white/35">{intro.privacy}</p>
+      <p className="mt-1 text-xs text-ink-400">{intro.privacy}</p>
     </div>
   );
 }
@@ -445,12 +442,12 @@ function Question({
       <h2
         ref={headingRef}
         tabIndex={-1}
-        className="font-display text-2xl font-bold tracking-tight outline-none sm:text-3xl"
+        className="font-display text-2xl font-bold tracking-tight text-ink-900 outline-none sm:text-3xl"
       >
         {q.question}
       </h2>
       {(q.help || isMulti) && (
-        <p className="mt-2 text-sm text-white/55">{q.help ?? ui.multiHint}</p>
+        <p className="mt-2 text-sm text-ink-600">{q.help ?? ui.multiHint}</p>
       )}
 
       <div className="mt-6 grid gap-3">
@@ -465,28 +462,28 @@ function Question({
               onClick={() => (isMulti ? onToggle(opt.value) : onSingle(opt.value))}
               style={{ animationDelay: `${i * 55}ms` }}
               className={[
-                "fx-pop fx-spotlight group relative flex w-full items-center gap-4 rounded-2xl border px-4 py-3.5 text-left backdrop-blur transition-all duration-200 active:scale-[0.99]",
+                "fx-pop fx-spotlight-light group relative flex w-full items-center gap-4 rounded-2xl border px-4 py-3.5 text-left transition-all duration-200 active:scale-[0.99]",
                 active
-                  ? "fx-pulse border-brand-400/60 bg-brand-400/10"
-                  : "border-white/10 bg-white/[0.04] hover:border-white/25 hover:bg-white/[0.07]",
+                  ? "border-brand-500 bg-brand-50 shadow-[0_8px_30px_-12px_rgba(34,197,94,0.6)] ring-1 ring-brand-500"
+                  : "border-brand-900/10 bg-white shadow-soft hover:border-brand-500/40 hover:shadow-lift",
               ].join(" ")}
             >
               <span
                 className={[
                   "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition",
                   active
-                    ? "bg-gradient-to-br from-brand-400 to-brand-600 text-ink-950 shadow-[0_6px_20px_-6px_rgba(34,197,94,0.9)]"
-                    : "bg-white/8 text-brand-200 group-hover:bg-white/12",
+                    ? "bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-[0_6px_20px_-6px_rgba(34,197,94,0.8)]"
+                    : "bg-brand-50 text-brand-700 group-hover:bg-brand-100",
                 ].join(" ")}
               >
                 {opt.icon ? <OptionIcon icon={opt.icon} className="h-6 w-6" /> : <span className="text-sm font-bold">{i + 1}</span>}
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-[15px] font-semibold text-white sm:text-base">
+                <span className="block text-[15px] font-semibold text-ink-900 sm:text-base">
                   {opt.label}
                 </span>
                 {opt.description && (
-                  <span className="mt-0.5 block text-xs leading-snug text-white/55 sm:text-sm">
+                  <span className="mt-0.5 block text-xs leading-snug text-ink-600 sm:text-sm">
                     {opt.description}
                   </span>
                 )}
@@ -496,8 +493,8 @@ function Question({
                   "flex h-6 w-6 shrink-0 items-center justify-center border transition",
                   isMulti ? "rounded-md" : "rounded-full",
                   active
-                    ? "border-brand-400 bg-brand-400 text-ink-950"
-                    : "border-white/20 bg-white/5 text-transparent",
+                    ? "border-brand-600 bg-brand-600 text-white"
+                    : "border-brand-900/15 bg-white text-transparent",
                 ].join(" ")}
               >
                 <CheckIcon className="h-4 w-4" />
@@ -509,14 +506,14 @@ function Question({
 
       {isMulti && (
         <div className="mt-6 flex items-center justify-between gap-4">
-          <span className="text-sm text-white/50">
+          <span className="text-sm text-ink-500">
             {selected.length > 0 ? `${selected.length} ${ui.selectedHint}` : ui.multiHint}
           </span>
           <button
             type="button"
             disabled={!canContinue}
             onClick={onContinue}
-            className="fx-sheen inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-400 to-brand-600 px-7 py-3 font-bold text-ink-950 shadow-[0_8px_30px_-8px_rgba(34,197,94,0.8)] transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
+            className="fx-sheen inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-700 px-7 py-3 font-bold text-white shadow-[0_8px_30px_-8px_rgba(34,197,94,0.7)] transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
           >
             {ui.continue}
             <span aria-hidden>→</span>
@@ -557,12 +554,12 @@ function Calculating({ content, onDone }: { content: FunnelContent; onDone: () =
     <div className="py-6 text-center">
       <div className="mx-auto mb-8 w-fit">
         <GaugeRing pct={pct}>
-          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-ink-950 shadow-[0_0_40px_-6px_rgba(34,197,94,0.9)]">
+          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-[0_0_40px_-6px_rgba(34,197,94,0.8)]">
             <SparkIcon className="h-8 w-8" />
           </span>
         </GaugeRing>
       </div>
-      <h2 className="font-display text-xl font-bold sm:text-2xl">{calculating.title}</h2>
+      <h2 className="font-display text-xl font-bold text-ink-900 sm:text-2xl">{calculating.title}</h2>
       <ul className="mx-auto mt-8 grid max-w-sm gap-2.5 text-left">
         {calculating.steps.map((s, i) => {
           const done = i < active;
@@ -573,22 +570,22 @@ function Calculating({ content, onDone }: { content: FunnelContent; onDone: () =
               className={[
                 "flex items-center gap-3 rounded-xl border px-4 py-2.5 text-sm transition-all duration-300",
                 done
-                  ? "border-brand-400/30 bg-brand-400/10 text-white"
+                  ? "border-brand-500/30 bg-brand-50 text-ink-800"
                   : current
-                    ? "glass text-white"
-                    : "border-white/5 bg-white/[0.02] text-white/40",
+                    ? "border-brand-500/40 bg-white text-ink-900 shadow-soft"
+                    : "border-brand-900/5 bg-white/50 text-ink-400",
               ].join(" ")}
             >
               <span
                 className={[
                   "flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition",
-                  done ? "bg-brand-400 text-ink-950" : "bg-white/10 text-brand-200",
+                  done ? "bg-brand-600 text-white" : "bg-brand-100 text-brand-600",
                 ].join(" ")}
               >
                 {done ? (
                   <CheckIcon className="h-4 w-4" />
                 ) : current ? (
-                  <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-brand-300" />
+                  <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-brand-600" />
                 ) : (
                   <span className="text-[11px] font-bold">{i + 1}</span>
                 )}
@@ -653,56 +650,59 @@ function Result({
 
   return (
     <div>
-      <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-400/30 bg-brand-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-200">
+      <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-700/20 bg-brand-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-800">
         <CheckBadgeIcon className="h-4 w-4" />
         {result.badge}
       </span>
       <h2
         ref={headingRef}
         tabIndex={-1}
-        className="mt-4 font-display text-2xl font-bold tracking-tight outline-none sm:text-3xl"
+        className="mt-4 font-display text-2xl font-bold tracking-tight text-ink-900 outline-none sm:text-3xl"
       >
         {result.title}
       </h2>
 
-      <div className="fx-glow relative mt-6 overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] p-7 text-center backdrop-blur sm:p-9">
+      {/* Dunkle „Bühne" für die Fördersumme – wie die CTA-Blöcke der Website */}
+      <div className="relative mt-6 overflow-hidden rounded-[28px] bg-ink-900 p-7 text-center shadow-lift sm:p-9">
+        <div aria-hidden className="absolute inset-0 dark-mesh opacity-90" />
+        <div aria-hidden className="fx-aurora opacity-50" />
         <div aria-hidden className="absolute -top-20 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-brand-500/30 blur-3xl" />
         <div className="relative">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-200">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-300">
             {result.upTo}
           </p>
           <p className="mt-2 font-display text-6xl font-extrabold tracking-tight sm:text-7xl">
             <span className="text-gradient">{formatEuro(animated, funnelLocale)}</span>
           </p>
-          <p className="mx-auto mt-2 max-w-xs text-sm text-white/60">{result.perYear}</p>
+          <p className="mx-auto mt-2 max-w-xs text-sm text-brand-100/80">{result.perYear}</p>
         </div>
       </div>
 
-      <div className="mt-5 rounded-3xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur sm:p-6">
-        <h3 className="text-sm font-bold text-white">{result.breakdownTitle}</h3>
+      <div className="mt-5 rounded-3xl border border-brand-900/5 bg-white p-5 shadow-soft sm:p-6">
+        <h3 className="text-sm font-bold text-ink-900">{result.breakdownTitle}</h3>
         <ul className="mt-4 space-y-4">
           {rows.map((r, i) => (
             <li key={r.label}>
               <div className="flex items-center justify-between gap-3 text-sm">
-                <span className="font-medium text-white/70">{r.label}</span>
-                <span className="font-bold text-white">{formatEuro(r.value, funnelLocale)}</span>
+                <span className="font-medium text-ink-700">{r.label}</span>
+                <span className="font-bold text-ink-900">{formatEuro(r.value, funnelLocale)}</span>
               </div>
-              <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-white/10">
+              <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-brand-100">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-brand-400 to-accent-400 transition-[width] duration-1000 ease-out"
+                  className="h-full rounded-full bg-gradient-to-r from-brand-500 to-accent-500 transition-[width] duration-1000 ease-out"
                   style={{ width: `${(r.value / max) * 100}%`, transitionDelay: `${300 + i * 150}ms` }}
                 />
               </div>
             </li>
           ))}
         </ul>
-        <p className="mt-5 text-xs leading-relaxed text-white/40">{result.disclaimer}</p>
+        <p className="mt-5 text-xs leading-relaxed text-ink-400">{result.disclaimer}</p>
       </div>
 
       <button
         type="button"
         onClick={onContinue}
-        className="fx-sheen group mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent-400 to-accent-500 px-8 py-4 text-base font-bold text-ink-950 shadow-[0_10px_40px_-8px_rgba(245,158,11,0.8)] transition hover:shadow-[0_14px_50px_-6px_rgba(245,158,11,0.95)] active:scale-[0.98]"
+        className="fx-sheen group mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent-400 to-accent-500 px-8 py-4 text-base font-bold text-ink-950 shadow-[0_10px_40px_-8px_rgba(245,158,11,0.6)] transition hover:shadow-[0_14px_50px_-6px_rgba(245,158,11,0.85)] active:scale-[0.98]"
       >
         {result.cta}
         <span aria-hidden className="transition group-hover:translate-x-1">→</span>
@@ -810,19 +810,19 @@ function Lead({
       <h2
         ref={headingRef}
         tabIndex={-1}
-        className="font-display text-2xl font-bold tracking-tight outline-none sm:text-3xl"
+        className="font-display text-2xl font-bold tracking-tight text-ink-900 outline-none sm:text-3xl"
       >
         {lead.title}
       </h2>
-      <p className="mt-2 text-sm leading-relaxed text-white/60 sm:text-base">{lead.subtitle}</p>
+      <p className="mt-2 text-sm leading-relaxed text-ink-600 sm:text-base">{lead.subtitle}</p>
 
-      <div className="mt-5 flex items-center gap-3 rounded-2xl border border-brand-400/25 bg-brand-400/10 px-4 py-3">
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-ink-950">
+      <div className="mt-5 flex items-center gap-3 rounded-2xl border border-brand-600/20 bg-brand-50 px-4 py-3">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-white">
           <SparkIcon className="h-5 w-5" />
         </span>
-        <p className="text-sm text-white/85">
+        <p className="text-sm text-ink-800">
           <span className="font-semibold">{content.success.resultLabel}: </span>
-          <span className="font-bold text-brand-200">{formatEuro(estimate.total, funnelLocale)}</span>
+          <span className="font-bold text-brand-700">{formatEuro(estimate.total, funnelLocale)}</span>
         </p>
       </div>
 
@@ -845,24 +845,24 @@ function Lead({
           className="absolute left-[-9999px] h-0 w-0 opacity-0"
         />
 
-        <label className="flex items-start gap-3 text-sm text-white/70">
+        <label className="flex items-start gap-3 text-sm text-ink-700">
           <input
             type="checkbox"
             checked={form.consent}
             onChange={(e) => update("consent", e.target.checked)}
-            className="mt-0.5 h-5 w-5 shrink-0 rounded border-white/20 bg-white/5 accent-brand-500"
+            className="mt-0.5 h-5 w-5 shrink-0 rounded border-brand-900/20 accent-brand-600"
           />
           <span>
             {lead.consent}{" "}
-            <a href={privacyHref} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-300 underline underline-offset-2">
+            <a href={privacyHref} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700 underline underline-offset-2">
               ↗
             </a>
           </span>
         </label>
-        {errors.consent && <p className="-mt-2 text-xs font-medium text-red-300">{errors.consent}</p>}
+        {errors.consent && <p className="-mt-2 text-xs font-medium text-red-600">{errors.consent}</p>}
 
         {serverError && (
-          <p className="rounded-xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm font-medium text-red-200">
+          <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
             {serverError}
           </p>
         )}
@@ -870,12 +870,12 @@ function Lead({
         <button
           type="submit"
           disabled={submitting}
-          className="fx-sheen group mt-1 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-400 to-brand-600 px-8 py-4 text-base font-bold text-ink-950 shadow-[0_10px_40px_-8px_rgba(34,197,94,0.8)] transition hover:shadow-[0_14px_50px_-6px_rgba(34,197,94,0.95)] active:scale-[0.98] disabled:opacity-60"
+          className="fx-sheen group mt-1 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-700 px-8 py-4 text-base font-bold text-white shadow-[0_10px_40px_-8px_rgba(34,197,94,0.7)] transition hover:shadow-[0_14px_50px_-6px_rgba(34,197,94,0.9)] active:scale-[0.98] disabled:opacity-60"
         >
           {submitting ? lead.submitting : lead.submit}
           {!submitting && <span aria-hidden className="transition group-hover:translate-x-1">→</span>}
         </button>
-        <p className="flex items-center justify-center gap-2 text-xs text-white/40">
+        <p className="flex items-center justify-center gap-2 text-xs text-ink-400">
           <LockIcon className="h-3.5 w-3.5" />
           {lead.securenote}
         </p>
@@ -907,7 +907,7 @@ function TextField({
   const describedBy = error ? `${id}-err` : hint ? `${id}-hint` : undefined;
   return (
     <div>
-      <label className="text-xs font-semibold uppercase tracking-[0.12em] text-white/55" htmlFor={id}>
+      <label className="label" htmlFor={id}>
         {label}
       </label>
       <input
@@ -919,12 +919,15 @@ function TextField({
         onChange={(e) => onChange(e.target.value)}
         aria-invalid={!!error}
         aria-describedby={describedBy}
-        className={["field-dark mt-2", error ? "err" : ""].join(" ")}
+        className={[
+          "input mt-2",
+          error ? "border-red-400 focus:border-red-500 focus:ring-red-500/15" : "",
+        ].join(" ")}
       />
       {error ? (
-        <p id={`${id}-err`} className="mt-1.5 text-xs font-medium text-red-300">{error}</p>
+        <p id={`${id}-err`} className="mt-1.5 text-xs font-medium text-red-600">{error}</p>
       ) : hint ? (
-        <p id={`${id}-hint`} className="mt-1.5 text-xs text-white/40">{hint}</p>
+        <p id={`${id}-hint`} className="mt-1.5 text-xs text-ink-400">{hint}</p>
       ) : null}
     </div>
   );
@@ -958,37 +961,40 @@ function Success({
   return (
     <div className="text-center">
       <Confetti run />
-      <div className="fx-pulse mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-ink-950">
+      <div className="fx-pulse mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-white">
         <CheckIcon className="h-10 w-10" />
       </div>
-      <span className="mt-6 inline-flex items-center gap-1.5 rounded-full border border-brand-400/30 bg-brand-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-200">
+      <span className="mt-6 inline-flex items-center gap-1.5 rounded-full border border-brand-700/20 bg-brand-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-800">
         {success.badge}
       </span>
       <h2
         ref={headingRef}
         tabIndex={-1}
-        className="mt-4 font-display text-2xl font-bold tracking-tight outline-none sm:text-3xl"
+        className="mt-4 font-display text-2xl font-bold tracking-tight text-ink-900 outline-none sm:text-3xl"
       >
         {success.title}
       </h2>
-      <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-white/70 sm:text-base">
+      <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-ink-700 sm:text-base">
         {success.subtitle}
       </p>
 
-      <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm">
-        <span className="font-medium text-white/60">{success.resultLabel}:</span>
-        <span className="font-bold text-brand-200">{formatEuro(estimate.total, funnelLocale)}</span>
+      <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-brand-900/10 bg-brand-50 px-4 py-2 text-sm">
+        <span className="font-medium text-ink-600">{success.resultLabel}:</span>
+        <span className="font-bold text-brand-700">{formatEuro(estimate.total, funnelLocale)}</span>
       </div>
 
-      <div className="relative mt-8 overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] p-7 text-left backdrop-blur sm:p-8">
+      {/* Dunkle „Bühne" für die Terminbuchung */}
+      <div className="relative mt-8 overflow-hidden rounded-[28px] bg-ink-900 p-7 text-left shadow-lift sm:p-8">
+        <div aria-hidden className="absolute inset-0 dark-mesh opacity-90" />
+        <div aria-hidden className="fx-aurora opacity-50" />
         <div aria-hidden className="absolute -top-20 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-brand-500/30 blur-3xl" />
         <div className="relative">
-          <h3 className="font-display text-xl font-bold">{success.bookTitle}</h3>
-          <p className="mt-2 text-sm text-white/65">{success.bookText}</p>
+          <h3 className="font-display text-xl font-bold text-white">{success.bookTitle}</h3>
+          <p className="mt-2 text-sm text-brand-100/80">{success.bookText}</p>
           <a
             href={href}
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className="fx-sheen mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent-400 to-accent-500 px-7 py-3.5 text-sm font-bold text-ink-950 shadow-[0_10px_40px_-8px_rgba(245,158,11,0.8)] transition active:scale-[0.98] sm:w-auto"
+            className="fx-sheen mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent-400 to-accent-500 px-7 py-3.5 text-sm font-bold text-ink-950 shadow-[0_10px_40px_-8px_rgba(245,158,11,0.6)] transition active:scale-[0.98] sm:w-auto"
           >
             <CalendarIcon className="h-4 w-4" />
             {success.book}
@@ -997,20 +1003,20 @@ function Success({
       </div>
 
       <div className="mt-8 text-left">
-        <h3 className="text-sm font-bold text-white">{success.nextTitle}</h3>
+        <h3 className="text-sm font-bold text-ink-900">{success.nextTitle}</h3>
         <ol className="mt-4 space-y-3">
           {success.next.map((n, i) => (
             <li key={n} className="flex items-start gap-3">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-xs font-bold text-ink-950">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-xs font-bold text-white">
                 {i + 1}
               </span>
-              <span className="text-sm leading-relaxed text-white/70">{n}</span>
+              <span className="text-sm leading-relaxed text-ink-700">{n}</span>
             </li>
           ))}
         </ol>
       </div>
 
-      <button type="button" onClick={onRestart} className="mx-auto mt-8 inline-flex items-center gap-1 text-sm font-semibold text-brand-300 transition hover:text-brand-200">
+      <button type="button" onClick={onRestart} className="mx-auto mt-8 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 transition hover:text-brand-900">
         {success.restart}
       </button>
     </div>
@@ -1031,15 +1037,15 @@ function ResumeDialog({
   onRestart: () => void;
 }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink-950/60 p-4 backdrop-blur-sm sm:items-center">
-      <div className="glass-strong fx-pop w-full max-w-sm rounded-3xl p-6 text-white">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink-900/40 p-4 backdrop-blur-sm sm:items-center">
+      <div className="fx-pop w-full max-w-sm rounded-3xl border border-brand-900/5 bg-white p-6 text-ink-900 shadow-lift">
         <h3 className="font-display text-lg font-bold">{ui.resumeTitle}</h3>
-        <p className="mt-2 text-sm text-white/60">{ui.resumeText}</p>
+        <p className="mt-2 text-sm text-ink-600">{ui.resumeText}</p>
         <div className="mt-5 grid gap-2.5">
-          <button type="button" onClick={onResume} className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-400 to-brand-600 px-6 py-3 font-bold text-ink-950">
+          <button type="button" onClick={onResume} className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-700 px-6 py-3 font-bold text-white">
             {ui.resumeYes}
           </button>
-          <button type="button" onClick={onRestart} className="inline-flex w-full items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white/80 transition hover:bg-white/10">
+          <button type="button" onClick={onRestart} className="inline-flex w-full items-center justify-center rounded-full border border-brand-900/10 bg-white px-6 py-3 font-semibold text-ink-800 transition hover:bg-brand-50">
             {ui.resumeNo}
           </button>
         </div>

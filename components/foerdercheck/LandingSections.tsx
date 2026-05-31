@@ -31,9 +31,6 @@ export function LandingSections({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      {/* sanfter Übergang vom dunklen Funnel in die helle Landingpage */}
-      <div aria-hidden className="h-24 bg-gradient-to-b from-ink-950 to-white" />
-
       {/* Förderprogramme */}
       <section className="section bg-gradient-to-b from-white to-brand-50/40">
         <div className="container">
