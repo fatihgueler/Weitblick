@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { assertLocale, isLocale } from "@/i18n/config";
 import { getFunnelContent } from "@/components/foerdercheck/content";
 import { FoerderCheck } from "@/components/foerdercheck/FoerderCheck";
+import { LandingSections } from "@/components/foerdercheck/LandingSections";
 import { getSiteUrl } from "@/lib/site";
 
 export const viewport: Viewport = {
@@ -69,7 +70,10 @@ export default async function FoerderCheckPage({
     <>
       {/* eslint-disable-next-line react/no-danger */}
       <style dangerouslySetInnerHTML={{ __html: hideCss }} />
-      <section className="relative min-h-[100svh] overflow-hidden bg-gradient-to-b from-brand-50/60 via-white to-white">
+      <section
+        id="top"
+        className="relative min-h-[100svh] overflow-hidden bg-gradient-to-b from-brand-50/60 via-white to-white"
+      >
         <div aria-hidden className="absolute inset-0 -z-10 grid-bg opacity-40" />
         <FoerderCheck
           funnelLocale={funnelLocale}
@@ -79,6 +83,10 @@ export default async function FoerderCheckPage({
           privacyHref={privacyHref}
         />
       </section>
+
+      {/* Inhaltliche Landingpage – im Embed-Modus (Linktree-iFrame) ausgeblendet,
+          damit dort nur der Funnel erscheint. */}
+      {!embed && <LandingSections funnelLocale={funnelLocale} lang={lang} />}
     </>
   );
 }
