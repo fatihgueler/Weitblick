@@ -11,6 +11,7 @@ export function MobileCTA({
   return (
     <div
       aria-hidden="false"
+      data-chrome="mobilecta"
       className="pointer-events-none fixed inset-x-0 bottom-0 z-30 flex justify-center px-4 pb-4 lg:hidden"
       style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
     >

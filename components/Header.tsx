@@ -14,8 +14,13 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
     { href: `/${lang}/contact`, label: dict.nav.contact },
   ];
 
+  const foerderHref = `/${lang}/foerdercheck`;
+
   return (
-    <header className="sticky top-0 z-40 border-b border-brand-900/5 bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60">
+    <header
+      data-chrome="header"
+      className="sticky top-0 z-40 border-b border-brand-900/5 bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60"
+    >
       <div className="container flex h-16 items-center justify-between gap-4 sm:h-20">
         <Link
           href={`/${lang}`}
@@ -49,8 +54,15 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             />
           </div>
           <Link
+            href={foerderHref}
+            className="hidden items-center gap-2 rounded-full bg-accent-500 px-5 py-2.5 text-sm font-bold text-ink-900 shadow-soft transition hover:bg-accent-400 hover:shadow-lift active:scale-95 lg:inline-flex"
+          >
+            {dict.nav.foerdercheck}
+            <span aria-hidden="true">→</span>
+          </Link>
+          <Link
             href={`/${lang}/contact`}
-            className="btn-primary hidden lg:inline-flex"
+            className="btn-secondary hidden lg:inline-flex"
           >
             {dict.nav.consultation}
           </Link>
@@ -59,6 +71,8 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             lang={lang}
             consultationLabel={dict.nav.consultation}
             languageLabel={dict.common.language}
+            highlightHref={foerderHref}
+            highlightLabel={dict.nav.foerdercheck}
           />
         </div>
       </div>

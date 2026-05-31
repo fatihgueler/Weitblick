@@ -6,7 +6,7 @@ import { Logo } from "./Logo";
 export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const year = new Date().getFullYear();
   return (
-    <footer className="relative overflow-hidden bg-ink-900 text-brand-50">
+    <footer data-chrome="footer" className="relative overflow-hidden bg-ink-900 text-brand-50">
       <div
         aria-hidden="true"
         className="absolute inset-0 dark-mesh opacity-80"
@@ -36,6 +36,11 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
               {dict.footer.company}
             </h3>
             <ul className="mt-4 space-y-2.5 text-sm text-brand-100/80">
+              <li>
+                <Link href={`/${lang}/foerdercheck`} className="font-semibold text-brand-300 transition hover:text-white">
+                  {dict.nav.foerdercheck}
+                </Link>
+              </li>
               <li>
                 <Link href={`/${lang}/about`} className="transition hover:text-white">
                   {dict.nav.about}

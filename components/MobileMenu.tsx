@@ -17,11 +17,15 @@ export function MobileMenu({
   lang,
   consultationLabel,
   languageLabel,
+  highlightHref,
+  highlightLabel,
 }: {
   navItems: NavItem[];
   lang: Locale;
   consultationLabel: string;
   languageLabel: string;
+  highlightHref?: string;
+  highlightLabel?: string;
 }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -111,6 +115,16 @@ export function MobileMenu({
             </div>
 
             <nav className="flex-1 overflow-y-auto px-4 pb-4">
+              {highlightHref && highlightLabel && (
+                <Link
+                  href={highlightHref}
+                  onClick={() => setOpen(false)}
+                  className="mb-3 flex items-center justify-between rounded-2xl bg-accent-500 px-4 py-4 text-lg font-bold text-ink-900 shadow-soft transition active:scale-[0.98]"
+                >
+                  <span>{highlightLabel}</span>
+                  <span aria-hidden="true">→</span>
+                </Link>
+              )}
               <ul className="space-y-1">
                 {navItems.map((item) => (
                   <li key={item.href}>
