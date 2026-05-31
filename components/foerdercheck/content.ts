@@ -135,10 +135,10 @@ export type FunnelContent = {
 const de: FunnelContent = {
   intro: {
     badge: "Kostenlos · Unverbindlich · 60 Sekunden",
-    title: "Welche Förderung steht dir zu?",
+    title: "Wie viel Förderung steht dir wirklich zu?",
     highlight: "Bis zu 70 % Zuschuss",
     subtitle:
-      "Finde in unter einer Minute heraus, welche staatlichen Förderungen (BAFA, KfW & Steuerbonus) für dein Vorhaben realistisch sind – persönlich ausgewertet von ENOX.",
+      "Finde in unter 60 Sekunden heraus, welche Zuschüsse und Förderkredite (BAFA, KfW & Steuerbonus) für dein Vorhaben realistisch sind – persönlich ausgewertet von Enes Talha Aktürk.",
     bullets: [
       "Auf deine Immobilie zugeschnitten",
       "Geprüft nach aktuellen Förderprogrammen",
@@ -321,10 +321,10 @@ const de: FunnelContent = {
 const en: FunnelContent = {
   intro: {
     badge: "Free · No obligation · 60 seconds",
-    title: "Which funding are you entitled to?",
+    title: "How much funding are you really entitled to?",
     highlight: "Up to 70% subsidy",
     subtitle:
-      "Find out in under a minute which government funding (BAFA, KfW & tax bonus) is realistic for your project – personally reviewed by ENOX.",
+      "Find out in under 60 seconds which grants and subsidised loans (BAFA, KfW & tax bonus) are realistic for your project – personally reviewed by Enes Talha Aktürk.",
     bullets: [
       "Tailored to your property",
       "Checked against current funding programmes",

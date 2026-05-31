@@ -11,8 +11,10 @@ import {
   type QuestionDef,
 } from "./content";
 import { OptionIcon } from "./icons";
+import { Confetti, GaugeRing, HeroArt } from "./fx";
 
 type Phase = "intro" | "question" | "calculating" | "result" | "lead" | "success";
+type Direction = "fwd" | "back";
 
 type Props = {
   funnelLocale: FunnelLocale;
@@ -35,16 +37,21 @@ type Persisted = {
 function isEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim());
 }
-
 function isPhone(value: string): boolean {
   return /^[+()\d][\d\s/().-]{5,}$/.test(value.trim());
 }
-
 function prefersReducedMotion(): boolean {
   return (
     typeof window !== "undefined" &&
     window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
   );
+}
+
+/** Cursor-folgender Glow auf Karten. */
+function trackSpotlight(e: React.MouseEvent<HTMLElement>) {
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+  e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
 }
 
 export function FoerderCheck({
@@ -59,16 +66,14 @@ export function FoerderCheck({
   const [phase, setPhase] = useState<Phase>("intro");
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
+  const [dir, setDir] = useState<Direction>("fwd");
   const [resumable, setResumable] = useState<Persisted | null>(null);
   const [hydrated, setHydrated] = useState(false);
 
-  const totalSteps = questions.length + 1; // Fragen + Kontaktformular
+  const totalSteps = questions.length + 1;
   const headingRef = useRef<HTMLHeadingElement>(null);
 
-  const estimate = useMemo<Estimate>(
-    () => computeEstimate(answers),
-    [answers],
-  );
+  const estimate = useMemo<Estimate>(() => computeEstimate(answers), [answers]);
 
   /* ---- Persistenz -------------------------------------------------------- */
   useEffect(() => {
@@ -107,7 +112,7 @@ export function FoerderCheck({
     }
   }, []);
 
-  /* ---- Fokus-Management -------------------------------------------------- */
+  /* ---- Fokus ------------------------------------------------------------- */
   useEffect(() => {
     if (phase === "intro") return;
     const id = window.setTimeout(() => headingRef.current?.focus(), 60);
@@ -115,19 +120,14 @@ export function FoerderCheck({
   }, [phase, questionIndex]);
 
   /* ---- Navigation -------------------------------------------------------- */
-  const goToCalculating = useCallback(() => {
-    setPhase("calculating");
-  }, []);
-
   const advance = useCallback(() => {
-    if (questionIndex < questions.length - 1) {
-      setQuestionIndex((i) => i + 1);
-    } else {
-      goToCalculating();
-    }
-  }, [questionIndex, questions.length, goToCalculating]);
+    setDir("fwd");
+    if (questionIndex < questions.length - 1) setQuestionIndex((i) => i + 1);
+    else setPhase("calculating");
+  }, [questionIndex, questions.length]);
 
   const back = useCallback(() => {
+    setDir("back");
     if (phase === "lead") {
       setPhase("result");
       return;
@@ -144,6 +144,7 @@ export function FoerderCheck({
   }, [phase, questionIndex, questions.length]);
 
   const start = useCallback(() => {
+    setDir("fwd");
     setPhase("question");
     setQuestionIndex(0);
   }, []);
@@ -152,6 +153,7 @@ export function FoerderCheck({
     clearStorage();
     setAnswers({});
     setQuestionIndex(0);
+    setDir("fwd");
     setPhase("intro");
   }, [clearStorage]);
 
@@ -163,11 +165,10 @@ export function FoerderCheck({
     setResumable(null);
   }, [resumable]);
 
-  /* ---- Antworten setzen -------------------------------------------------- */
   const setSingle = useCallback(
     (qid: string, value: string) => {
       setAnswers((a) => ({ ...a, [qid]: [value] }));
-      window.setTimeout(advance, prefersReducedMotion() ? 0 : 260);
+      window.setTimeout(advance, prefersReducedMotion() ? 0 : 280);
     },
     [advance],
   );
@@ -182,7 +183,7 @@ export function FoerderCheck({
     });
   }, []);
 
-  /* ---- Render je Phase --------------------------------------------------- */
+  /* ---- Ableitungen ------------------------------------------------------- */
   const showProgress = phase === "question" || phase === "lead";
   const currentStep =
     phase === "lead" ? totalSteps : phase === "question" ? questionIndex + 1 : 0;
@@ -193,18 +194,19 @@ export function FoerderCheck({
         ? (questionIndex / totalSteps) * 100
         : 0;
 
-  return (
-    <div className="relative w-full">
-      {/* dekorativer Hintergrund */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-24 right-0 h-72 w-72 animate-blob rounded-full bg-brand-300/30 blur-3xl" />
-        <div
-          className="absolute bottom-0 -left-20 h-72 w-72 animate-blob rounded-full bg-brand-500/20 blur-3xl"
-          style={{ animationDelay: "5s" }}
-        />
-      </div>
+  const stepClass = dir === "fwd" ? "step-fwd" : "step-back";
 
-      <div className="mx-auto w-full max-w-2xl px-4 py-6 sm:py-10">
+  return (
+    <div className="relative min-h-[100svh] w-full overflow-hidden text-white">
+      {/* Premium-Hintergrund */}
+      <div aria-hidden className="fx-aurora -z-10" />
+      <div aria-hidden className="fx-grain -z-10" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(80%_60%_at_50%_-10%,rgba(34,197,94,0.18),transparent_60%)]"
+      />
+
+      <div className="mx-auto flex min-h-[100svh] w-full max-w-2xl flex-col px-4 py-6 sm:py-10">
         {showProgress && (
           <ProgressHeader
             step={currentStep}
@@ -215,7 +217,10 @@ export function FoerderCheck({
           />
         )}
 
-        <div key={`${phase}-${questionIndex}`} className="animate-fade-up">
+        <div
+          key={`${phase}-${questionIndex}`}
+          className={`flex flex-1 flex-col justify-center ${stepClass}`}
+        >
           {phase === "intro" && <Intro content={content} onStart={start} />}
 
           {phase === "question" && (
@@ -231,7 +236,7 @@ export function FoerderCheck({
           )}
 
           {phase === "calculating" && (
-            <Calculating content={content} onDone={() => setPhase("result")} />
+            <Calculating content={content} onDone={() => { setDir("fwd"); setPhase("result"); }} />
           )}
 
           {phase === "result" && (
@@ -240,7 +245,7 @@ export function FoerderCheck({
               estimate={estimate}
               funnelLocale={funnelLocale}
               headingRef={headingRef}
-              onContinue={() => setPhase("lead")}
+              onContinue={() => { setDir("fwd"); setPhase("lead"); }}
             />
           )}
 
@@ -252,10 +257,7 @@ export function FoerderCheck({
               funnelLocale={funnelLocale}
               privacyHref={privacyHref}
               headingRef={headingRef}
-              onSuccess={() => {
-                clearStorage();
-                setPhase("success");
-              }}
+              onSuccess={() => { clearStorage(); setDir("fwd"); setPhase("success"); }}
             />
           )}
 
@@ -288,7 +290,7 @@ export function FoerderCheck({
 }
 
 /* ========================================================================== */
-/*  Fortschrittsanzeige                                                        */
+/*  Fortschritt                                                                */
 /* ========================================================================== */
 
 function ProgressHeader({
@@ -304,28 +306,31 @@ function ProgressHeader({
   ui: FunnelContent["ui"];
   onBack: () => void;
 }) {
+  const pct = Math.max(progress, 5);
   return (
-    <div className="mb-6 sm:mb-8">
+    <div className="mb-8">
       <div className="flex items-center justify-between gap-3">
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-sm font-semibold text-ink-600 transition hover:bg-brand-50 hover:text-ink-900"
+          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-sm font-semibold text-white/70 transition hover:bg-white/10 hover:text-white"
         >
           <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <path d="m15 18-6-6 6-6" />
           </svg>
           {ui.back}
         </button>
-        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-ink-500">
+        <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
           {ui.step} {step} {ui.of} {total}
         </span>
       </div>
-      <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-brand-100">
+      <div className="relative mt-3 h-2 w-full overflow-hidden rounded-full bg-white/10">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-700 transition-[width] duration-500 ease-out"
-          style={{ width: `${Math.max(progress, 4)}%` }}
-        />
+          className="relative h-full rounded-full bg-gradient-to-r from-brand-400 via-brand-500 to-accent-400 transition-[width] duration-700 ease-out"
+          style={{ width: `${pct}%` }}
+        >
+          <span className="absolute right-0 top-1/2 h-3 w-3 -translate-y-1/2 translate-x-1/2 rounded-full bg-white shadow-[0_0_12px_2px_rgba(134,239,172,0.9)]" />
+        </div>
       </div>
     </div>
   );
@@ -335,33 +340,41 @@ function ProgressHeader({
 /*  Intro                                                                      */
 /* ========================================================================== */
 
-function Intro({
-  content,
-  onStart,
-}: {
-  content: FunnelContent;
-  onStart: () => void;
-}) {
+function Intro({ content, onStart }: { content: FunnelContent; onStart: () => void }) {
   const { intro } = content;
   return (
     <div className="text-center">
-      <span className="eyebrow mx-auto">{intro.badge}</span>
-      <h1 className="mt-6 font-display text-3xl font-bold tracking-tight text-ink-900 sm:text-5xl">
-        {intro.title}
+      <div className="relative mx-auto mb-2 w-full max-w-xs">
+        <HeroArt className="mx-auto w-full" />
+      </div>
+
+      <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-200 backdrop-blur">
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-400" />
+        {intro.badge}
+      </span>
+
+      <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
+        <span className="text-gradient">{intro.title}</span>
       </h1>
-      <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand-700 px-4 py-1.5 text-sm font-bold text-white shadow-soft sm:text-base">
+
+      <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent-400 to-accent-500 px-4 py-1.5 text-sm font-bold text-ink-950 shadow-[0_8px_30px_-8px_rgba(245,158,11,0.7)] sm:text-base">
         <SparkIcon className="h-4 w-4" />
         {intro.highlight}
       </div>
-      <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-ink-700 sm:text-lg">
+
+      <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
         {intro.subtitle}
       </p>
 
-      <ul className="mx-auto mt-8 grid max-w-md gap-3 text-left">
-        {intro.bullets.map((b) => (
-          <li key={b} className="flex items-start gap-3 rounded-2xl border border-brand-900/5 bg-white/70 px-4 py-3 shadow-soft backdrop-blur">
-            <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" />
-            <span className="text-sm font-medium text-ink-800">{b}</span>
+      <ul className="mx-auto mt-8 grid max-w-md gap-2.5 text-left">
+        {intro.bullets.map((b, i) => (
+          <li
+            key={b}
+            className="glass fx-pop flex items-start gap-3 rounded-2xl px-4 py-3"
+            style={{ animationDelay: `${i * 90}ms` }}
+          >
+            <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-brand-300" />
+            <span className="text-sm font-medium text-white/85">{b}</span>
           </li>
         ))}
       </ul>
@@ -369,16 +382,16 @@ function Intro({
       <button
         type="button"
         onClick={onStart}
-        className="btn-primary mt-9 w-full px-8 py-4 text-base sm:w-auto"
+        className="fx-sheen group mt-9 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-400 to-brand-600 px-8 py-4 text-base font-bold text-ink-950 shadow-[0_10px_40px_-8px_rgba(34,197,94,0.8)] transition hover:shadow-[0_14px_50px_-6px_rgba(34,197,94,0.95)] active:scale-[0.98] sm:w-auto"
       >
         {intro.start}
-        <span aria-hidden>→</span>
+        <span aria-hidden className="transition group-hover:translate-x-1">→</span>
       </button>
-      <p className="mt-4 flex items-center justify-center gap-2 text-xs text-ink-500">
+      <p className="mt-4 flex items-center justify-center gap-2 text-xs text-white/50">
         <ClockIcon className="h-3.5 w-3.5" />
         {intro.duration}
       </p>
-      <p className="mt-1 text-xs text-ink-400">{intro.privacy}</p>
+      <p className="mt-1 text-xs text-white/35">{intro.privacy}</p>
     </div>
   );
 }
@@ -408,7 +421,6 @@ function Question({
   const min = q.min ?? 1;
   const canContinue = selected.length >= min;
 
-  // Tastatursteuerung: Zahlentasten wählen, Enter bestätigt (Multi)
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       const target = e.target as HTMLElement | null;
@@ -433,12 +445,12 @@ function Question({
       <h2
         ref={headingRef}
         tabIndex={-1}
-        className="font-display text-2xl font-bold tracking-tight text-ink-900 outline-none sm:text-3xl"
+        className="font-display text-2xl font-bold tracking-tight outline-none sm:text-3xl"
       >
         {q.question}
       </h2>
       {(q.help || isMulti) && (
-        <p className="mt-2 text-sm text-ink-600">{q.help ?? ui.multiHint}</p>
+        <p className="mt-2 text-sm text-white/55">{q.help ?? ui.multiHint}</p>
       )}
 
       <div className="mt-6 grid gap-3">
@@ -449,41 +461,43 @@ function Question({
               key={opt.value}
               type="button"
               aria-pressed={active}
+              onMouseMove={trackSpotlight}
               onClick={() => (isMulti ? onToggle(opt.value) : onSingle(opt.value))}
+              style={{ animationDelay: `${i * 55}ms` }}
               className={[
-                "group relative flex w-full items-center gap-4 rounded-2xl border px-4 py-3.5 text-left transition-all duration-200 active:scale-[0.99]",
+                "fx-pop fx-spotlight group relative flex w-full items-center gap-4 rounded-2xl border px-4 py-3.5 text-left backdrop-blur transition-all duration-200 active:scale-[0.99]",
                 active
-                  ? "border-brand-600 bg-brand-50 shadow-glow ring-1 ring-brand-600"
-                  : "border-brand-900/10 bg-white shadow-soft hover:border-brand-500/40 hover:bg-brand-50/40 hover:shadow-lift",
+                  ? "fx-pulse border-brand-400/60 bg-brand-400/10"
+                  : "border-white/10 bg-white/[0.04] hover:border-white/25 hover:bg-white/[0.07]",
               ].join(" ")}
             >
               <span
                 className={[
                   "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition",
                   active
-                    ? "bg-brand-600 text-white"
-                    : "bg-brand-50 text-brand-700 group-hover:bg-brand-100",
+                    ? "bg-gradient-to-br from-brand-400 to-brand-600 text-ink-950 shadow-[0_6px_20px_-6px_rgba(34,197,94,0.9)]"
+                    : "bg-white/8 text-brand-200 group-hover:bg-white/12",
                 ].join(" ")}
               >
                 {opt.icon ? <OptionIcon icon={opt.icon} className="h-6 w-6" /> : <span className="text-sm font-bold">{i + 1}</span>}
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-[15px] font-semibold text-ink-900 sm:text-base">
+                <span className="block text-[15px] font-semibold text-white sm:text-base">
                   {opt.label}
                 </span>
                 {opt.description && (
-                  <span className="mt-0.5 block text-xs leading-snug text-ink-600 sm:text-sm">
+                  <span className="mt-0.5 block text-xs leading-snug text-white/55 sm:text-sm">
                     {opt.description}
                   </span>
                 )}
               </span>
               <span
                 className={[
-                  "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition",
+                  "flex h-6 w-6 shrink-0 items-center justify-center border transition",
                   isMulti ? "rounded-md" : "rounded-full",
                   active
-                    ? "border-brand-600 bg-brand-600 text-white"
-                    : "border-brand-900/15 bg-white text-transparent",
+                    ? "border-brand-400 bg-brand-400 text-ink-950"
+                    : "border-white/20 bg-white/5 text-transparent",
                 ].join(" ")}
               >
                 <CheckIcon className="h-4 w-4" />
@@ -495,16 +509,14 @@ function Question({
 
       {isMulti && (
         <div className="mt-6 flex items-center justify-between gap-4">
-          <span className="text-sm text-ink-500">
-            {selected.length > 0
-              ? `${selected.length} ${ui.selectedHint}`
-              : ui.multiHint}
+          <span className="text-sm text-white/50">
+            {selected.length > 0 ? `${selected.length} ${ui.selectedHint}` : ui.multiHint}
           </span>
           <button
             type="button"
             disabled={!canContinue}
             onClick={onContinue}
-            className="btn-primary px-7 py-3 disabled:cursor-not-allowed disabled:opacity-40"
+            className="fx-sheen inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-400 to-brand-600 px-7 py-3 font-bold text-ink-950 shadow-[0_8px_30px_-8px_rgba(34,197,94,0.8)] transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
           >
             {ui.continue}
             <span aria-hidden>→</span>
@@ -516,30 +528,25 @@ function Question({
 }
 
 /* ========================================================================== */
-/*  Berechnung (Übergangs-Animation)                                           */
+/*  Berechnung                                                                 */
 /* ========================================================================== */
 
-function Calculating({
-  content,
-  onDone,
-}: {
-  content: FunnelContent;
-  onDone: () => void;
-}) {
+function Calculating({ content, onDone }: { content: FunnelContent; onDone: () => void }) {
   const { calculating } = content;
   const [active, setActive] = useState(0);
+  const [pct, setPct] = useState(0);
 
   useEffect(() => {
-    const reduce = prefersReducedMotion();
-    if (reduce) {
+    if (prefersReducedMotion()) {
       const t = window.setTimeout(onDone, 350);
       return () => window.clearTimeout(t);
     }
+    setPct(1);
     const per = 560;
     const timers = calculating.steps.map((_, i) =>
       window.setTimeout(() => setActive(i + 1), per * (i + 1)),
     );
-    const done = window.setTimeout(onDone, per * calculating.steps.length + 500);
+    const done = window.setTimeout(onDone, per * calculating.steps.length + 600);
     return () => {
       timers.forEach(window.clearTimeout);
       window.clearTimeout(done);
@@ -547,16 +554,15 @@ function Calculating({
   }, [calculating.steps, onDone]);
 
   return (
-    <div className="py-10 text-center">
-      <div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center">
-        <span className="absolute h-20 w-20 animate-ping rounded-full bg-brand-400/30" />
-        <span className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-glow">
-          <SparkIcon className="h-9 w-9" />
-        </span>
+    <div className="py-6 text-center">
+      <div className="mx-auto mb-8 w-fit">
+        <GaugeRing pct={pct}>
+          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-ink-950 shadow-[0_0_40px_-6px_rgba(34,197,94,0.9)]">
+            <SparkIcon className="h-8 w-8" />
+          </span>
+        </GaugeRing>
       </div>
-      <h2 className="font-display text-xl font-bold text-ink-900 sm:text-2xl">
-        {calculating.title}
-      </h2>
+      <h2 className="font-display text-xl font-bold sm:text-2xl">{calculating.title}</h2>
       <ul className="mx-auto mt-8 grid max-w-sm gap-2.5 text-left">
         {calculating.steps.map((s, i) => {
           const done = i < active;
@@ -567,22 +573,22 @@ function Calculating({
               className={[
                 "flex items-center gap-3 rounded-xl border px-4 py-2.5 text-sm transition-all duration-300",
                 done
-                  ? "border-brand-600/30 bg-brand-50 text-ink-800"
+                  ? "border-brand-400/30 bg-brand-400/10 text-white"
                   : current
-                    ? "border-brand-500/40 bg-white text-ink-900 shadow-soft"
-                    : "border-brand-900/5 bg-white/50 text-ink-400",
+                    ? "glass text-white"
+                    : "border-white/5 bg-white/[0.02] text-white/40",
               ].join(" ")}
             >
               <span
                 className={[
                   "flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition",
-                  done ? "bg-brand-600 text-white" : "bg-brand-100 text-brand-600",
+                  done ? "bg-brand-400 text-ink-950" : "bg-white/10 text-brand-200",
                 ].join(" ")}
               >
                 {done ? (
                   <CheckIcon className="h-4 w-4" />
                 ) : current ? (
-                  <span className="h-2.5 w-2.5 animate-shimmer rounded-full bg-brand-600" />
+                  <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-brand-300" />
                 ) : (
                   <span className="text-[11px] font-bold">{i + 1}</span>
                 )}
@@ -609,7 +615,7 @@ function useCountUp(target: number, run: boolean): number {
       return;
     }
     let raf = 0;
-    const duration = 1000;
+    const duration = 1200;
     const start = performance.now();
     const tick = (now: number) => {
       const p = Math.min((now - start) / duration, 1);
@@ -647,63 +653,59 @@ function Result({
 
   return (
     <div>
-      <span className="eyebrow inline-flex items-center gap-1.5">
+      <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-400/30 bg-brand-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-200">
         <CheckBadgeIcon className="h-4 w-4" />
         {result.badge}
       </span>
       <h2
         ref={headingRef}
         tabIndex={-1}
-        className="mt-4 font-display text-2xl font-bold tracking-tight text-ink-900 outline-none sm:text-3xl"
+        className="mt-4 font-display text-2xl font-bold tracking-tight outline-none sm:text-3xl"
       >
         {result.title}
       </h2>
 
-      <div className="relative mt-6 overflow-hidden rounded-4xl bg-ink-900 p-7 text-center shadow-lift sm:p-9">
-        <div aria-hidden className="absolute inset-0 dark-mesh opacity-90" />
+      <div className="fx-glow relative mt-6 overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] p-7 text-center backdrop-blur sm:p-9">
+        <div aria-hidden className="absolute -top-20 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-brand-500/30 blur-3xl" />
         <div className="relative">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-300">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-200">
             {result.upTo}
           </p>
-          <p className="mt-2 font-display text-5xl font-extrabold tracking-tight text-white sm:text-6xl">
-            {formatEuro(animated, funnelLocale)}
+          <p className="mt-2 font-display text-6xl font-extrabold tracking-tight sm:text-7xl">
+            <span className="text-gradient">{formatEuro(animated, funnelLocale)}</span>
           </p>
-          <p className="mx-auto mt-2 max-w-xs text-sm text-brand-100/80">
-            {result.perYear}
-          </p>
+          <p className="mx-auto mt-2 max-w-xs text-sm text-white/60">{result.perYear}</p>
         </div>
       </div>
 
-      <div className="mt-6 rounded-3xl border border-brand-900/5 bg-white p-5 shadow-soft sm:p-6">
-        <h3 className="text-sm font-bold text-ink-900">{result.breakdownTitle}</h3>
+      <div className="mt-5 rounded-3xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur sm:p-6">
+        <h3 className="text-sm font-bold text-white">{result.breakdownTitle}</h3>
         <ul className="mt-4 space-y-4">
-          {rows.map((r) => (
+          {rows.map((r, i) => (
             <li key={r.label}>
               <div className="flex items-center justify-between gap-3 text-sm">
-                <span className="font-medium text-ink-700">{r.label}</span>
-                <span className="font-bold text-ink-900">
-                  {formatEuro(r.value, funnelLocale)}
-                </span>
+                <span className="font-medium text-white/70">{r.label}</span>
+                <span className="font-bold text-white">{formatEuro(r.value, funnelLocale)}</span>
               </div>
-              <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-brand-100">
+              <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-white/10">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-700"
-                  style={{ width: `${(r.value / max) * 100}%` }}
+                  className="h-full rounded-full bg-gradient-to-r from-brand-400 to-accent-400 transition-[width] duration-1000 ease-out"
+                  style={{ width: `${(r.value / max) * 100}%`, transitionDelay: `${300 + i * 150}ms` }}
                 />
               </div>
             </li>
           ))}
         </ul>
-        <p className="mt-5 text-xs leading-relaxed text-ink-400">{result.disclaimer}</p>
+        <p className="mt-5 text-xs leading-relaxed text-white/40">{result.disclaimer}</p>
       </div>
 
       <button
         type="button"
         onClick={onContinue}
-        className="btn-primary mt-7 w-full px-8 py-4 text-base"
+        className="fx-sheen group mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent-400 to-accent-500 px-8 py-4 text-base font-bold text-ink-950 shadow-[0_10px_40px_-8px_rgba(245,158,11,0.8)] transition hover:shadow-[0_14px_50px_-6px_rgba(245,158,11,0.95)] active:scale-[0.98]"
       >
         {result.cta}
-        <span aria-hidden>→</span>
+        <span aria-hidden className="transition group-hover:translate-x-1">→</span>
       </button>
     </div>
   );
@@ -737,7 +739,7 @@ function Lead({
     email: "",
     phone: "",
     consent: false,
-    company: "", // Honeypot
+    company: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
@@ -761,13 +763,10 @@ function Lead({
     ev.preventDefault();
     setServerError(null);
     if (!validate()) return;
-
-    // Honeypot: still „erfolgreich", aber nichts senden
     if (form.company.trim() !== "") {
       onSuccess();
       return;
     }
-
     setSubmitting(true);
     try {
       const res = await fetch("/api/foerdercheck", {
@@ -791,8 +790,6 @@ function Lead({
         }),
       });
       if (!res.ok) throw new Error(`status ${res.status}`);
-
-      // optionales Tracking, falls vorhanden
       try {
         (window as unknown as { dataLayer?: unknown[] }).dataLayer?.push({
           event: "foerdercheck_lead",
@@ -801,7 +798,6 @@ function Lead({
       } catch {
         /* ignore */
       }
-
       onSuccess();
     } catch {
       setServerError(lead.errors.generic);
@@ -814,62 +810,30 @@ function Lead({
       <h2
         ref={headingRef}
         tabIndex={-1}
-        className="font-display text-2xl font-bold tracking-tight text-ink-900 outline-none sm:text-3xl"
+        className="font-display text-2xl font-bold tracking-tight outline-none sm:text-3xl"
       >
         {lead.title}
       </h2>
-      <p className="mt-2 text-sm leading-relaxed text-ink-600 sm:text-base">
-        {lead.subtitle}
-      </p>
+      <p className="mt-2 text-sm leading-relaxed text-white/60 sm:text-base">{lead.subtitle}</p>
 
-      <div className="mt-5 flex items-center gap-3 rounded-2xl border border-brand-600/20 bg-brand-50 px-4 py-3">
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white">
+      <div className="mt-5 flex items-center gap-3 rounded-2xl border border-brand-400/25 bg-brand-400/10 px-4 py-3">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-ink-950">
           <SparkIcon className="h-5 w-5" />
         </span>
-        <p className="text-sm text-ink-800">
+        <p className="text-sm text-white/85">
           <span className="font-semibold">{content.success.resultLabel}: </span>
-          {formatEuro(estimate.total, funnelLocale)}
+          <span className="font-bold text-brand-200">{formatEuro(estimate.total, funnelLocale)}</span>
         </p>
       </div>
 
       <form onSubmit={submit} className="mt-6 grid gap-4" noValidate>
         <div className="grid gap-4 sm:grid-cols-2">
-          <TextField
-            label={lead.firstName}
-            value={form.firstName}
-            onChange={(v) => update("firstName", v)}
-            autoComplete="given-name"
-            error={errors.firstName}
-          />
-          <TextField
-            label={lead.lastName}
-            value={form.lastName}
-            onChange={(v) => update("lastName", v)}
-            autoComplete="family-name"
-            error={errors.lastName}
-          />
+          <TextField label={lead.firstName} value={form.firstName} onChange={(v) => update("firstName", v)} autoComplete="given-name" error={errors.firstName} />
+          <TextField label={lead.lastName} value={form.lastName} onChange={(v) => update("lastName", v)} autoComplete="family-name" error={errors.lastName} />
         </div>
-        <TextField
-          label={lead.email}
-          type="email"
-          inputMode="email"
-          value={form.email}
-          onChange={(v) => update("email", v)}
-          autoComplete="email"
-          error={errors.email}
-        />
-        <TextField
-          label={lead.phone}
-          type="tel"
-          inputMode="tel"
-          value={form.phone}
-          onChange={(v) => update("phone", v)}
-          autoComplete="tel"
-          hint={lead.phoneHint}
-          error={errors.phone}
-        />
+        <TextField label={lead.email} type="email" inputMode="email" value={form.email} onChange={(v) => update("email", v)} autoComplete="email" error={errors.email} />
+        <TextField label={lead.phone} type="tel" inputMode="tel" value={form.phone} onChange={(v) => update("phone", v)} autoComplete="tel" hint={lead.phoneHint} error={errors.phone} />
 
-        {/* Honeypot */}
         <input
           type="text"
           name="company"
@@ -881,24 +845,24 @@ function Lead({
           className="absolute left-[-9999px] h-0 w-0 opacity-0"
         />
 
-        <label className="flex items-start gap-3 text-sm text-ink-700">
+        <label className="flex items-start gap-3 text-sm text-white/70">
           <input
             type="checkbox"
             checked={form.consent}
             onChange={(e) => update("consent", e.target.checked)}
-            className="mt-0.5 h-5 w-5 shrink-0 rounded border-brand-900/20 text-brand-700 focus:ring-brand-500"
+            className="mt-0.5 h-5 w-5 shrink-0 rounded border-white/20 bg-white/5 accent-brand-500"
           />
           <span>
             {lead.consent}{" "}
-            <a href={privacyHref} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700 underline underline-offset-2">
+            <a href={privacyHref} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-300 underline underline-offset-2">
               ↗
             </a>
           </span>
         </label>
-        {errors.consent && <p className="-mt-2 text-xs font-medium text-red-600">{errors.consent}</p>}
+        {errors.consent && <p className="-mt-2 text-xs font-medium text-red-300">{errors.consent}</p>}
 
         {serverError && (
-          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+          <p className="rounded-xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm font-medium text-red-200">
             {serverError}
           </p>
         )}
@@ -906,12 +870,12 @@ function Lead({
         <button
           type="submit"
           disabled={submitting}
-          className="btn-primary mt-1 w-full px-8 py-4 text-base disabled:opacity-60"
+          className="fx-sheen group mt-1 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-400 to-brand-600 px-8 py-4 text-base font-bold text-ink-950 shadow-[0_10px_40px_-8px_rgba(34,197,94,0.8)] transition hover:shadow-[0_14px_50px_-6px_rgba(34,197,94,0.95)] active:scale-[0.98] disabled:opacity-60"
         >
           {submitting ? lead.submitting : lead.submit}
-          {!submitting && <span aria-hidden>→</span>}
+          {!submitting && <span aria-hidden className="transition group-hover:translate-x-1">→</span>}
         </button>
-        <p className="flex items-center justify-center gap-2 text-xs text-ink-400">
+        <p className="flex items-center justify-center gap-2 text-xs text-white/40">
           <LockIcon className="h-3.5 w-3.5" />
           {lead.securenote}
         </p>
@@ -943,7 +907,7 @@ function TextField({
   const describedBy = error ? `${id}-err` : hint ? `${id}-hint` : undefined;
   return (
     <div>
-      <label className="label" htmlFor={id}>
+      <label className="text-xs font-semibold uppercase tracking-[0.12em] text-white/55" htmlFor={id}>
         {label}
       </label>
       <input
@@ -955,19 +919,12 @@ function TextField({
         onChange={(e) => onChange(e.target.value)}
         aria-invalid={!!error}
         aria-describedby={describedBy}
-        className={[
-          "input mt-2",
-          error ? "border-red-400 focus:border-red-500 focus:ring-red-500/15" : "",
-        ].join(" ")}
+        className={["field-dark mt-2", error ? "err" : ""].join(" ")}
       />
       {error ? (
-        <p id={`${id}-err`} className="mt-1.5 text-xs font-medium text-red-600">
-          {error}
-        </p>
+        <p id={`${id}-err`} className="mt-1.5 text-xs font-medium text-red-300">{error}</p>
       ) : hint ? (
-        <p id={`${id}-hint`} className="mt-1.5 text-xs text-ink-400">
-          {hint}
-        </p>
+        <p id={`${id}-hint`} className="mt-1.5 text-xs text-white/40">{hint}</p>
       ) : null}
     </div>
   );
@@ -1000,35 +957,38 @@ function Success({
 
   return (
     <div className="text-center">
-      <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-white shadow-glow">
+      <Confetti run />
+      <div className="fx-pulse mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-ink-950">
         <CheckIcon className="h-10 w-10" />
       </div>
-      <span className="eyebrow mx-auto mt-6">{success.badge}</span>
+      <span className="mt-6 inline-flex items-center gap-1.5 rounded-full border border-brand-400/30 bg-brand-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-200">
+        {success.badge}
+      </span>
       <h2
         ref={headingRef}
         tabIndex={-1}
-        className="mt-4 font-display text-2xl font-bold tracking-tight text-ink-900 outline-none sm:text-3xl"
+        className="mt-4 font-display text-2xl font-bold tracking-tight outline-none sm:text-3xl"
       >
         {success.title}
       </h2>
-      <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-ink-700 sm:text-base">
+      <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-white/70 sm:text-base">
         {success.subtitle}
       </p>
 
-      <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand-50 px-4 py-2 text-sm">
-        <span className="font-medium text-ink-600">{success.resultLabel}:</span>
-        <span className="font-bold text-brand-800">{formatEuro(estimate.total, funnelLocale)}</span>
+      <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm">
+        <span className="font-medium text-white/60">{success.resultLabel}:</span>
+        <span className="font-bold text-brand-200">{formatEuro(estimate.total, funnelLocale)}</span>
       </div>
 
-      <div className="relative mt-8 overflow-hidden rounded-4xl bg-ink-900 p-7 text-left shadow-lift sm:p-8">
-        <div aria-hidden className="absolute inset-0 dark-mesh opacity-90" />
+      <div className="relative mt-8 overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] p-7 text-left backdrop-blur sm:p-8">
+        <div aria-hidden className="absolute -top-20 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-brand-500/30 blur-3xl" />
         <div className="relative">
-          <h3 className="font-display text-xl font-bold text-white">{success.bookTitle}</h3>
-          <p className="mt-2 text-sm text-brand-100/80">{success.bookText}</p>
+          <h3 className="font-display text-xl font-bold">{success.bookTitle}</h3>
+          <p className="mt-2 text-sm text-white/65">{success.bookText}</p>
           <a
             href={href}
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-400 px-7 py-3.5 text-sm font-bold text-ink-900 shadow-glow transition hover:bg-brand-300 active:scale-[0.98] sm:w-auto"
+            className="fx-sheen mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent-400 to-accent-500 px-7 py-3.5 text-sm font-bold text-ink-950 shadow-[0_10px_40px_-8px_rgba(245,158,11,0.8)] transition active:scale-[0.98] sm:w-auto"
           >
             <CalendarIcon className="h-4 w-4" />
             {success.book}
@@ -1037,24 +997,20 @@ function Success({
       </div>
 
       <div className="mt-8 text-left">
-        <h3 className="text-sm font-bold text-ink-900">{success.nextTitle}</h3>
+        <h3 className="text-sm font-bold text-white">{success.nextTitle}</h3>
         <ol className="mt-4 space-y-3">
           {success.next.map((n, i) => (
             <li key={n} className="flex items-start gap-3">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-600 text-xs font-bold text-white">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-xs font-bold text-ink-950">
                 {i + 1}
               </span>
-              <span className="text-sm leading-relaxed text-ink-700">{n}</span>
+              <span className="text-sm leading-relaxed text-white/70">{n}</span>
             </li>
           ))}
         </ol>
       </div>
 
-      <button
-        type="button"
-        onClick={onRestart}
-        className="btn-ghost mx-auto mt-8"
-      >
+      <button type="button" onClick={onRestart} className="mx-auto mt-8 inline-flex items-center gap-1 text-sm font-semibold text-brand-300 transition hover:text-brand-200">
         {success.restart}
       </button>
     </div>
@@ -1075,15 +1031,15 @@ function ResumeDialog({
   onRestart: () => void;
 }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink-900/40 p-4 backdrop-blur-sm sm:items-center">
-      <div className="w-full max-w-sm rounded-3xl bg-white p-6 shadow-lift animate-fade-up">
-        <h3 className="font-display text-lg font-bold text-ink-900">{ui.resumeTitle}</h3>
-        <p className="mt-2 text-sm text-ink-600">{ui.resumeText}</p>
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink-950/60 p-4 backdrop-blur-sm sm:items-center">
+      <div className="glass-strong fx-pop w-full max-w-sm rounded-3xl p-6 text-white">
+        <h3 className="font-display text-lg font-bold">{ui.resumeTitle}</h3>
+        <p className="mt-2 text-sm text-white/60">{ui.resumeText}</p>
         <div className="mt-5 grid gap-2.5">
-          <button type="button" onClick={onResume} className="btn-primary w-full">
+          <button type="button" onClick={onResume} className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-400 to-brand-600 px-6 py-3 font-bold text-ink-950">
             {ui.resumeYes}
           </button>
-          <button type="button" onClick={onRestart} className="btn-secondary w-full">
+          <button type="button" onClick={onRestart} className="inline-flex w-full items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white/80 transition hover:bg-white/10">
             {ui.resumeNo}
           </button>
         </div>
@@ -1103,7 +1059,6 @@ function CheckIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-
 function SparkIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
@@ -1111,7 +1066,6 @@ function SparkIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-
 function CheckBadgeIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -1120,7 +1074,6 @@ function CheckBadgeIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-
 function ClockIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -1129,7 +1082,6 @@ function ClockIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-
 function CalendarIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -1138,7 +1090,6 @@ function CalendarIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-
 function LockIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
