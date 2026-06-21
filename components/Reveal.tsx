@@ -11,7 +11,7 @@ function reduced(): boolean {
 
 /**
  * Scroll-Reveal – blendet Inhalte beim Hereinscrollen sanft ein.
- * `as` erlaubt semantische Tags (z. B. "li", "section").
+ * Respektiert prefers-reduced-motion (zeigt Inhalt dann sofort).
  */
 export function Reveal({
   children,
@@ -41,7 +41,7 @@ export function Reveal({
           io.disconnect();
         }
       },
-      { threshold: 0.12 },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -55,25 +55,5 @@ export function Reveal({
     >
       {children}
     </Tag>
-  );
-}
-
-/** Karte mit cursor-folgendem Glow (heller Hintergrund). */
-export function Spotlight({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  const track = (e: React.MouseEvent<HTMLDivElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
-  };
-  return (
-    <div onMouseMove={track} className={`fx-spotlight-light ${className}`}>
-      {children}
-    </div>
   );
 }

@@ -1,81 +1,126 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import type { Locale } from "@/i18n/config";
-import type { Dictionary } from "@/i18n/getDictionary";
-import { LanguageSwitcher } from "./LanguageSwitcher";
-import { Logo } from "./Logo";
-import { MobileMenu } from "./MobileMenu";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { nav, ctaLabels, routes, site } from "@/lib/content";
+import { Logo } from "@/components/Logo";
+import { Button } from "@/components/ui/button";
+import { useFoerdercheck } from "@/components/foerdercheck/provider";
 
-export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
-  const navItems = [
-    { href: `/${lang}`, label: dict.nav.home },
-    { href: `/${lang}/services`, label: dict.nav.services },
-    { href: `/${lang}/about`, label: dict.nav.about },
-    { href: `/${lang}/career`, label: dict.nav.career },
-    { href: `/${lang}/contact`, label: dict.nav.contact },
-  ];
+export function Header() {
+  const pathname = usePathname();
+  const { open } = useFoerdercheck();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const foerderHref = `/${lang}/foerdercheck`;
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Mobilmenü bei Routenwechsel schließen + Escape-Handling.
+  useEffect(() => setMobileOpen(false), [pathname]);
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMobileOpen(false);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
+
+  const isActive = (href: string) =>
+    href === routes.home ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <header
-      data-chrome="header"
-      className="sticky top-0 z-40 border-b border-brand-900/5 bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60"
+      className={cn(
+        "sticky top-0 z-40 w-full border-b bg-white/90 backdrop-blur-md transition-shadow",
+        scrolled ? "border-navy-900/8 shadow-soft" : "border-transparent",
+      )}
     >
-      <div className="container flex h-16 items-center justify-between gap-4 sm:h-20">
+      <div className="container flex h-16 items-center justify-between gap-4 lg:h-[72px]">
         <Link
-          href={`/${lang}`}
-          className="flex items-center gap-2.5 transition active:scale-95 sm:gap-3"
-          aria-label="ENOX"
+          href={routes.home}
+          aria-label={`${site.name} – Startseite`}
+          className="rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
         >
-          <Logo className="h-9 w-9 sm:h-10 sm:w-10" />
-          <div className="leading-tight">
-            <div className="text-base font-extrabold tracking-tight sm:text-lg">
-              <span className="text-gradient-brand">ENOX</span>
-            </div>
-            <div className="text-[9px] font-semibold uppercase tracking-[0.22em] text-brand-700 sm:text-[10px]">
-              Energy Consulting
-            </div>
-          </div>
+          <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
-          {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className="nav-link">
+        {/* Desktop-Navigation */}
+        <nav aria-label="Hauptnavigation" className="hidden items-center gap-1 lg:flex">
+          {nav.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className={cn(
+                "nav-link",
+                isActive(item.href) && "bg-navy-50 text-navy-900",
+              )}
+            >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <div className="hidden sm:block">
-            <LanguageSwitcher
-              currentLocale={lang}
-              label={dict.common.language}
-            />
-          </div>
-          <Link
-            href={foerderHref}
-            className="hidden items-center gap-2 rounded-full bg-accent-500 px-5 py-2.5 text-sm font-bold text-ink-900 shadow-soft transition hover:bg-accent-400 hover:shadow-lift active:scale-95 lg:inline-flex"
+        <div className="flex items-center gap-2">
+          <Button
+            onClick={() => open("header")}
+            size="sm"
+            className="hidden sm:inline-flex"
           >
-            {dict.nav.foerdercheck}
-            <span aria-hidden="true">→</span>
-          </Link>
-          <Link
-            href={`/${lang}/contact`}
-            className="btn-secondary hidden lg:inline-flex"
+            {ctaLabels.foerdercheck}
+          </Button>
+
+          {/* Mobile: Burger */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav"
+            aria-label={mobileOpen ? "Menü schließen" : "Menü öffnen"}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-navy-900/10 text-navy-900 transition hover:bg-navy-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 lg:hidden"
           >
-            {dict.nav.consultation}
-          </Link>
-          <MobileMenu
-            navItems={navItems}
-            lang={lang}
-            consultationLabel={dict.nav.consultation}
-            languageLabel={dict.common.language}
-            highlightHref={foerderHref}
-            highlightLabel={dict.nav.foerdercheck}
-          />
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile-Navigation */}
+      {mobileOpen && (
+        <div
+          id="mobile-nav"
+          className="border-t border-navy-900/8 bg-white px-5 pb-6 pt-2 lg:hidden"
+        >
+          <nav aria-label="Mobile Navigation" className="flex flex-col gap-1">
+            {nav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="nav-link-mobile"
+                onClick={() => setMobileOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+          <Button
+            size="block"
+            className="mt-4"
+            onClick={() => {
+              setMobileOpen(false);
+              open("mobile-menu");
+            }}
+          >
+            {ctaLabels.foerdercheck}
+          </Button>
+        </div>
+      )}
     </header>
   );
 }
