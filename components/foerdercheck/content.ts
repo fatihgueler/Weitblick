@@ -1,378 +1,209 @@
-// Inhalt & Logik des ENOX-Förderchecks.
-//
-// WICHTIG FÜR REDAKTEURE:
-// Die sichtbaren TEXTE des Förderchecks liegen NICHT in dieser Datei, sondern in
-//   components/foerdercheck/locales/de.json   (Deutsch)
-//   components/foerdercheck/locales/en.json   (Englisch)
-// Dort können sie gefahrlos bearbeitet werden – siehe INHALTE-BEARBEITEN.md.
-//
-// Diese Datei enthält nur die STRUKTUR (Reihenfolge der Fragen, interne Werte,
-// Icons) und die BERECHNUNGSLOGIK. Beides bitte unverändert lassen.
+/**
+ * Datenmodell & Texte des Fördercheck-Funnels (8 Schritte, exakt nach Briefing).
+ *
+ * Diese Datei wird sowohl vom Funnel (Frontend) als auch von der Mail-API
+ * (app/api/foerdercheck/route.ts) genutzt. Reihenfolge der Schritte:
+ *   1 Gebäude · 2 Maßnahmen · 3 Baujahr · 4 Nutzung · 5 PLZ/Ort
+ *   6 Zeithorizont · 7 Angebote · 8 Kontaktdaten
+ */
 
-import deText from "./locales/de.json";
-import enText from "./locales/en.json";
+export type FunnelChoice = { value: string; label: string; icon?: string };
 
-export type FunnelLocale = "de" | "en";
+export type ChoiceId = "building" | "measures" | "year" | "usage" | "timing" | "offers";
 
-export type IconKey =
-  | "heat"
-  | "insulation"
-  | "window"
-  | "solar"
-  | "renovation"
-  | "buy"
-  | "question"
-  | "house"
-  | "building"
-  | "apartment"
-  | "commercial"
-  | "owner"
-  | "owner-plan"
-  | "tenant"
-  | "old"
-  | "mid"
-  | "new"
-  | "gas"
-  | "oil"
-  | "district"
-  | "heatpump"
-  | "power"
-  | "more"
-  | "rocket"
-  | "calendar"
-  | "clock"
-  | "info"
-  | "wallet"
-  | "bank"
-  | "open";
-
-export type OptionDef = {
-  value: string;
-  label: string;
-  description?: string;
-  icon?: IconKey;
-};
-
-export type QuestionDef = {
-  id: string;
-  type: "single" | "multi";
+export type ChoiceQuestion = {
+  id: ChoiceId;
+  kind: "single" | "multi";
   question: string;
-  help?: string;
-  options: OptionDef[];
-  /** Mindestauswahl bei Multi-Select, Standard 1 */
-  min?: number;
+  hint?: string;
+  options: FunnelChoice[];
 };
 
-export type FunnelContent = {
-  intro: {
-    badge: string;
-    title: string;
-    highlight: string;
-    subtitle: string;
-    bullets: string[];
-    start: string;
-    duration: string;
-    privacy: string;
-  };
-  questions: QuestionDef[];
-  calculating: {
-    title: string;
-    steps: string[];
-  };
-  result: {
-    badge: string;
-    title: string;
-    upTo: string;
-    perYear: string;
-    breakdownTitle: string;
-    items: { bafa: string; kfw: string; tax: string };
-    disclaimer: string;
-    cta: string;
-    secondary: string;
-  };
-  lead: {
-    title: string;
-    subtitle: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    phoneHint: string;
-    consent: string;
-    submit: string;
-    submitting: string;
-    securenote: string;
-    errors: {
-      firstName: string;
-      lastName: string;
-      email: string;
-      phone: string;
-      consent: string;
-      generic: string;
-    };
-  };
-  success: {
-    badge: string;
-    title: string;
-    subtitle: string;
-    bookTitle: string;
-    bookText: string;
-    book: string;
-    nextTitle: string;
-    next: string[];
-    restart: string;
-    resultLabel: string;
-  };
-  ui: {
-    step: string;
-    of: string;
-    back: string;
-    continue: string;
-    multiHint: string;
-    selectedHint: string;
-    skip: string;
-    resumeTitle: string;
-    resumeText: string;
-    resumeYes: string;
-    resumeNo: string;
-  };
-};
-
-/* -------------------------------------------------------------------------- */
-/*  Struktur des Fragebogens – NICHT vom Klienten bearbeiten.                  */
-/*  Reihenfolge, interne Werte (value) und Icons. Die Texte dazu stehen in     */
-/*  den JSON-Dateien unter ./locales/ und werden unten zusammengeführt.        */
-/* -------------------------------------------------------------------------- */
-
-type QuestionSkeleton = {
-  id: string;
-  type: "single" | "multi";
-  min?: number;
-  options: { value: string; icon?: IconKey }[];
-};
-
-const questionSkeleton: QuestionSkeleton[] = [
-  {
-    id: "goal",
-    type: "multi",
-    options: [
-      { value: "heizung", icon: "heat" },
-      { value: "daemmung", icon: "insulation" },
-      { value: "fenster", icon: "window" },
-      { value: "solar", icon: "solar" },
-      { value: "komplett", icon: "renovation" },
-      { value: "kaufen", icon: "buy" },
-      { value: "unklar", icon: "question" },
-    ],
-  },
-  {
+export const questions: Record<ChoiceId, ChoiceQuestion> = {
+  building: {
     id: "building",
-    type: "single",
+    kind: "single",
+    question: "Um welches Gebäude handelt es sich?",
     options: [
-      { value: "efh", icon: "house" },
-      { value: "mfh", icon: "building" },
-      { value: "etw", icon: "apartment" },
-      { value: "gewerbe", icon: "commercial" },
+      { value: "efh", label: "Einfamilienhaus", icon: "Home" },
+      { value: "zfh", label: "Zweifamilienhaus", icon: "Building2" },
+      { value: "mfh", label: "Mehrfamilienhaus", icon: "Building2" },
+      { value: "wohnung", label: "Wohnung", icon: "DoorClosed" },
+      { value: "neubau", label: "Neubau", icon: "Hammer" },
+      { value: "sonstiges", label: "Sonstiges", icon: "HelpCircle" },
     ],
   },
-  {
-    id: "owner",
-    type: "single",
+  measures: {
+    id: "measures",
+    kind: "multi",
+    question: "Was möchten Sie umsetzen oder prüfen lassen?",
+    hint: "Mehrfachauswahl möglich",
     options: [
-      { value: "ja", icon: "owner" },
-      { value: "kauf", icon: "owner-plan" },
-      { value: "nein", icon: "tenant" },
+      { value: "sanierungsfahrplan", label: "Sanierungsfahrplan", icon: "Route" },
+      { value: "komplettsanierung", label: "Komplettsanierung", icon: "Wrench" },
+      { value: "heizungstausch", label: "Heizungstausch", icon: "Flame" },
+      { value: "waermepumpe", label: "Wärmepumpe", icon: "ThermometerSun" },
+      { value: "fassadendaemmung", label: "Fassadendämmung", icon: "Layers" },
+      { value: "dachdaemmung", label: "Dachdämmung", icon: "Triangle" },
+      { value: "fenstertausch", label: "Fenstertausch", icon: "PanelTop" },
+      { value: "kellerdeckendaemmung", label: "Kellerdeckendämmung", icon: "Box" },
+      { value: "heizlastberechnung", label: "Heizlastberechnung", icon: "Calculator" },
+      { value: "hydraulischer_abgleich", label: "Hydraulischer Abgleich", icon: "Gauge" },
+      { value: "lueftungskonzept", label: "Lüftungskonzept", icon: "Wind" },
+      { value: "energieausweis", label: "Energieausweis", icon: "FileCheck2" },
+      { value: "foerdermittel", label: "Fördermittelberatung", icon: "BadgeEuro" },
+      { value: "unsicher", label: "Ich bin mir noch unsicher", icon: "HelpCircle" },
     ],
   },
-  {
+  year: {
     id: "year",
-    type: "single",
+    kind: "single",
+    question: "Wann wurde das Gebäude ungefähr gebaut?",
     options: [
-      { value: "vor1979", icon: "old" },
-      { value: "1979_2001", icon: "mid" },
-      { value: "nach2002", icon: "new" },
-      { value: "unklar", icon: "question" },
+      { value: "vor1977", label: "Vor 1977" },
+      { value: "1977_1995", label: "1977 bis 1995" },
+      { value: "1996_2010", label: "1996 bis 2010" },
+      { value: "nach2010", label: "Nach 2010" },
+      { value: "neubau", label: "Neubau" },
+      { value: "unklar", label: "Weiß ich nicht" },
     ],
   },
-  {
-    id: "heating",
-    type: "single",
+  usage: {
+    id: "usage",
+    kind: "single",
+    question: "Wie nutzen Sie das Gebäude?",
     options: [
-      { value: "gas", icon: "gas" },
-      { value: "oel", icon: "oil" },
-      { value: "fernwaerme", icon: "district" },
-      { value: "waermepumpe", icon: "heatpump" },
-      { value: "strom", icon: "power" },
-      { value: "sonstiges", icon: "more" },
+      { value: "selbst", label: "Selbst bewohnt" },
+      { value: "vermietet", label: "Vermietet" },
+      { value: "teilweise", label: "Teilweise vermietet" },
+      { value: "leer", label: "Leerstehend" },
+      { value: "kauf", label: "Kauf geplant" },
     ],
   },
-  {
+  timing: {
     id: "timing",
-    type: "single",
+    kind: "single",
+    question: "Wann möchten Sie starten?",
     options: [
-      { value: "sofort", icon: "rocket" },
-      { value: "3monate", icon: "calendar" },
-      { value: "jahr", icon: "clock" },
-      { value: "info", icon: "info" },
+      { value: "sofort", label: "So schnell wie möglich" },
+      { value: "3monate", label: "In den nächsten 3 Monaten" },
+      { value: "3_6monate", label: "In 3 bis 6 Monaten" },
+      { value: "spaeter", label: "Später" },
+      { value: "info", label: "Ich möchte mich erst informieren" },
     ],
   },
-  {
-    id: "finance",
-    type: "single",
+  offers: {
+    id: "offers",
+    kind: "single",
+    question: "Gibt es bereits Angebote oder konkrete Pläne?",
     options: [
-      { value: "eigenkapital", icon: "wallet" },
-      { value: "kredit", icon: "bank" },
-      { value: "offen", icon: "open" },
+      { value: "angebote", label: "Ja, es gibt bereits Angebote" },
+      { value: "plaene", label: "Ja, es gibt erste Pläne" },
+      { value: "nein", label: "Nein, noch nicht" },
+      { value: "beratung", label: "Ich brauche zuerst eine Beratung" },
     ],
   },
+};
+
+/** Reihenfolge der 6 Auswahl-Schritte (Standort & Kontakt liegen dazwischen/danach). */
+export const choiceOrder: ChoiceId[] = [
+  "building",
+  "measures",
+  "year",
+  "usage",
+  "timing",
+  "offers",
 ];
 
-/* -------------------------------------------------------------------------- */
-/*  Texte (aus den JSON-Dateien) + Zusammenführung mit der Struktur            */
-/* -------------------------------------------------------------------------- */
+export const funnelCopy = {
+  intro: {
+    badge: "Kostenloser Fördercheck",
+    title: "Kostenlosen Fördercheck starten",
+    text:
+      "Beantworten Sie wenige Fragen zu Ihrem Wohngebäude und Ihrer geplanten Maßnahme. Anschließend prüfe ich Ihre Angaben und melde mich mit einer ersten Einschätzung.",
+    bullets: ["Gebäude auswählen", "Maßnahme angeben", "Rückmeldung erhalten"],
+    start: "Jetzt starten",
+    duration: "Dauert ca. 1 Minute · unverbindlich",
+  },
+  location: {
+    question: "Wo befindet sich das Gebäude?",
+    plz: "Postleitzahl",
+    ort: "Ort",
+  },
+  contact: {
+    question: "Ihre Kontaktdaten",
+    firstName: "Vorname",
+    lastName: "Nachname",
+    email: "E-Mail",
+    phone: "Telefonnummer",
+    message: "Nachricht (optional)",
+    consent:
+      "Mit dem Absenden erklären Sie sich damit einverstanden, dass Ihre Angaben zur Bearbeitung Ihrer Anfrage verarbeitet werden.",
+    submit: "Anfrage absenden",
+    submitting: "Wird gesendet …",
+  },
+  success: {
+    title: "Vielen Dank für Ihre Anfrage.",
+    text:
+      "Ich prüfe Ihre Angaben und melde mich zeitnah mit einer ersten Einschätzung zu Ihrem Wohngebäude und den möglichen nächsten Schritten.",
+    home: "Zurück zur Startseite",
+    restart: "Neuen Fördercheck starten",
+  },
+  ui: {
+    step: "Schritt",
+    of: "von",
+    back: "Zurück",
+    next: "Weiter",
+    selected: "ausgewählt",
+  },
+  errors: {
+    choice: "Bitte wählen Sie eine Option aus.",
+    multi: "Bitte wählen Sie mindestens eine Option aus.",
+    plz: "Bitte geben Sie eine gültige Postleitzahl ein.",
+    ort: "Bitte geben Sie einen Ort ein.",
+    firstName: "Bitte geben Sie Ihren Vornamen ein.",
+    lastName: "Bitte geben Sie Ihren Nachnamen ein.",
+    email: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    phone: "Bitte geben Sie eine Telefonnummer ein.",
+    consent: "Bitte stimmen Sie der Verarbeitung zu.",
+    generic: "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+  },
+} as const;
 
-type OptionText = { label: string; description?: string };
-type QuestionText = {
-  question: string;
-  help?: string;
-  options: Record<string, OptionText>;
+/** Gesamter Funnel-Datensatz (Form-Werte). */
+export type FunnelData = {
+  building: string;
+  measures: string[];
+  year: string;
+  usage: string;
+  plz: string;
+  ort: string;
+  timing: string;
+  offers: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  message?: string;
 };
 
-/** Form der Dateien in ./locales – nur Texte, keine Struktur/Logik. */
-type FunnelText = {
-  intro: FunnelContent["intro"];
-  questions: Record<string, QuestionText>;
-  calculating: FunnelContent["calculating"];
-  result: FunnelContent["result"];
-  lead: FunnelContent["lead"];
-  success: FunnelContent["success"];
-  ui: FunnelContent["ui"];
-};
+function labelOf(q: ChoiceQuestion, value: string): string {
+  return q.options.find((o) => o.value === value)?.label ?? value;
+}
 
-/** Führt Struktur (Skeleton) und Texte (JSON) zu fertigem Funnel-Inhalt zusammen. */
-function assemble(text: FunnelText): FunnelContent {
-  const questions: QuestionDef[] = questionSkeleton.map((q) => {
-    const qt = text.questions[q.id];
-    const options: OptionDef[] = q.options.map((o) => {
-      const ot = qt?.options?.[o.value];
-      return {
-        value: o.value,
-        label: ot?.label ?? "",
-        description: ot?.description,
-        icon: o.icon,
-      };
+/** Antworten als lesbare Frage/Antwort-Paare (für die Lead-E-Mail). */
+export function summarizeAnswers(data: Partial<FunnelData>): { q: string; a: string }[] {
+  const out: { q: string; a: string }[] = [];
+  if (data.building) out.push({ q: questions.building.question, a: labelOf(questions.building, data.building) });
+  if (data.measures?.length)
+    out.push({
+      q: questions.measures.question,
+      a: data.measures.map((v) => labelOf(questions.measures, v)).join(", "),
     });
-    return {
-      id: q.id,
-      type: q.type,
-      question: qt?.question ?? "",
-      help: qt?.help,
-      min: q.min,
-      options,
-    };
-  });
-
-  return {
-    intro: text.intro,
-    questions,
-    calculating: text.calculating,
-    result: text.result,
-    lead: text.lead,
-    success: text.success,
-    ui: text.ui,
-  };
-}
-
-const de: FunnelContent = assemble(deText);
-const en: FunnelContent = assemble(enText);
-
-export const funnelContent: Record<FunnelLocale, FunnelContent> = { de, en };
-
-export function getFunnelContent(locale: string): {
-  locale: FunnelLocale;
-  content: FunnelContent;
-} {
-  const l: FunnelLocale = locale === "en" ? "en" : "de";
-  return { locale: l, content: funnelContent[l] };
-}
-
-/* -------------------------------------------------------------------------- */
-/*  Förderpotenzial-Schätzung                                                 */
-/* -------------------------------------------------------------------------- */
-
-export type Answers = Record<string, string[]>;
-
-export type Estimate = {
-  total: number;
-  bafa: number;
-  kfw: number;
-  tax: number;
-};
-
-const GOAL_GRANTS: Record<string, number> = {
-  heizung: 21000,
-  daemmung: 12000,
-  fenster: 6000,
-  solar: 3000,
-  komplett: 37500,
-  kaufen: 24000,
-  unklar: 4000,
-};
-
-const BUILDING_FACTOR: Record<string, number> = {
-  efh: 1,
-  etw: 0.8,
-  mfh: 1.8,
-  gewerbe: 1.4,
-};
-
-const YEAR_BONUS: Record<string, number> = {
-  vor1979: 0.18,
-  "1979_2001": 0.08,
-  nach2002: 0,
-  unklar: 0.05,
-};
-
-const OWNER_FACTOR: Record<string, number> = {
-  ja: 1,
-  kauf: 0.9,
-  nein: 0.25,
-};
-
-const CAP = 90000;
-
-function roundTo(value: number, step: number): number {
-  return Math.round(value / step) * step;
-}
-
-/** Grobe, bewusst „bis zu"-orientierte Schätzung des Förderpotenzials. */
-export function computeEstimate(answers: Answers): Estimate {
-  const goals = answers.goal ?? [];
-  let base = goals.reduce((sum, g) => sum + (GOAL_GRANTS[g] ?? 0), 0);
-  if (base === 0) base = GOAL_GRANTS.unklar;
-
-  const building = answers.building?.[0];
-  const year = answers.year?.[0];
-  const owner = answers.owner?.[0];
-
-  const buildingFactor = BUILDING_FACTOR[building ?? "efh"] ?? 1;
-  const yearBonus = YEAR_BONUS[year ?? "unklar"] ?? 0;
-  const ownerFactor = OWNER_FACTOR[owner ?? "ja"] ?? 1;
-
-  let total = base * buildingFactor * (1 + yearBonus) * ownerFactor;
-  total = Math.min(roundTo(total, 500), CAP);
-
-  const bafa = roundTo(total * 0.55, 100);
-  const kfw = roundTo(total * 0.34, 100);
-  const tax = Math.max(total - bafa - kfw, 0);
-
-  return { total, bafa, kfw, tax };
-}
-
-export function formatEuro(value: number, locale: FunnelLocale): string {
-  return new Intl.NumberFormat(locale === "en" ? "en-GB" : "de-DE", {
-    style: "currency",
-    currency: "EUR",
-    maximumFractionDigits: 0,
-  }).format(value);
+  if (data.year) out.push({ q: questions.year.question, a: labelOf(questions.year, data.year) });
+  if (data.usage) out.push({ q: questions.usage.question, a: labelOf(questions.usage, data.usage) });
+  if (data.plz || data.ort) out.push({ q: "Standort", a: `${data.plz ?? ""} ${data.ort ?? ""}`.trim() });
+  if (data.timing) out.push({ q: questions.timing.question, a: labelOf(questions.timing, data.timing) });
+  if (data.offers) out.push({ q: questions.offers.question, a: labelOf(questions.offers, data.offers) });
+  return out;
 }

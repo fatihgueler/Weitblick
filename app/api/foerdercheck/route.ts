@@ -1,23 +1,10 @@
 import { NextResponse } from "next/server";
-import {
-  computeEstimate,
-  formatEuro,
-  getFunnelContent,
-  type Answers,
-} from "@/components/foerdercheck/content";
+import { summarizeAnswers, type FunnelData } from "@/components/foerdercheck/content";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-type Payload = {
-  contact?: {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    phone?: string;
-  };
-  answers?: Answers;
-  locale?: string;
+type Payload = Partial<FunnelData> & {
   meta?: Record<string, unknown>;
 };
 
@@ -31,21 +18,6 @@ function escapeHtml(value: string): string {
     .replace(/"/g, "&quot;");
 }
 
-/** Antwort-Werte in lesbare Labels übersetzen. */
-function summarize(answers: Answers, locale: string): { q: string; a: string }[] {
-  const { content } = getFunnelContent(locale);
-  return content.questions
-    .map((q) => {
-      const selected = answers[q.id] ?? [];
-      if (selected.length === 0) return null;
-      const labels = selected.map(
-        (v) => q.options.find((o) => o.value === v)?.label ?? v,
-      );
-      return { q: q.question, a: labels.join(", ") };
-    })
-    .filter((x): x is { q: string; a: string } => x !== null);
-}
-
 export async function POST(request: Request) {
   let body: Payload;
   try {
@@ -54,69 +26,63 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "invalid_json" }, { status: 400 });
   }
 
-  const contact = body.contact ?? {};
-  const firstName = (contact.firstName ?? "").trim();
-  const lastName = (contact.lastName ?? "").trim();
-  const email = (contact.email ?? "").trim();
-  const phone = (contact.phone ?? "").trim();
-  const locale = body.locale === "en" ? "en" : "de";
-  const answers = body.answers ?? {};
+  const firstName = (body.firstName ?? "").trim();
+  const lastName = (body.lastName ?? "").trim();
+  const email = (body.email ?? "").trim();
+  const phone = (body.phone ?? "").trim();
+  const message = (body.message ?? "").trim();
 
   if (!firstName || !lastName || !EMAIL_RE.test(email) || !phone) {
     return NextResponse.json({ ok: false, error: "validation" }, { status: 422 });
   }
 
-  // Förderpotenzial serverseitig neu berechnen (Vertrauensgrenze).
-  const estimate = computeEstimate(answers);
-  const totalFmt = formatEuro(estimate.total, locale);
-  const summary = summarize(answers, locale);
+  const summary = summarizeAnswers(body);
   const fullName = `${firstName} ${lastName}`;
-
-  const subject = `Neuer Fördercheck-Lead: ${fullName} (bis zu ${totalFmt})`;
+  const subject = `Neue Fördercheck-Anfrage: ${fullName}`;
 
   const textLines = [
-    `Neuer Fördercheck-Lead über enox`,
+    `Neue Fördercheck-Anfrage über Weitblick Energieberatung`,
     ``,
     `Name:     ${fullName}`,
     `E-Mail:   ${email}`,
     `Telefon:  ${phone}`,
-    `Sprache:  ${locale.toUpperCase()}`,
     ``,
-    `Geschätztes Förderpotenzial: ${totalFmt}`,
-    `  - ${getFunnelContent(locale).content.result.items.bafa}: ${formatEuro(estimate.bafa, locale)}`,
-    `  - ${getFunnelContent(locale).content.result.items.kfw}: ${formatEuro(estimate.kfw, locale)}`,
-    `  - ${getFunnelContent(locale).content.result.items.tax}: ${formatEuro(estimate.tax, locale)}`,
-    ``,
-    `Antworten:`,
+    `Angaben:`,
     ...summary.map((s) => `  • ${s.q}\n    ${s.a}`),
+    ``,
+    message ? `Nachricht:\n${message}` : `Nachricht: –`,
     ``,
     `Meta: ${JSON.stringify(body.meta ?? {})}`,
   ];
   const text = textLines.join("\n");
 
   const html = `
-  <div style="font-family:Inter,Arial,sans-serif;max-width:560px;margin:auto;color:#0f1a14">
-    <div style="background:linear-gradient(135deg,#15803d,#22c55e);color:#fff;padding:24px;border-radius:16px 16px 0 0">
-      <div style="font-size:12px;letter-spacing:2px;opacity:.85">ENOX · FÖRDERCHECK</div>
-      <div style="font-size:22px;font-weight:800;margin-top:4px">Neuer Lead: ${escapeHtml(fullName)}</div>
-      <div style="font-size:14px;margin-top:6px;opacity:.9">Geschätztes Potenzial: <b>${totalFmt}</b></div>
+  <div style="font-family:Inter,Arial,sans-serif;max-width:560px;margin:auto;color:#1e293b">
+    <div style="background:linear-gradient(135deg,#1f3666,#121f3a);color:#fff;padding:24px;border-radius:16px 16px 0 0">
+      <div style="font-size:12px;letter-spacing:2px;color:#63e4c8">WEITBLICK · FÖRDERCHECK</div>
+      <div style="font-size:22px;font-weight:800;margin-top:4px">Neue Anfrage: ${escapeHtml(fullName)}</div>
     </div>
-    <div style="border:1px solid #e6efe8;border-top:none;border-radius:0 0 16px 16px;padding:24px">
+    <div style="border:1px solid #e0e7f0;border-top:none;border-radius:0 0 16px 16px;padding:24px">
       <table style="width:100%;font-size:14px;border-collapse:collapse">
-        <tr><td style="padding:6px 0;color:#525d54">Name</td><td style="padding:6px 0;font-weight:600">${escapeHtml(fullName)}</td></tr>
-        <tr><td style="padding:6px 0;color:#525d54">E-Mail</td><td style="padding:6px 0;font-weight:600"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td></tr>
-        <tr><td style="padding:6px 0;color:#525d54">Telefon</td><td style="padding:6px 0;font-weight:600"><a href="tel:${escapeHtml(phone)}">${escapeHtml(phone)}</a></td></tr>
+        <tr><td style="padding:6px 0;color:#64748b">Name</td><td style="padding:6px 0;font-weight:600">${escapeHtml(fullName)}</td></tr>
+        <tr><td style="padding:6px 0;color:#64748b">E-Mail</td><td style="padding:6px 0;font-weight:600"><a href="mailto:${escapeHtml(email)}" style="color:#0b7063">${escapeHtml(email)}</a></td></tr>
+        <tr><td style="padding:6px 0;color:#64748b">Telefon</td><td style="padding:6px 0;font-weight:600"><a href="tel:${escapeHtml(phone)}" style="color:#0b7063">${escapeHtml(phone)}</a></td></tr>
       </table>
-      <h3 style="margin:20px 0 8px;font-size:14px">Antworten</h3>
+      <h3 style="margin:20px 0 8px;font-size:14px;color:#121f3a">Angaben</h3>
       ${summary
         .map(
           (s) =>
-            `<div style="margin-bottom:10px"><div style="color:#525d54;font-size:13px">${escapeHtml(
+            `<div style="margin-bottom:10px"><div style="color:#64748b;font-size:13px">${escapeHtml(
               s.q,
             )}</div><div style="font-weight:600">${escapeHtml(s.a)}</div></div>`,
         )
         .join("")}
-      <p style="margin-top:20px;font-size:12px;color:#7a857d">Automatisch generiert vom ENOX-Fördercheck.</p>
+      ${
+        message
+          ? `<h3 style="margin:20px 0 8px;font-size:14px;color:#121f3a">Nachricht</h3><div style="font-size:14px;white-space:pre-wrap">${escapeHtml(message)}</div>`
+          : ""
+      }
+      <p style="margin-top:20px;font-size:12px;color:#94a3b8">Automatisch generiert vom Weitblick-Fördercheck.</p>
     </div>
   </div>`;
 
@@ -167,10 +133,8 @@ export async function POST(request: Request) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contact: { firstName, lastName, email, phone },
-          estimate,
+          contact: { firstName, lastName, email, phone, message },
           answers: summary,
-          locale,
           meta: body.meta ?? {},
         }),
       });
@@ -181,14 +145,7 @@ export async function POST(request: Request) {
     }
   }
 
-  // Fallback-Log, damit in der Demo nichts verloren geht.
-  console.log("[foerdercheck] lead", {
-    name: fullName,
-    email,
-    phone,
-    total: estimate.total,
-    results,
-  });
+  console.log("[foerdercheck] lead", { name: fullName, email, phone, results });
 
   return NextResponse.json({ ok: true });
 }
