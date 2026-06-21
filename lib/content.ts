@@ -492,3 +492,62 @@ export const kontaktPage = {
   privacyNote:
     "Mit dem Absenden erklären Sie sich damit einverstanden, dass Ihre Angaben zur Bearbeitung Ihrer Anfrage verarbeitet werden.",
 } as const;
+
+/* ---- Rechtstexte (NUR Platzhalter – siehe CONTENT.md) --------------------- */
+/* Keine erfundenen Rechtstexte. Vor Veröffentlichung mit rechtssicheren        */
+/* Vorlagen (z. B. e-recht24.de) ersetzen.                                      */
+
+export const legalNote =
+  "Hinweis: Dies ist ein Platzhalter. Bitte vor Veröffentlichung durch einen rechtssicheren Text ersetzen (z. B. mit dem Impressum-/Datenschutz-Generator von e-recht24.de).";
+
+export const impressum = {
+  title: "Impressum",
+  sections: [
+    {
+      heading: "Angaben gemäß § 5 TMG",
+      lines: [
+        "[Name / Firmierung eintragen]",
+        "[Straße und Hausnummer eintragen]",
+        "[PLZ und Ort eintragen]",
+      ],
+    },
+    {
+      heading: "Kontakt",
+      lines: ["Telefon: [Telefonnummer eintragen]", "E-Mail: [E-Mail-Adresse eintragen]"],
+    },
+    {
+      heading: "Umsatzsteuer-ID",
+      lines: ["[USt-IdNr. gemäß § 27a UStG eintragen, falls vorhanden]"],
+    },
+    {
+      heading: "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV",
+      lines: ["[Name und Anschrift der verantwortlichen Person eintragen]"],
+    },
+    {
+      heading: "Berufsbezeichnung / Eintragung (falls zutreffend)",
+      lines: ["[Energieeffizienz-Expertenliste / Kammer / Registernummer eintragen, falls zutreffend]"],
+    },
+  ],
+} as const;
+
+export const datenschutz = {
+  title: "Datenschutzerklärung",
+  sections: [
+    {
+      heading: "Verantwortlicher",
+      body: "Verantwortlich für die Datenverarbeitung auf dieser Website ist: [Name und Kontaktdaten eintragen].",
+    },
+    {
+      heading: "Erhebung und Verarbeitung personenbezogener Daten",
+      body: "Beim Besuch dieser Website werden technisch notwendige Daten verarbeitet. [Konkrete Angaben zu Hosting, Server-Logs und Speicherdauer ergänzen.]",
+    },
+    {
+      heading: "Kontaktformular & Fördercheck",
+      body: "Wenn Sie das Kontaktformular oder den Fördercheck nutzen, werden Ihre Angaben (z. B. Name, E-Mail, Telefon, Angaben zum Gebäude) zur Bearbeitung Ihrer Anfrage verarbeitet und per E-Mail übermittelt. [Rechtsgrundlage, Empfänger und Speicherdauer ergänzen.]",
+    },
+    {
+      heading: "Ihre Rechte",
+      body: "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch sowie ein Beschwerderecht bei einer Aufsichtsbehörde. [Kontakt für Betroffenenrechte ergänzen.]",
+    },
+  ],
+} as const;

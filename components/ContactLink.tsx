@@ -24,7 +24,7 @@ export function ContactLink({ type, value, className }: Props) {
   return (
     <a
       href={href}
-      className={cn("transition hover:text-white", className)}
+      className={cn("transition", className)}
       onClick={() => track(type === "email" ? "mail_click" : "tel_click")}
     >
       {value}

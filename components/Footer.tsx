@@ -49,11 +49,11 @@ export function Footer() {
           <ul className="mt-4 space-y-3 text-sm">
             <li className="flex items-center gap-3">
               <Mail className="h-4 w-4 shrink-0 text-teal-300" strokeWidth={2} />
-              <ContactLink type="email" value={contact.email} />
+              <ContactLink type="email" value={contact.email} className="hover:text-white" />
             </li>
             <li className="flex items-center gap-3">
               <Phone className="h-4 w-4 shrink-0 text-teal-300" strokeWidth={2} />
-              <ContactLink type="phone" value={contact.phone} />
+              <ContactLink type="phone" value={contact.phone} className="hover:text-white" />
             </li>
             <li className="flex items-center gap-3">
               <MapPin className="h-4 w-4 shrink-0 text-teal-300" strokeWidth={2} />
