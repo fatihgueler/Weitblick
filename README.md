@@ -1,61 +1,57 @@
-# ENOX – Internationale Energieberatung
+# Weitblick Energieberatung
 
-Mehrsprachige Marketing-Website für die internationale Energieberatung **ENOX**
-(Inhaber: **Enes Talha Aktürk**). Vorbild und Referenz: greenox-group.de.
-
-## Sprachen
-
-Die Website unterstützt fünf Sprachen, die über den Sprachumschalter im Header
-oder über das `/{locale}`-Präfix in der URL gewählt werden können:
-
-| Code | Sprache    |
-| ---- | ---------- |
-| `de` | Deutsch    |
-| `en` | English    |
-| `zh` | 中文       |
-| `es` | Español    |
-| `ru` | Русский    |
-
-Die Übersetzungen liegen in [`i18n/dictionaries`](./i18n/dictionaries/).
-
-## Fördercheck
-
-Unter `/{sprache}/foerdercheck` läuft ein mehrstufiger, animierter
-Fördercheck-Funnel zur Lead-Generierung: Fragebogen → geschätztes
-Förderpotenzial (BAFA/KfW/Steuerbonus) → Kontaktformular → E-Mail an Enes
-+ Termin-Button. Mit `?embed=1` startet ein chrome-freier Embed-Modus
-(für iFrames). Einrichtung, ENV-Variablen und Linktree-Anbindung: siehe
-[`SETUP.md`](./SETUP.md).
+Conversion-Landingpage für eine **Energieberatung für Wohngebäude**
+(Weitblick Energieberatung). Zentrales Element ist der **Fördercheck** – ein
+schrittweiser Fragebogen zur Lead-Generierung, immer erreichbar über einen
+Sticky-Launcher und einen Slide-over-Drawer.
 
 ## Tech-Stack
 
-- [Next.js 14](https://nextjs.org/) (App Router) mit Locale-Routing
-- [Tailwind CSS](https://tailwindcss.com/) für das eigene Eco-/Green-Theme
-- TypeScript, React Server Components
+- [Next.js 16](https://nextjs.org/) (App Router, React Server Components)
+- [Tailwind CSS v3](https://tailwindcss.com/) – Designsystem (Navy + Türkis)
+- shadcn-Style UI (Radix: Dialog/Sheet, Accordion), [lucide-react](https://lucide.dev/) Icons
+- Formulare: react-hook-form + zod
+- E-Mail-Versand: [Resend](https://resend.com/) (per `fetch`, ohne Extra-Paket)
+
+## Seitenstruktur (Deutsch, flache Slugs)
+
+```
+/                Startseite (Hero, Vertrauen, Nutzen, Fördercheck, Leistungen,
+                 Zielgruppen, Ablauf, Über-mich, FAQ, Abschluss-CTA)
+/foerdercheck    Fördercheck-Funnel (8 Schritte) als eigene Route
+/leistungen      Leistungen (Übersicht + Detailblöcke)
+/ueber-mich      Über mich
+/faq             Häufige Fragen
+/kontakt         Kontaktformular
+/impressum       Impressum (Platzhalter – siehe CONTENT.md)
+/datenschutz     Datenschutz (Platzhalter – siehe CONTENT.md)
+```
+
+## Inhalte pflegen
+
+- **Website-Texte:** zentral in [`lib/content.ts`](./lib/content.ts).
+- **Fördercheck-Texte/-Struktur:** [`components/foerdercheck/content.ts`](./components/foerdercheck/content.ts).
+- **Kontaktdaten & Rechtstexte:** Platzhalter in `lib/content.ts` – alle offenen
+  Punkte sind in [`CONTENT.md`](./CONTENT.md) gelistet.
+- Anleitung zum Bearbeiten: [`INHALTE-BEARBEITEN.md`](./INHALTE-BEARBEITEN.md).
+
+## E-Mail / Environment
+
+Damit Fördercheck- und Kontaktformular E-Mails versenden, müssen `RESEND_API_KEY`,
+`LEAD_EMAIL_TO`, `LEAD_EMAIL_FROM` gesetzt sein (siehe [`.env.example`](./.env.example)).
+Ohne diese Werte läuft die Seite normal, versendet aber keine Mail.
 
 ## Entwicklung
 
 ```bash
 npm install
-npm run dev
+npm run dev      # http://localhost:3000
+npm run build    # Produktions-Build
 ```
 
-Die App ist dann unter http://localhost:3000 erreichbar – ein Aufruf der
-Wurzel-URL leitet automatisch auf die bevorzugte Sprache des Browsers weiter.
+## Barrierefreiheit & SEO
 
-## Build
-
-```bash
-npm run build
-npm start
-```
-
-## Struktur
-
-```
-app/
-  [lang]/             Locale-spezifische Seiten (Home, Services, About, Career, Contact, Imprint, Privacy)
-components/           Header, Footer, LanguageSwitcher, ServiceCard, Logo
-i18n/                 Konfiguration und JSON-Wörterbücher
-middleware.ts         Locale-Detection & Redirect von `/`
-```
+`<html lang="de">`, Skip-Link, semantisches HTML, WCAG-AA-Kontraste,
+Tastaturbedienung, `prefers-reduced-motion`. SEO: `generateMetadata` je Seite,
+`app/sitemap.ts`, `app/robots.ts`, JSON-LD (ProfessionalService + FAQPage),
+Open-Graph-Bild.

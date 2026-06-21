@@ -1,16 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#22c55e"/>
-      <stop offset="100%" stop-color="#15803d"/>
-    </linearGradient>
-    <linearGradient id="l" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#bbf7d0"/>
-      <stop offset="100%" stop-color="#22c55e"/>
+    <linearGradient id="wbTile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f3666"/>
+      <stop offset="100%" stop-color="#121f3a"/>
     </linearGradient>
   </defs>
-  <path d="M28 2L52 16v24L28 54L4 40V16L28 2Z" fill="url(#g)"/>
-  <path d="M37 36c-5 5-12 5-17 1-4-3-5-9-3-14 4 0 9 1 12 4 4 3 6 6 8 9z" fill="url(#l)" opacity="0.95"/>
-  <path d="M19 38c4-7 10-12 18-13" fill="none" stroke="#0f1a14" stroke-opacity="0.35" stroke-width="1.2" stroke-linecap="round"/>
-  <path d="M16 18h16v3.5h-11v4.2h10v3.4h-10v4.4h11.5V37H16z" fill="#ffffff"/>
+  <rect x="0" y="0" width="56" height="56" rx="15" fill="url(#wbTile)"/>
+  <circle cx="28" cy="25" r="7" fill="#2fccae"/>
+  <path d="M13 37h30" stroke="#63e4c8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M18 43h20" stroke="#63e4c8" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round"/>
 </svg>

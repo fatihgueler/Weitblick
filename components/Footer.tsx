@@ -64,7 +64,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/8">
-        <div className="container flex flex-col items-start justify-between gap-3 py-5 text-xs text-ink-500 md:flex-row md:items-center">
+        <div className="container flex flex-col items-start justify-between gap-3 py-5 text-xs text-ink-400 md:flex-row md:items-center">
           <div>
             © {year} {site.name}
           </div>

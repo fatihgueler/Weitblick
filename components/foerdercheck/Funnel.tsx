@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -105,6 +105,7 @@ export function Funnel({ variant = "page", onClose }: FunnelProps) {
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const {
     register,
@@ -127,7 +128,7 @@ export function Funnel({ variant = "page", onClose }: FunnelProps) {
   const isLast = step === STEPS.length - 1;
 
   function scrollTop() {
-    document.getElementById("funnel-scroll")?.scrollTo({ top: 0, behavior: "smooth" });
+    scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   async function next() {
@@ -186,7 +187,7 @@ export function Funnel({ variant = "page", onClose }: FunnelProps) {
   if (phase === "intro") {
     return (
       <div className={rootClass}>
-        <div id="funnel-scroll" className="flex flex-1 items-center overflow-y-auto px-6 py-10 sm:px-10">
+        <div ref={scrollRef} className="flex flex-1 items-center overflow-y-auto px-6 py-10 sm:px-10">
           <div className="mx-auto w-full max-w-md">
             <span className="eyebrow">
               <Sparkles className="h-3.5 w-3.5" strokeWidth={2} />
@@ -228,7 +229,7 @@ export function Funnel({ variant = "page", onClose }: FunnelProps) {
   if (phase === "success") {
     return (
       <div className={rootClass}>
-        <div id="funnel-scroll" className="flex flex-1 items-center overflow-y-auto px-6 py-10 sm:px-10">
+        <div ref={scrollRef} className="flex flex-1 items-center overflow-y-auto px-6 py-10 sm:px-10">
           <div className="mx-auto w-full max-w-md text-center">
             <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-teal-50 text-teal-700">
               <CheckCircle2 className="h-9 w-9" strokeWidth={1.8} />
@@ -275,7 +276,7 @@ export function Funnel({ variant = "page", onClose }: FunnelProps) {
       </div>
 
       {/* Schritt-Inhalt */}
-      <div id="funnel-scroll" className="flex-1 overflow-y-auto px-6 py-7 sm:px-10">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto px-6 py-7 sm:px-10">
         <div key={step} className="step-in mx-auto w-full max-w-xl">
           {current.kind === "choice" && (
             <ChoiceStep
