@@ -8,7 +8,13 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-navy-950 text-ink-300">
+    <footer className="relative overflow-hidden bg-navy-950 text-ink-300">
+      {/* Horizont-Akzent + Morgenlicht am oberen Rand. */}
+      <div aria-hidden="true" className="h-px w-full bg-gradient-to-r from-transparent via-teal-400/30 to-transparent" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-20 right-[8%] h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(242,180,65,0.18)_0%,rgba(242,180,65,0)_70%)]"
+      />
       <div className="container grid gap-10 py-14 sm:py-16 lg:grid-cols-[1.6fr_1fr_1.2fr] lg:gap-12">
         {/* Marke + Kurztext */}
         <div>
@@ -20,7 +26,7 @@ export function Footer() {
 
         {/* Navigation */}
         <nav aria-label="Footer-Navigation">
-          <h3 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-teal-300">
+          <h3 className="font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-teal-300">
             Navigation
           </h3>
           <ul className="mt-4 space-y-2.5 text-sm">
@@ -43,7 +49,7 @@ export function Footer() {
 
         {/* Kontakt */}
         <div>
-          <h3 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-teal-300">
+          <h3 className="font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-teal-300">
             Kontakt
           </h3>
           <ul className="mt-4 space-y-3 text-sm">

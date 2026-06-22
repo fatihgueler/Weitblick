@@ -29,7 +29,7 @@ export function Logo({ className, variant = "full", tone = "dark" }: LogoProps) 
           </span>
           <span
             className={cn(
-              "text-[0.62rem] font-semibold uppercase tracking-[0.2em]",
+              "font-mono text-[0.6rem] font-medium uppercase tracking-[0.22em]",
               tone === "dark" ? "text-teal-700" : "text-teal-300",
             )}
           >
@@ -56,9 +56,9 @@ function Mark() {
         </linearGradient>
       </defs>
       <rect x="0" y="0" width="40" height="40" rx="11" fill="url(#wbTile)" />
-      {/* Sonne / Energie */}
-      <circle cx="20" cy="18.5" r="5" fill="#2fccae" />
-      {/* Horizont (Weitblick) */}
+      {/* Aufgehende Sonne (Energie / Morgenlicht) – die Signatur-Spur. */}
+      <circle cx="20" cy="18.5" r="5" fill="#f2b441" />
+      {/* Horizont (Weitblick / der lange Blick). */}
       <path
         d="M9 26.5h22"
         stroke="#63e4c8"

@@ -9,6 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        /* Grundfläche – kühles „Blaupausen-Papier", nicht klinisches Weiß. */
+        paper: "#f4f7fb",
         /* Primärfarbe – tiefes Navy/Dunkelblau (Headings, Buttons, Footer). */
         navy: {
           50: "#eef3fb",
@@ -51,10 +53,25 @@ const config: Config = {
           900: "#0f1a2e",
           950: "#070d18",
         },
+        /* Signaturfarbe – warmes Morgenlicht (Sonnenaufgang am Horizont).
+           NUR für das Signatur-Motiv „Weitblick" – extrem sparsam. */
+        sunrise: {
+          50: "#fff8ec",
+          100: "#fcebc9",
+          200: "#f8d58a",
+          300: "#f4be54",
+          400: "#f2b441",
+          500: "#d98c1e",
+          600: "#b06913",
+          700: "#8a4f12",
+          800: "#713f15",
+          900: "#603514",
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)", "Inter", "system-ui", "sans-serif"],
         display: ["var(--font-display)", "var(--font-sans)", "Inter", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       fontSize: {
         "display-sm": ["clamp(2rem, 3.5vw + 1rem, 2.75rem)", { lineHeight: "1.08", letterSpacing: "-0.02em" }],
@@ -65,6 +82,8 @@ const config: Config = {
         soft: "0 1px 2px rgba(15,26,46,0.04), 0 4px 16px rgba(15,26,46,0.05)",
         lift: "0 2px 4px rgba(15,26,46,0.04), 0 12px 32px rgba(15,26,46,0.09)",
         glow: "0 0 0 1px rgba(19,176,149,0.18), 0 16px 48px -12px rgba(19,176,149,0.40)",
+        sunrise: "0 0 0 1px rgba(242,180,65,0.25), 0 20px 50px -16px rgba(242,180,65,0.45)",
+        "navy-lift": "0 2px 4px rgba(7,13,24,0.18), 0 24px 60px -20px rgba(7,13,24,0.55)",
       },
       borderRadius: {
         "4xl": "2rem",
@@ -87,6 +106,8 @@ const config: Config = {
         "fade-in": "fade-in 0.6s ease-out both",
         "acc-down": "acc-down 0.3s ease-out",
         "acc-up": "acc-up 0.25s ease-out",
+        "sun-rise": "sun-rise 1.4s cubic-bezier(0.16,1,0.3,1) both",
+        "horizon-draw": "horizon-draw 1.6s cubic-bezier(0.65,0,0.35,1) both",
       },
       keyframes: {
         "fade-up": {
@@ -96,6 +117,14 @@ const config: Config = {
         "fade-in": {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
+        },
+        "sun-rise": {
+          "0%": { opacity: "0", transform: "translateY(26px) scale(0.85)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
+        },
+        "horizon-draw": {
+          "0%": { strokeDashoffset: "640" },
+          "100%": { strokeDashoffset: "0" },
         },
         "acc-down": {
           from: { height: "0" },

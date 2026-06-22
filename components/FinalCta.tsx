@@ -16,13 +16,19 @@ export function FinalCta({
   return (
     <section className="section">
       <div className="container">
-        <div className="relative overflow-hidden rounded-4xl bg-navy-900 px-6 py-14 text-center sm:rounded-5xl sm:px-12 sm:py-20">
+        <div className="relative overflow-hidden rounded-4xl blueprint-dark px-6 py-16 text-center shadow-navy-lift sm:rounded-5xl sm:px-12 sm:py-20">
           <div
             aria-hidden="true"
-            className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-teal-500/15 blur-3xl"
+            className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-teal-500/15 blur-3xl"
+          />
+          {/* Aufgehende Sonne am unteren Horizont – Signatur. */}
+          <div
+            aria-hidden="true"
+            className="absolute -bottom-24 left-1/2 h-56 w-[28rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(242,180,65,0.30)_0%,rgba(242,180,65,0)_70%)]"
           />
           <div className="relative mx-auto max-w-2xl">
-            <h2 className="font-display text-display-sm font-bold tracking-tight text-white">
+            <span className="eyebrow-light mx-auto w-fit">Fördercheck</span>
+            <h2 className="mt-5 font-display text-display-sm font-bold tracking-tight text-white">
               {title}
             </h2>
             <p className="mt-4 text-base leading-relaxed text-ink-300 sm:text-lg">{text}</p>

@@ -28,8 +28,8 @@ export default function LeistungenPage() {
       <section className="section bg-white">
         <div className="container">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {services.map((service) => (
-              <ServiceCard key={service.slug} service={service} className="h-full" />
+            {services.map((service, i) => (
+              <ServiceCard key={service.slug} service={service} index={i} className="h-full" />
             ))}
           </div>
         </div>
@@ -48,9 +48,14 @@ export default function LeistungenPage() {
             <div className="container">
               <Reveal className="grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-center lg:gap-14">
                 <div className={cn(alt && "lg:order-2")}>
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-50 text-teal-700">
-                    {Icon ? <Icon className="h-6 w-6" strokeWidth={1.8} /> : null}
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-50 text-teal-700">
+                      {Icon ? <Icon className="h-6 w-6" strokeWidth={1.8} /> : null}
+                    </span>
+                    <span className="index-tag text-navy-900/40">
+                      Leistung {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </div>
                   <h2 className="mt-5 font-display text-2xl font-bold text-navy-900 sm:text-3xl">
                     {service.title}
                   </h2>
@@ -60,10 +65,8 @@ export default function LeistungenPage() {
                     {service.suitedFor}
                   </p>
                 </div>
-                <div className={cn("rounded-3xl border border-navy-900/5 bg-white p-6 shadow-soft sm:p-8", alt && "lg:order-1")}>
-                  <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-ink-600">
-                    Typische Inhalte
-                  </h3>
+                <div className={cn("rounded-2xl border border-navy-900/8 bg-white p-6 shadow-soft sm:p-8", alt && "lg:order-1")}>
+                  <h3 className="label">Typische Inhalte</h3>
                   <ul className="mt-4 flex flex-col gap-3">
                     {service.includes.map((item) => (
                       <li key={item} className="flex items-center gap-3 text-[15px] font-medium text-navy-900">
