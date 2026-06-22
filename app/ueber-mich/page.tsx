@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Check } from "lucide-react";
 import { aboutPage, ctaLabels } from "@/lib/content";
 import { PageHero } from "@/components/PageHero";
 import { FoerdercheckButton } from "@/components/FoerdercheckButton";
@@ -35,15 +34,13 @@ export default function UeberMichPage() {
           </Reveal>
 
           <Reveal delay={100}>
-            <div className="rounded-3xl border border-navy-900/5 bg-ink-50/70 p-6 shadow-soft sm:p-8">
-              <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-ink-600">
-                {aboutPage.focusTitle}
-              </h2>
+            <div className="rounded-2xl border border-navy-900/10 p-6 shadow-soft blueprint sm:p-8">
+              <h2 className="label">{aboutPage.focusTitle}</h2>
               <ul className="mt-5 grid gap-3">
-                {aboutPage.focus.map((f) => (
-                  <li key={f} className="flex items-center gap-3 text-[15px] font-medium text-navy-900">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-teal-600/10 text-teal-700">
-                      <Check className="h-3.5 w-3.5" strokeWidth={2.5} />
+                {aboutPage.focus.map((f, i) => (
+                  <li key={f} className="flex items-baseline gap-3.5 text-[15px] font-medium text-navy-900">
+                    <span className="index-tag shrink-0 text-teal-700/60">
+                      {String(i + 1).padStart(2, "0")}
                     </span>
                     {f}
                   </li>
@@ -54,16 +51,18 @@ export default function UeberMichPage() {
         </div>
       </section>
 
-      {/* Warum Weitblick */}
-      <section className="section soft-blue">
+      {/* Warum Weitblick – Horizont-Band (das Motiv „der lange Blick") */}
+      <section className="section blueprint border-y border-navy-900/8">
         <div className="container">
           <Reveal className="mx-auto max-w-2xl text-center">
-            <h2 className="heading-2">{aboutPage.whyTitle}</h2>
-            <div className="mt-5 flex flex-col gap-4">
+            <span className="eyebrow mx-auto w-fit">Der lange Blick</span>
+            <h2 className="mt-4 heading-2">{aboutPage.whyTitle}</h2>
+            <div className="mt-6 flex flex-col gap-4">
               {aboutPage.why.map((p) => (
                 <p key={p} className="lead">{p}</p>
               ))}
             </div>
+            <div className="horizon-rule mx-auto mt-10 max-w-xs" />
           </Reveal>
         </div>
       </section>

@@ -14,8 +14,17 @@ export function FaqAccordion({ items, idPrefix = "faq" }: { items: Faq[]; idPref
     <Accordion type="single" collapsible className="flex flex-col gap-3">
       {items.map((item, i) => (
         <AccordionItem key={i} value={`${idPrefix}-${i}`}>
-          <AccordionTrigger>{item.q}</AccordionTrigger>
-          <AccordionContent>{item.a}</AccordionContent>
+          <AccordionTrigger>
+            <span className="flex items-baseline gap-4">
+              <span aria-hidden="true" className="index-tag shrink-0 text-teal-700/55">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span>{item.q}</span>
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="pl-[3.25rem]">{item.a}</div>
+          </AccordionContent>
         </AccordionItem>
       ))}
     </Accordion>
