@@ -6,7 +6,7 @@ import { FinalCta } from "@/components/FinalCta";
 import { Reveal } from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "Über mich",
+  title: "Über uns",
   description: aboutPage.intro,
   alternates: { canonical: "/ueber-mich" },
 };
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function UeberMichPage() {
   return (
     <>
-      <PageHero eyebrow="Über mich" title={aboutPage.title} text={aboutPage.intro}>
+      <PageHero eyebrow="Über uns" title={aboutPage.title} text={aboutPage.intro}>
         <FoerdercheckButton source="ueber-mich-hero" size="lg">
           {ctaLabels.foerdercheck}
         </FoerdercheckButton>

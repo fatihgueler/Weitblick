@@ -18,11 +18,10 @@ export const site = {
     "Energieberatung für Wohngebäude: Fördermittelberatung, individueller Sanierungsfahrplan, Heizlastberechnung, hydraulischer Abgleich, Energieausweis und Wärmepumpenberatung.",
 } as const;
 
-/** Kontakt-Platzhalter – in CONTENT.md gelistet. */
 export const contact = {
-  email: "[E-Mail-Adresse eintragen]",
-  phone: "[Telefonnummer eintragen]",
-  location: "[Standort eintragen]",
+  email: "info@weitblick-energieberatung.de",
+  phone: "+49 176 80020590",
+  location: "Hermann-Weinhauser-Str. 65, 81673 München",
 } as const;
 
 export function isPlaceholder(value: string): boolean {
@@ -45,7 +44,7 @@ export const routes = {
 export const nav: { label: string; href: string }[] = [
   { label: "Leistungen", href: routes.leistungen },
   { label: "Fördercheck", href: routes.foerdercheck },
-  { label: "Über mich", href: routes.ueberMich },
+  { label: "Über uns", href: routes.ueberMich },
   { label: "FAQ", href: routes.faq },
   { label: "Kontakt", href: routes.kontakt },
 ];
@@ -58,7 +57,7 @@ export const ctaLabels = {
   allServices: "Alle Leistungen ansehen",
   request: "Jetzt Anfrage stellen",
   checkFunding: "Förderung prüfen lassen",
-  moreAboutMe: "Mehr über mich erfahren",
+  moreAboutMe: "Mehr über uns erfahren",
   allFaq: "Alle Fragen ansehen",
 } as const;
 
@@ -68,7 +67,7 @@ export const hero = {
   eyebrow: "Energieberatung für Wohngebäude",
   title: "Energieberatung, Förderung und Sanierungsplanung für Ihr Wohngebäude",
   subtitle:
-    "Ich unterstütze Eigentümer, Vermieter und Immobilienkäufer bei energetischer Sanierung, Fördermitteln, individuellem Sanierungsfahrplan, Heizlastberechnung und hydraulischem Abgleich.",
+    "Wir unterstützen Eigentümer, Vermieter und Immobilienkäufer bei energetischer Sanierung, Fördermitteln, individuellem Sanierungsfahrplan, Heizlastberechnung und hydraulischem Abgleich.",
   benefits: [
     "Fördermöglichkeiten prüfen",
     "Sanierung sinnvoll planen",
@@ -104,7 +103,7 @@ export const nutzen = {
 export const foerdercheckTeaser = {
   title: "Fördermöglichkeiten in wenigen Schritten prüfen",
   text:
-    "Starten Sie den Fördercheck und beantworten Sie kurze Fragen zu Ihrem Wohngebäude und Ihrer geplanten Maßnahme. Anschließend prüfe ich Ihre Angaben und melde mich mit einer ersten Einschätzung.",
+    "Starten Sie den Fördercheck und beantworten Sie kurze Fragen zu Ihrem Wohngebäude und Ihrer geplanten Maßnahme. Anschließend prüfen wir Ihre Angaben und melden uns mit einer ersten Einschätzung.",
   steps: [
     {
       title: "Gebäude auswählen",
@@ -116,7 +115,7 @@ export const foerdercheckTeaser = {
     },
     {
       title: "Rückmeldung erhalten",
-      text: "Ich prüfe Ihre Angaben und melde mich mit einer ersten Einschätzung.",
+      text: "Wir prüfen Ihre Angaben und melden uns mit einer ersten Einschätzung.",
     },
   ],
   hint:
@@ -163,9 +162,9 @@ export const services: Service[] = [
     icon: "BadgeEuro",
     title: "Fördermittelberatung",
     short:
-      "Ich prüfe, welche Fördermöglichkeiten für Ihr Vorhaben infrage kommen und unterstütze Sie bei den nächsten Schritten.",
+      "Wir prüfen, welche Fördermöglichkeiten für Ihr Vorhaben infrage kommen, und unterstützen Sie bei den nächsten Schritten.",
     detail:
-      "Welche Förderung passt zu Ihrem Vorhaben? Ich prüfe mögliche Programme von BAFA und KfW und unterstütze Sie strukturiert bei den nächsten Schritten.",
+      "Welche Förderung passt zu Ihrem Vorhaben? Wir prüfen mögliche Programme von BAFA und KfW und unterstützen Sie strukturiert bei den nächsten Schritten.",
     suitedFor: "Alle, die Sanierung oder Heizungstausch fördern lassen möchten.",
     includes: ["Prüfung BAFA & KfW", "Förderfähige Maßnahmen", "Nächste Schritte"],
   },
@@ -196,9 +195,9 @@ export const services: Service[] = [
     icon: "FileCheck2",
     title: "Energieausweis",
     short:
-      "Ich erstelle Energieausweise für Verkauf, Vermietung, Sanierung oder gesetzliche Nachweise.",
+      "Wir erstellen Energieausweise für Verkauf, Vermietung, Sanierung oder gesetzliche Nachweise.",
     detail:
-      "Den Energieausweis benötigen Sie bei Verkauf, Vermietung oder zum gesetzlichen Nachweis. Ich erstelle ihn passend zu Ihrem Wohngebäude.",
+      "Den Energieausweis benötigen Sie bei Verkauf, Vermietung oder zum gesetzlichen Nachweis. Wir erstellen ihn passend zu Ihrem Wohngebäude.",
     suitedFor: "Eigentümer bei Verkauf, Vermietung oder Sanierung.",
     includes: ["Verbrauch oder Bedarf", "Gesetzlicher Nachweis", "Für Wohngebäude"],
   },
@@ -207,9 +206,9 @@ export const services: Service[] = [
     icon: "ThermometerSun",
     title: "Wärmepumpenberatung",
     short:
-      "Ich prüfe, ob eine Wärmepumpe für Ihr Wohngebäude sinnvoll ist und welche technischen Voraussetzungen erfüllt sein sollten.",
+      "Wir prüfen, ob eine Wärmepumpe für Ihr Wohngebäude sinnvoll ist und welche technischen Voraussetzungen erfüllt sein sollten.",
     detail:
-      "Ist eine Wärmepumpe für Ihr Gebäude geeignet? Ich prüfe die technischen Voraussetzungen und ordne ein, was vor einer Entscheidung sinnvoll ist.",
+      "Ist eine Wärmepumpe für Ihr Gebäude geeignet? Wir prüfen die technischen Voraussetzungen und ordnen ein, was vor einer Entscheidung sinnvoll ist.",
     suitedFor: "Eigentümer, die über einen Heizungstausch nachdenken.",
     includes: ["Eignung des Gebäudes", "Technische Voraussetzungen", "Förderhinweise"],
   },
@@ -229,68 +228,18 @@ export const services: Service[] = [
     icon: "DraftingCompass",
     title: "Baubegleitung / Fachplanung",
     short:
-      "Ich unterstütze Sie bei der fachlichen Begleitung energetischer Maßnahmen und bei der förderfähigen Umsetzung.",
+      "Wir unterstützen Sie bei der fachlichen Begleitung energetischer Maßnahmen und bei der förderfähigen Umsetzung.",
     detail:
-      "Bei der Umsetzung energetischer Maßnahmen begleite ich Sie fachlich – damit die Ausführung zum Plan passt und förderfähig bleibt.",
+      "Bei der Umsetzung energetischer Maßnahmen begleiten wir Sie fachlich – damit die Ausführung zum Plan passt und förderfähig bleibt.",
     suitedFor: "Eigentümer in der Umsetzungsphase ihrer Sanierung.",
     includes: ["Fachliche Begleitung", "Förderfähige Umsetzung", "Qualitätssicherung"],
   },
 ];
 
 export const servicesIntro = {
-  title: "Meine Leistungen",
+  title: "Unsere Leistungen",
   subtitle:
-    "Von der ersten Förderprüfung bis zur technischen Berechnung unterstütze ich Sie bei der energetischen Sanierung Ihres Wohngebäudes.",
-} as const;
-
-/* ---- Zielgruppen ---------------------------------------------------------- */
-
-export const audiences = {
-  title: "Für Eigentümer, Vermieter und Immobilienkäufer",
-  cards: [
-    {
-      icon: "Home" as const,
-      title: "Private Eigentümer",
-      text:
-        "Für alle, die ihr Haus energetisch sanieren, Fördermittel nutzen oder ihre Energiekosten langfristig senken möchten.",
-      topics: [
-        "Sanierungsfahrplan",
-        "Heizungstausch",
-        "Wärmepumpe",
-        "Dämmung",
-        "Fenstertausch",
-        "Energieausweis",
-        "Fördermittelberatung",
-      ],
-    },
-    {
-      icon: "Building2" as const,
-      title: "Vermieter & Kapitalanleger",
-      text:
-        "Für Eigentümer, die den energetischen Zustand ihrer Immobilie verbessern, Förderungen nutzen und den Wert langfristig sichern möchten.",
-      topics: [
-        "Energetische Bewertung",
-        "Sanierungsstrategie",
-        "Fördermittel",
-        "Heizlastberechnung",
-        "Energieausweis",
-        "Maßnahmenplanung",
-      ],
-    },
-    {
-      icon: "KeyRound" as const,
-      title: "Immobilienkäufer",
-      text:
-        "Für Käufer, die vor dem Kauf wissen möchten, welche energetischen Schwachstellen ein Gebäude hat und welche Sanierungskosten oder Maßnahmen auf sie zukommen können.",
-      topics: [
-        "Einschätzung des energetischen Zustands",
-        "Mögliche Sanierungsmaßnahmen",
-        "Förderpotenzial",
-        "Energieausweis prüfen",
-        "Heizung und Gebäudehülle bewerten",
-      ],
-    },
-  ],
+    "Von der ersten Förderprüfung bis zur technischen Berechnung unterstützen wir Sie bei der energetischen Sanierung Ihres Wohngebäudes.",
 } as const;
 
 /* ---- Ablauf --------------------------------------------------------------- */
@@ -309,7 +258,7 @@ export const ablauf = {
     {
       title: "Analyse & Berechnung",
       text:
-        "Ich prüfe die relevanten Unterlagen, berechne technische Grundlagen und bewerte mögliche Förderungen.",
+        "Wir prüfen die relevanten Unterlagen, berechnen technische Grundlagen und bewerten mögliche Förderungen.",
     },
     {
       title: "Empfehlung & nächste Schritte",
@@ -322,9 +271,9 @@ export const ablauf = {
 /* ---- Über mich ------------------------------------------------------------ */
 
 export const aboutShort = {
-  title: "Ihr Ansprechpartner für Energieberatung und Sanierungsplanung",
+  title: "Ihr Partner für Energieberatung und Sanierungsplanung",
   text:
-    "Mein Ziel ist es, energetische Sanierungen verständlich, strukturiert und förderfähig zu planen. Ich verbinde technisches Verständnis, Fördermittelwissen und einen klaren Beratungsansatz. Dabei geht es nicht darum, möglichst viele Maßnahmen zu empfehlen, sondern die passenden Schritte für Ihr Gebäude zu finden.",
+    "Unser Ziel ist es, energetische Sanierungen verständlich, strukturiert und förderfähig zu planen. Wir verbinden technisches Verständnis, Fördermittelwissen und einen klaren Beratungsansatz. Dabei geht es nicht darum, möglichst viele Maßnahmen zu empfehlen, sondern die passenden Schritte für Ihr Gebäude zu finden.",
   points: [
     "Energieberatung für Wohngebäude",
     "Individueller Sanierungsfahrplan",
@@ -337,15 +286,15 @@ export const aboutShort = {
 export const aboutPage = {
   title: "Energieberatung mit technischem Verständnis und klarem Blick für Förderung",
   intro:
-    "Ich unterstütze Eigentümer, Vermieter und Immobilienkäufer dabei, energetische Sanierungen sinnvoll zu planen, Fördermöglichkeiten zu prüfen und technische Anforderungen verständlich umzusetzen.",
+    "Wir unterstützen Eigentümer, Vermieter und Immobilienkäufer dabei, energetische Sanierungen sinnvoll zu planen, Fördermöglichkeiten zu prüfen und technische Anforderungen verständlich umzusetzen.",
   intro2:
-    "Mein Anspruch ist eine Beratung, die Klarheit schafft: Welche Maßnahme ist sinnvoll? Welche Förderung kommt infrage? Welche Berechnung wird benötigt? Und wie geht man strukturiert vor?",
-  approachTitle: "Mein Ansatz",
+    "Unser Anspruch ist eine Beratung, die Klarheit schafft: Welche Maßnahme ist sinnvoll? Welche Förderung kommt infrage? Welche Berechnung wird benötigt? Und wie geht man strukturiert vor?",
+  approachTitle: "Unser Ansatz",
   approach: [
     "Energetische Sanierung ist mehr als nur Dämmung, Heizung oder Förderung. Entscheidend ist, dass die Maßnahmen zum Gebäude, zum Budget und zum Ziel des Eigentümers passen.",
-    "Deshalb betrachte ich nicht nur einzelne Bauteile, sondern das Wohngebäude als Gesamtsystem. So lassen sich Maßnahmen besser einordnen und Fehlentscheidungen vermeiden.",
+    "Deshalb betrachten wir nicht nur einzelne Bauteile, sondern das Wohngebäude als Gesamtsystem. So lassen sich Maßnahmen besser einordnen und Fehlentscheidungen vermeiden.",
   ],
-  focusTitle: "Meine Schwerpunkte",
+  focusTitle: "Unsere Schwerpunkte",
   focus: [
     "Energieberatung für Wohngebäude",
     "Individueller Sanierungsfahrplan",
@@ -389,11 +338,11 @@ export const faqHome: Faq[] = [
   },
   {
     q: "Welche Unterlagen werden benötigt?",
-    a: "Je nach Leistung werden Grundrisse, Baujahr, Fotos, Energieverbräuche, Heizungsdaten, Angebote oder vorhandene Unterlagen zum Gebäude benötigt.",
+    a: "Je nach Leistung werden Grundrisse, Baujahr, Fotos, Energieverbräuche, Heizungsdaten oder vorhandene Unterlagen zum Gebäude benötigt.",
   },
   {
     q: "Beraten Sie auch Mehrfamilienhäuser?",
-    a: "Ja, die Beratung ist für Einfamilienhäuser, Zweifamilienhäuser, Mehrfamilienhäuser und Wohnungen möglich.",
+    a: "Ja, die Beratung ist für Einfamilienhäuser und Mehrfamilienhäuser möglich.",
   },
 ];
 
@@ -429,7 +378,7 @@ export const faqAll: Faq[] = [
   },
   {
     q: "Welche Unterlagen werden benötigt?",
-    a: "Das hängt von der Leistung ab. Häufig hilfreich sind Grundrisse, Baujahr, Wohnfläche, Fotos vom Gebäude, Heizungsdaten, Energieverbräuche, Angebote von Handwerkern, vorhandene Energieausweise und – wenn vorhanden – Bauteilinformationen.",
+    a: "Das hängt von der Leistung ab. Häufig hilfreich sind Grundrisse, Baujahr, Wohnfläche, Fotos vom Gebäude, Heizungsdaten, Energieverbräuche, vorhandene Energieausweise und – wenn vorhanden – Bauteilinformationen.",
   },
   {
     q: "Wie läuft die Beratung ab?",
@@ -437,7 +386,7 @@ export const faqAll: Faq[] = [
   },
   {
     q: "Beraten Sie auch Mehrfamilienhäuser?",
-    a: "Ja, die Beratung ist für Einfamilienhäuser, Zweifamilienhäuser, Mehrfamilienhäuser und Wohnungen möglich.",
+    a: "Ja, die Beratung ist für Einfamilienhäuser und Mehrfamilienhäuser möglich.",
   },
 ];
 
@@ -476,7 +425,7 @@ export const faqPage = {
 export const kontaktPage = {
   title: "Kontakt aufnehmen",
   text:
-    "Sie planen eine Sanierung, benötigen eine Energieberatung oder möchten Fördermöglichkeiten prüfen lassen? Senden Sie mir gerne eine Anfrage. Wenn Sie noch nicht genau wissen, welche Leistung Sie benötigen, starten Sie am besten den Fördercheck.",
+    "Sie planen eine Sanierung, benötigen eine Energieberatung oder möchten Fördermöglichkeiten prüfen lassen? Senden Sie uns gerne eine Anfrage. Wenn Sie noch nicht genau wissen, welche Leistung Sie benötigen, starten Sie am besten den Fördercheck.",
   subjects: [
     "Fördercheck",
     "Sanierungsfahrplan",
@@ -506,26 +455,26 @@ export const impressum = {
     {
       heading: "Angaben gemäß § 5 TMG",
       lines: [
-        "[Name / Firmierung eintragen]",
-        "[Straße und Hausnummer eintragen]",
-        "[PLZ und Ort eintragen]",
+        "Weitblick Energieberatung",
+        "Enes Aktürk",
+        "Hermann-Weinhauser-Str. 65",
+        "81673 München",
       ],
     },
     {
       heading: "Kontakt",
-      lines: ["Telefon: [Telefonnummer eintragen]", "E-Mail: [E-Mail-Adresse eintragen]"],
-    },
-    {
-      heading: "Umsatzsteuer-ID",
-      lines: ["[USt-IdNr. gemäß § 27a UStG eintragen, falls vorhanden]"],
+      lines: ["Telefon: +49 176 80020590", "E-Mail: info@weitblick-energieberatung.de"],
     },
     {
       heading: "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV",
-      lines: ["[Name und Anschrift der verantwortlichen Person eintragen]"],
+      lines: ["Enes Aktürk", "Hermann-Weinhauser-Str. 65", "81673 München"],
     },
     {
-      heading: "Berufsbezeichnung / Eintragung (falls zutreffend)",
-      lines: ["[Energieeffizienz-Expertenliste / Kammer / Registernummer eintragen, falls zutreffend]"],
+      heading: "Eintragung",
+      lines: [
+        "Eingetragen in der Energieeffizienz-Expertenliste für Förderprogramme des Bundes (www.energie-effizienz-experten.de).",
+        "BAFA-Beraternummer: EB813411",
+      ],
     },
   ],
 } as const;
@@ -535,7 +484,7 @@ export const datenschutz = {
   sections: [
     {
       heading: "Verantwortlicher",
-      body: "Verantwortlich für die Datenverarbeitung auf dieser Website ist: [Name und Kontaktdaten eintragen].",
+      body: "Verantwortlich für die Datenverarbeitung auf dieser Website ist: Enes Aktürk, Weitblick Energieberatung, Hermann-Weinhauser-Str. 65, 81673 München, E-Mail: info@weitblick-energieberatung.de, Telefon: +49 176 80020590.",
     },
     {
       heading: "Erhebung und Verarbeitung personenbezogener Daten",

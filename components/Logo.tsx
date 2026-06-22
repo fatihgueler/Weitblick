@@ -56,19 +56,20 @@ function Mark() {
         </linearGradient>
       </defs>
       <rect x="0" y="0" width="40" height="40" rx="11" fill="url(#wbTile)" />
-      {/* Aufgehende Sonne (Energie / Morgenlicht) – die Signatur-Spur. */}
-      <circle cx="20" cy="18.5" r="5" fill="#f2b441" />
+      {/* Strahlen der aufgehenden Sonne. */}
+      <g stroke="#f2b441" strokeWidth="1.8" strokeLinecap="round">
+        <line x1="20" y1="8.5" x2="20" y2="12" />
+        <line x1="11.5" y1="11.5" x2="13.8" y2="13.8" />
+        <line x1="28.5" y1="11.5" x2="26.2" y2="13.8" />
+      </g>
+      {/* Halbe Sonne, die über dem Horizont aufgeht (Energie / Morgenlicht). */}
+      <path d="M12.5 25a7.5 7.5 0 0 1 15 0Z" fill="#f2b441" />
       {/* Horizont (Weitblick / der lange Blick). */}
+      <path d="M8 25h24" stroke="#63e4c8" strokeWidth="2.4" strokeLinecap="round" />
       <path
-        d="M9 26.5h22"
+        d="M12 29.5h16"
         stroke="#63e4c8"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M12.5 30.5h15"
-        stroke="#63e4c8"
-        strokeOpacity="0.55"
+        strokeOpacity="0.5"
         strokeWidth="2.2"
         strokeLinecap="round"
       />

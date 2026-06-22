@@ -60,10 +60,6 @@ export default function LeistungenPage() {
                     {service.title}
                   </h2>
                   <p className="mt-4 lead">{service.detail}</p>
-                  <p className="mt-4 text-sm text-ink-500">
-                    <span className="font-semibold text-navy-800">Geeignet für: </span>
-                    {service.suitedFor}
-                  </p>
                 </div>
                 <div className={cn("rounded-2xl border border-navy-900/8 bg-white p-6 shadow-soft sm:p-8", alt && "lg:order-1")}>
                   <h3 className="label">Typische Inhalte</h3>

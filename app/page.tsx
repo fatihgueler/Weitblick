@@ -8,14 +8,13 @@ import {
   foerdercheckTeaser,
   services,
   servicesIntro,
-  audiences,
   ablauf,
   aboutShort,
   faqHome,
   ctaLabels,
   routes,
 } from "@/lib/content";
-import { serviceIcons, audienceIcons } from "@/components/icons";
+import { serviceIcons } from "@/components/icons";
 import { Reveal } from "@/components/Reveal";
 import { FoerdercheckButton } from "@/components/FoerdercheckButton";
 import { FoerdercheckBox } from "@/components/FoerdercheckBox";
@@ -184,40 +183,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7 · Zielgruppen */}
-      <section className="section bg-ink-50/70">
-        <div className="container">
-          <Reveal className="mx-auto max-w-2xl text-center">
-            <h2 className="heading-2">{audiences.title}</h2>
-          </Reveal>
-          <div className="mt-10 grid gap-5 sm:mt-12 lg:grid-cols-3">
-            {audiences.cards.map((card, i) => {
-              const Icon = audienceIcons[card.icon];
-              return (
-                <Reveal key={card.title} delay={i * 80}>
-                  <div className="card h-full">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-900 text-teal-300">
-                      {Icon ? <Icon className="h-6 w-6" strokeWidth={1.8} /> : null}
-                    </span>
-                    <h3 className="text-lg font-bold text-navy-900">{card.title}</h3>
-                    <p className="text-sm leading-relaxed text-ink-600">{card.text}</p>
-                    <ul className="mt-1 flex flex-col gap-2">
-                      {card.topics.map((t) => (
-                        <li key={t} className="flex items-center gap-2 text-sm text-navy-900">
-                          <Check className="h-4 w-4 shrink-0 text-teal-600" strokeWidth={2.4} />
-                          {t}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 8 · Ablauf – Horizont-Roadmap (Signatur: Meilensteine bis zur Sonne) */}
+      {/* 7 · Ablauf – Horizont-Roadmap (Signatur: Meilensteine bis zur Sonne) */}
       <section className="section blueprint border-y border-navy-900/8">
         <div className="container">
           <Reveal className="mx-auto max-w-2xl text-center">

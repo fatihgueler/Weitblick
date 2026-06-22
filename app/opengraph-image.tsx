@@ -27,11 +27,14 @@ export default function OpengraphImage() {
               borderRadius: "18px",
               background: "#1f3666",
               display: "flex",
+              flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
+              gap: "5px",
             }}
           >
-            <div style={{ width: "30px", height: "30px", borderRadius: "999px", background: "#2fccae" }} />
+            <div style={{ width: "26px", height: "26px", borderRadius: "999px", background: "#f2b441" }} />
+            <div style={{ width: "34px", height: "3px", borderRadius: "999px", background: "#63e4c8" }} />
           </div>
           <div style={{ color: "#63e4c8", fontSize: "26px", letterSpacing: "6px", fontWeight: 700 }}>
             WEITBLICK ENERGIEBERATUNG

@@ -57,7 +57,7 @@ export function ContactForm() {
           <CheckCircle2 className="h-8 w-8" strokeWidth={1.8} />
         </span>
         <h2 className="mt-5 font-display text-xl font-bold text-navy-900">Vielen Dank für Ihre Nachricht.</h2>
-        <p className="mt-2 text-[15px] text-ink-600">Ich melde mich zeitnah bei Ihnen zurück.</p>
+        <p className="mt-2 text-[15px] text-ink-600">Wir melden uns zeitnah bei Ihnen zurück.</p>
       </div>
     );
   }

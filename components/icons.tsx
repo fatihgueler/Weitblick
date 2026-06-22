@@ -7,9 +7,6 @@ import {
   ThermometerSun,
   Wind,
   DraftingCompass,
-  Home,
-  Building2,
-  KeyRound,
   type LucideIcon,
 } from "lucide-react";
 
@@ -23,10 +20,4 @@ export const serviceIcons: Record<string, LucideIcon> = {
   ThermometerSun,
   Wind,
   DraftingCompass,
-};
-
-export const audienceIcons: Record<string, LucideIcon> = {
-  Home,
-  Building2,
-  KeyRound,
 };

@@ -57,7 +57,6 @@ const schema = z.object({
   plz: z.string().regex(/^\d{5}$/, ERR.plz),
   ort: z.string().min(2, ERR.ort),
   timing: z.string().min(1, ERR.choice),
-  offers: z.string().min(1, ERR.choice),
   firstName: z.string().min(1, ERR.firstName),
   lastName: z.string().min(1, ERR.lastName),
   email: z.string().email(ERR.email),
@@ -80,7 +79,6 @@ const STEPS: Step[] = [
   { kind: "choice", id: "usage" },
   { kind: "location" },
   { kind: "choice", id: "timing" },
-  { kind: "choice", id: "offers" },
   { kind: "contact" },
 ];
 
@@ -91,7 +89,6 @@ const STEP_FIELDS: (keyof FormValues)[][] = [
   ["usage"],
   ["plz", "ort"],
   ["timing"],
-  ["offers"],
   ["firstName", "lastName", "email", "phone", "consent"],
 ];
 
@@ -119,7 +116,7 @@ export function Funnel({ variant = "page", onClose }: FunnelProps) {
     mode: "onTouched",
     defaultValues: {
       building: "", measures: [], year: "", usage: "", plz: "", ort: "",
-      timing: "", offers: "", firstName: "", lastName: "", email: "",
+      timing: "", firstName: "", lastName: "", email: "",
       phone: "", message: "", consent: false,
     },
   });

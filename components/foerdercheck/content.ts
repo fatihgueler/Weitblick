@@ -1,15 +1,15 @@
 /**
- * Datenmodell & Texte des Fördercheck-Funnels (8 Schritte, exakt nach Briefing).
+ * Datenmodell & Texte des Fördercheck-Funnels (7 Schritte).
  *
  * Diese Datei wird sowohl vom Funnel (Frontend) als auch von der Mail-API
  * (app/api/foerdercheck/route.ts) genutzt. Reihenfolge der Schritte:
  *   1 Gebäude · 2 Maßnahmen · 3 Baujahr · 4 Nutzung · 5 PLZ/Ort
- *   6 Zeithorizont · 7 Angebote · 8 Kontaktdaten
+ *   6 Zeithorizont · 7 Kontaktdaten
  */
 
 export type FunnelChoice = { value: string; label: string; icon?: string };
 
-export type ChoiceId = "building" | "measures" | "year" | "usage" | "timing" | "offers";
+export type ChoiceId = "building" | "measures" | "year" | "usage" | "timing";
 
 export type ChoiceQuestion = {
   id: ChoiceId;
@@ -26,9 +26,7 @@ export const questions: Record<ChoiceId, ChoiceQuestion> = {
     question: "Um welches Gebäude handelt es sich?",
     options: [
       { value: "efh", label: "Einfamilienhaus", icon: "Home" },
-      { value: "zfh", label: "Zweifamilienhaus", icon: "Building2" },
       { value: "mfh", label: "Mehrfamilienhaus", icon: "Building2" },
-      { value: "wohnung", label: "Wohnung", icon: "DoorClosed" },
       { value: "neubau", label: "Neubau", icon: "Hammer" },
       { value: "sonstiges", label: "Sonstiges", icon: "HelpCircle" },
     ],
@@ -75,7 +73,6 @@ export const questions: Record<ChoiceId, ChoiceQuestion> = {
     options: [
       { value: "selbst", label: "Selbst bewohnt" },
       { value: "vermietet", label: "Vermietet" },
-      { value: "teilweise", label: "Teilweise vermietet" },
       { value: "leer", label: "Leerstehend" },
       { value: "kauf", label: "Kauf geplant" },
     ],
@@ -89,30 +86,17 @@ export const questions: Record<ChoiceId, ChoiceQuestion> = {
       { value: "3monate", label: "In den nächsten 3 Monaten" },
       { value: "3_6monate", label: "In 3 bis 6 Monaten" },
       { value: "spaeter", label: "Später" },
-      { value: "info", label: "Ich möchte mich erst informieren" },
-    ],
-  },
-  offers: {
-    id: "offers",
-    kind: "single",
-    question: "Gibt es bereits Angebote oder konkrete Pläne?",
-    options: [
-      { value: "angebote", label: "Ja, es gibt bereits Angebote" },
-      { value: "plaene", label: "Ja, es gibt erste Pläne" },
-      { value: "nein", label: "Nein, noch nicht" },
-      { value: "beratung", label: "Ich brauche zuerst eine Beratung" },
     ],
   },
 };
 
-/** Reihenfolge der 6 Auswahl-Schritte (Standort & Kontakt liegen dazwischen/danach). */
+/** Reihenfolge der 5 Auswahl-Schritte (Standort & Kontakt liegen dazwischen/danach). */
 export const choiceOrder: ChoiceId[] = [
   "building",
   "measures",
   "year",
   "usage",
   "timing",
-  "offers",
 ];
 
 export const funnelCopy = {
@@ -120,7 +104,7 @@ export const funnelCopy = {
     badge: "Kostenloser Fördercheck",
     title: "Kostenlosen Fördercheck starten",
     text:
-      "Beantworten Sie wenige Fragen zu Ihrem Wohngebäude und Ihrer geplanten Maßnahme. Anschließend prüfe ich Ihre Angaben und melde mich mit einer ersten Einschätzung.",
+      "Beantworten Sie wenige Fragen zu Ihrem Wohngebäude und Ihrer geplanten Maßnahme. Anschließend prüfen wir Ihre Angaben und melden uns mit einer ersten Einschätzung.",
     bullets: ["Gebäude auswählen", "Maßnahme angeben", "Rückmeldung erhalten"],
     start: "Jetzt starten",
     duration: "Dauert ca. 1 Minute · unverbindlich",
@@ -145,7 +129,7 @@ export const funnelCopy = {
   success: {
     title: "Vielen Dank für Ihre Anfrage.",
     text:
-      "Ich prüfe Ihre Angaben und melde mich zeitnah mit einer ersten Einschätzung zu Ihrem Wohngebäude und den möglichen nächsten Schritten.",
+      "Wir prüfen Ihre Angaben und melden uns zeitnah mit einer ersten Einschätzung zu Ihrem Wohngebäude und den möglichen nächsten Schritten.",
     home: "Zurück zur Startseite",
     restart: "Neuen Fördercheck starten",
   },
@@ -179,7 +163,6 @@ export type FunnelData = {
   plz: string;
   ort: string;
   timing: string;
-  offers: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -204,6 +187,5 @@ export function summarizeAnswers(data: Partial<FunnelData>): { q: string; a: str
   if (data.usage) out.push({ q: questions.usage.question, a: labelOf(questions.usage, data.usage) });
   if (data.plz || data.ort) out.push({ q: "Standort", a: `${data.plz ?? ""} ${data.ort ?? ""}`.trim() });
   if (data.timing) out.push({ q: questions.timing.question, a: labelOf(questions.timing, data.timing) });
-  if (data.offers) out.push({ q: questions.offers.question, a: labelOf(questions.offers, data.offers) });
   return out;
 }
