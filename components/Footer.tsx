@@ -22,13 +22,13 @@ export function Footer() {
           <p className="mt-5 max-w-md text-sm leading-relaxed text-ink-400">
             {footer.short}
           </p>
-          {/* Nachweis: gelistet für Förderprogramme des Bundes. */}
-          <div className="mt-6 inline-flex items-center rounded-xl bg-white p-3 shadow-soft">
+          {/* Nachweis: gelistet für Förderprogramme des Bundes (offizielles Logo). */}
+          <div className="mt-6 inline-flex items-center rounded-xl bg-white px-4 py-3 shadow-soft">
             <img
-              src="/eee-experte.svg"
-              alt="Energieeffizienz Experten für Förderprogramme des Bundes"
-              width={200}
-              height={56}
+              src="/eee-experte.png"
+              alt="Energieeffizienz Experte für Förderprogramme des Bundes"
+              width={945}
+              height={229}
               className="h-12 w-auto"
             />
           </div>
