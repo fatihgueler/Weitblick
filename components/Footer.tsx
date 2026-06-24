@@ -26,7 +26,7 @@ export function Footer() {
           <div className="mt-6 inline-flex items-center rounded-xl bg-white p-3 shadow-soft">
             <img
               src="/eee-experte.svg"
-              alt="Energieeffizienz-Experte für Förderprogramme des Bundes"
+              alt="Energieeffizienz Experten für Förderprogramme des Bundes"
               width={200}
               height={56}
               className="h-12 w-auto"
