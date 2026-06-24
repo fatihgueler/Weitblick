@@ -107,7 +107,7 @@ export const funnelCopy = {
       "Beantworten Sie wenige Fragen zu Ihrem Wohngebäude und Ihrer geplanten Maßnahme. Anschließend prüfen wir Ihre Angaben und melden uns mit einer ersten Einschätzung.",
     bullets: ["Gebäude auswählen", "Maßnahme angeben", "Rückmeldung erhalten"],
     start: "Jetzt starten",
-    duration: "Dauert ca. 1 Minute · unverbindlich",
+    duration: "Dauert ca. 2 Minuten · unverbindlich",
   },
   location: {
     question: "Wo befindet sich das Gebäude?",
@@ -130,10 +130,11 @@ export const funnelCopy = {
     title: "Vielen Dank für Ihre Anfrage.",
     text:
       "Wir prüfen Ihre Angaben und melden uns in der Regel innerhalb von 24 Stunden mit einer ersten Einschätzung zu Ihrem Wohngebäude und den möglichen nächsten Schritten.",
-    assessmentTitle: "Ihre erste Orientierung",
-    assessmentIntro: "Auf Basis Ihrer Angaben könnten folgende Themen relevant sein:",
-    assessmentDisclaimer:
-      "Diese Orientierung ist unverbindlich und stellt kein Förderversprechen dar. Eine verbindliche Einschätzung erfolgt nach Prüfung Ihrer Gebäudedaten.",
+    estimateTitle: "Mögliche Förderung – grobe Orientierung",
+    estimateIntro: "Auf Basis Ihrer Angaben liegt die Förderung erfahrungsgemäß in dieser Größenordnung:",
+    estimateTotalLabel: "Mögliche Förderung gesamt",
+    estimateDisclaimer:
+      "Unverbindliche Beispielrechnung und kein Förderversprechen. Die tatsächliche Förderung hängt von Programm, Kosten und individueller Prüfung ab; wegen Förderhöchstgrenzen sind die Beträge nicht einfach summierbar. Beispielwerte (Stand 2025) – wir prüfen die aktuellen Programmwerte für Ihr Vorhaben.",
     home: "Zurück zur Startseite",
     restart: "Neuen Fördercheck starten",
   },
@@ -195,55 +196,65 @@ export function summarizeAnswers(data: Partial<FunnelData>): { q: string; a: str
 }
 
 /**
- * Regelbasierte, unverbindliche Sofort-Orientierung: leitet aus den Angaben
- * relevante Themen ab (keine Beträge, kein Förderversprechen).
+ * Zentrale Förder-Beispielwerte (Stand 2025) – grobe €-Spannen je Maßnahme.
+ *
+ * WARTUNG: Dies ist die EINZIGE Stelle, an der die Beträge gepflegt werden.
+ * Werte beim jährlichen Programm-Update (BEG/BAFA/KfW) hier anpassen und das
+ * Jahr in `success.estimateDisclaimer` (oben) nachziehen. Die Spannen sind
+ * bewusst grob und beziehen sich auf typische Einfamilienhäuser; sie sind
+ * KEIN Förderversprechen.
+ *
+ * `group` fasst Maßnahmen zusammen, die sich auf dieselbe Förderung beziehen
+ * (z. B. Heizungstausch & Wärmepumpe → eine Heizungsförderung), damit sie nicht
+ * doppelt gezählt werden.
  */
-export function assessThemes(data: Partial<FunnelData>): string[] {
+export type FundingEntry = { label: string; min: number; max: number; group?: string };
+
+export const fundingTable: Record<string, FundingEntry> = {
+  heizungstausch: { label: "Heizungstausch / Wärmepumpe", min: 9000, max: 21000, group: "heizung" },
+  waermepumpe: { label: "Heizungstausch / Wärmepumpe", min: 9000, max: 21000, group: "heizung" },
+  komplettsanierung: { label: "Komplettsanierung (Effizienzhaus)", min: 15000, max: 60000 },
+  fassadendaemmung: { label: "Fassadendämmung", min: 4500, max: 12000 },
+  dachdaemmung: { label: "Dachdämmung", min: 4500, max: 12000 },
+  fenstertausch: { label: "Fenstertausch", min: 3000, max: 9000 },
+  kellerdeckendaemmung: { label: "Kellerdeckendämmung", min: 2000, max: 6000 },
+  sanierungsfahrplan: { label: "Sanierungsfahrplan (iSFP)", min: 500, max: 850 },
+};
+
+export type FundingEstimate = {
+  items: { label: string; min: number; max: number }[];
+  totalMin: number;
+  totalMax: number;
+};
+
+/** Formatiert einen Betrag als „12.000 €" (deutsche Tausendertrennung). */
+export function formatEuro(value: number): string {
+  return `${value.toLocaleString("de-DE")} €`;
+}
+
+/**
+ * Unverbindliche Sofort-Einschätzung mit groben €-Spannen: summiert die
+ * Beispielwerte der gewählten Maßnahmen aus `fundingTable`. Maßnahmen mit
+ * gleicher `group` (z. B. Heizung) werden nur einmal gezählt. Maßnahmen ohne
+ * Förderbetrag (z. B. Energieausweis, „unsicher") fließen nicht ein.
+ */
+export function estimateFunding(data: Partial<FunnelData>): FundingEstimate {
   const measures = data.measures ?? [];
-  const has = (v: string) => measures.includes(v);
-  const themes: string[] = [];
-  const add = (t: string) => {
-    if (!themes.includes(t)) themes.push(t);
-  };
+  const items: { label: string; min: number; max: number }[] = [];
+  const seenGroups = new Set<string>();
 
-  const oldBuilding = data.year === "vor1977" || data.year === "1977_1995";
-
-  // Sanierungsfahrplan bei Komplettsanierung, Unsicherheit, mehreren Maßnahmen
-  // oder älterem Gebäude.
-  if (
-    has("sanierungsfahrplan") ||
-    has("komplettsanierung") ||
-    has("unsicher") ||
-    measures.length >= 3 ||
-    oldBuilding
-  ) {
-    add("Individueller Sanierungsfahrplan (iSFP)");
+  for (const m of measures) {
+    const entry = fundingTable[m];
+    if (!entry) continue;
+    if (entry.group) {
+      if (seenGroups.has(entry.group)) continue;
+      seenGroups.add(entry.group);
+    }
+    items.push({ label: entry.label, min: entry.min, max: entry.max });
   }
 
-  // Heizung / Wärmepumpe → technische Grundlagen.
-  if (has("heizungstausch") || has("waermepumpe")) {
-    add("Heizlastberechnung");
-    add("Hydraulischer Abgleich");
-  }
-  if (has("waermepumpe")) add("Wärmepumpen-Eignung prüfen");
+  const totalMin = items.reduce((sum, i) => sum + i.min, 0);
+  const totalMax = items.reduce((sum, i) => sum + i.max, 0);
 
-  // Dichtere Gebäudehülle → Lüftungskonzept.
-  if (
-    has("fassadendaemmung") ||
-    has("dachdaemmung") ||
-    has("fenstertausch") ||
-    has("kellerdeckendaemmung")
-  ) {
-    add("Lüftungskonzept");
-  }
-
-  // Energieausweis bei Vermietung, Kauf oder expliziter Auswahl.
-  if (has("energieausweis") || data.usage === "vermietet" || data.usage === "kauf") {
-    add("Energieausweis");
-  }
-
-  // Fördermittelprüfung ist immer relevant.
-  add("Fördermittelprüfung (BAFA & KfW)");
-
-  return themes;
+  return { items, totalMin, totalMax };
 }

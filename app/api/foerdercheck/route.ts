@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { summarizeAnswers, assessThemes, type FunnelData } from "@/components/foerdercheck/content";
+import { summarizeAnswers, estimateFunding, formatEuro, type FunnelData } from "@/components/foerdercheck/content";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
   }
 
   const summary = summarizeAnswers(body);
-  const themes = assessThemes(body);
+  const estimate = estimateFunding(body);
   const fullName = `${firstName} ${lastName}`;
   const subject = `Neue Fördercheck-Anfrage: ${fullName}`;
 
@@ -51,8 +51,9 @@ export async function POST(request: Request) {
     `Angaben:`,
     ...summary.map((s) => `  • ${s.q}\n    ${s.a}`),
     ``,
-    `Mögliche relevante Themen (automatisch, unverbindlich):`,
-    ...themes.map((t) => `  • ${t}`),
+    `Erste Förder-Einschätzung (Beispielwerte, unverbindlich):`,
+    ...estimate.items.map((i) => `  • ${i.label}: ${formatEuro(i.min)}–${formatEuro(i.max)}`),
+    estimate.items.length > 0 ? `  Gesamt: ${formatEuro(estimate.totalMin)}–${formatEuro(estimate.totalMax)}` : `  Keine Maßnahmen ausgewählt.`,
     ``,
     message ? `Nachricht:\n${message}` : `Nachricht: –`,
     ``,
@@ -81,9 +82,10 @@ export async function POST(request: Request) {
             )}</div><div style="font-weight:600">${escapeHtml(s.a)}</div></div>`,
         )
         .join("")}
-      <h3 style="margin:20px 0 8px;font-size:14px;color:#121f3a">Mögliche relevante Themen</h3>
-      <div style="font-size:13px;color:#334155">${themes.map((t) => escapeHtml(t)).join(" · ")}</div>
-      <div style="margin-top:4px;font-size:11px;color:#94a3b8">Automatisch ermittelt, unverbindlich.</div>
+      <h3 style="margin:20px 0 8px;font-size:14px;color:#121f3a">Erste Förder-Einschätzung</h3>
+      ${estimate.items.map((i) => `<div style="margin-bottom:6px;font-size:13px;display:flex;justify-content:space-between"><span style="color:#334155">${escapeHtml(i.label)}</span><span style="font-weight:600;color:#0b7063">${escapeHtml(formatEuro(i.min))}–${escapeHtml(formatEuro(i.max))}</span></div>`).join("")}
+      ${estimate.items.length > 0 ? `<div style="margin-top:8px;padding-top:8px;border-top:1px solid #e0e7f0;font-size:13px;font-weight:700;display:flex;justify-content:space-between"><span>Gesamt</span><span style="color:#0b7063">${escapeHtml(formatEuro(estimate.totalMin))}–${escapeHtml(formatEuro(estimate.totalMax))}</span></div>` : ""}
+      <div style="margin-top:4px;font-size:11px;color:#94a3b8">Beispielwerte auf Basis BEG/BAFA (Stand 2025), unverbindlich.</div>
       ${
         message
           ? `<h3 style="margin:20px 0 8px;font-size:14px;color:#121f3a">Nachricht</h3><div style="font-size:14px;white-space:pre-wrap">${escapeHtml(message)}</div>`

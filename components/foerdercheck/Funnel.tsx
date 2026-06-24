@@ -37,7 +37,8 @@ import { track } from "@/lib/track";
 import {
   questions,
   funnelCopy,
-  assessThemes,
+  estimateFunding,
+  formatEuro,
   type ChoiceId,
   type FunnelData,
 } from "@/components/foerdercheck/content";
@@ -235,21 +236,30 @@ export function Funnel({ variant = "page", onClose }: FunnelProps) {
             <h2 className="mt-6 font-display text-2xl font-bold text-navy-900">{SUC.title}</h2>
             <p className="mt-3 text-[15px] leading-relaxed text-ink-600">{SUC.text}</p>
 
-            {/* Regelbasierte, unverbindliche Sofort-Orientierung. */}
+            {/* Erste Förder-Einschätzung mit € Spannen */}
             {(() => {
-              const themes = assessThemes(values);
-              if (themes.length === 0) return null;
+              const estimate = estimateFunding(values);
+              if (estimate.items.length === 0) return null;
               return (
                 <div className="mt-6 rounded-2xl border border-navy-900/10 bg-paper p-5 text-left">
-                  <span className="eyebrow">{SUC.assessmentTitle}</span>
-                  <p className="mt-3 text-sm text-ink-600">{SUC.assessmentIntro}</p>
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {themes.map((t) => (
-                      <li key={t} className="chip">{t}</li>
+                  <span className="eyebrow">{SUC.estimateTitle}</span>
+                  <p className="mt-3 text-sm text-ink-600">{SUC.estimateIntro}</p>
+                  <ul className="mt-4 space-y-2">
+                    {estimate.items.map((item) => (
+                      <li key={item.label} className="flex items-center justify-between text-sm">
+                        <span className="text-ink-700">{item.label}</span>
+                        <span className="ml-4 shrink-0 font-semibold text-teal-700">
+                          {formatEuro(item.min)}–{formatEuro(item.max)}
+                        </span>
+                      </li>
                     ))}
                   </ul>
-                  <p className="mt-4 text-xs leading-relaxed text-ink-500">
-                    {SUC.assessmentDisclaimer}
+                  <div className="mt-4 border-t border-navy-900/10 pt-3 flex items-center justify-between text-sm font-bold text-navy-900">
+                    <span>{SUC.estimateTotalLabel}</span>
+                    <span>{formatEuro(estimate.totalMin)}–{formatEuro(estimate.totalMax)}</span>
+                  </div>
+                  <p className="mt-3 text-xs leading-relaxed text-ink-500">
+                    {SUC.estimateDisclaimer}
                   </p>
                 </div>
               );
