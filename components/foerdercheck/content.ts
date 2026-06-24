@@ -129,7 +129,11 @@ export const funnelCopy = {
   success: {
     title: "Vielen Dank für Ihre Anfrage.",
     text:
-      "Wir prüfen Ihre Angaben und melden uns zeitnah mit einer ersten Einschätzung zu Ihrem Wohngebäude und den möglichen nächsten Schritten.",
+      "Wir prüfen Ihre Angaben und melden uns in der Regel innerhalb von 24 Stunden mit einer ersten Einschätzung zu Ihrem Wohngebäude und den möglichen nächsten Schritten.",
+    assessmentTitle: "Ihre erste Orientierung",
+    assessmentIntro: "Auf Basis Ihrer Angaben könnten folgende Themen relevant sein:",
+    assessmentDisclaimer:
+      "Diese Orientierung ist unverbindlich und stellt kein Förderversprechen dar. Eine verbindliche Einschätzung erfolgt nach Prüfung Ihrer Gebäudedaten.",
     home: "Zurück zur Startseite",
     restart: "Neuen Fördercheck starten",
   },
@@ -188,4 +192,58 @@ export function summarizeAnswers(data: Partial<FunnelData>): { q: string; a: str
   if (data.plz || data.ort) out.push({ q: "Standort", a: `${data.plz ?? ""} ${data.ort ?? ""}`.trim() });
   if (data.timing) out.push({ q: questions.timing.question, a: labelOf(questions.timing, data.timing) });
   return out;
+}
+
+/**
+ * Regelbasierte, unverbindliche Sofort-Orientierung: leitet aus den Angaben
+ * relevante Themen ab (keine Beträge, kein Förderversprechen).
+ */
+export function assessThemes(data: Partial<FunnelData>): string[] {
+  const measures = data.measures ?? [];
+  const has = (v: string) => measures.includes(v);
+  const themes: string[] = [];
+  const add = (t: string) => {
+    if (!themes.includes(t)) themes.push(t);
+  };
+
+  const oldBuilding = data.year === "vor1977" || data.year === "1977_1995";
+
+  // Sanierungsfahrplan bei Komplettsanierung, Unsicherheit, mehreren Maßnahmen
+  // oder älterem Gebäude.
+  if (
+    has("sanierungsfahrplan") ||
+    has("komplettsanierung") ||
+    has("unsicher") ||
+    measures.length >= 3 ||
+    oldBuilding
+  ) {
+    add("Individueller Sanierungsfahrplan (iSFP)");
+  }
+
+  // Heizung / Wärmepumpe → technische Grundlagen.
+  if (has("heizungstausch") || has("waermepumpe")) {
+    add("Heizlastberechnung");
+    add("Hydraulischer Abgleich");
+  }
+  if (has("waermepumpe")) add("Wärmepumpen-Eignung prüfen");
+
+  // Dichtere Gebäudehülle → Lüftungskonzept.
+  if (
+    has("fassadendaemmung") ||
+    has("dachdaemmung") ||
+    has("fenstertausch") ||
+    has("kellerdeckendaemmung")
+  ) {
+    add("Lüftungskonzept");
+  }
+
+  // Energieausweis bei Vermietung, Kauf oder expliziter Auswahl.
+  if (has("energieausweis") || data.usage === "vermietet" || data.usage === "kauf") {
+    add("Energieausweis");
+  }
+
+  // Fördermittelprüfung ist immer relevant.
+  add("Fördermittelprüfung (BAFA & KfW)");
+
+  return themes;
 }

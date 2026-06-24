@@ -63,7 +63,7 @@ export function FoerdercheckBox({
         </FoerdercheckButton>
 
         <p className="mt-3 text-center font-mono text-[11px] tracking-wide text-ink-400">
-          ca. 2 Minuten · unverbindlich · kostenlos
+          ca. 2 Min · Antwort i. d. R. in 24 h · kostenlos
         </p>
       </div>
     </div>

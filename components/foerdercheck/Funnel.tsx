@@ -37,6 +37,7 @@ import { track } from "@/lib/track";
 import {
   questions,
   funnelCopy,
+  assessThemes,
   type ChoiceId,
   type FunnelData,
 } from "@/components/foerdercheck/content";
@@ -233,6 +234,27 @@ export function Funnel({ variant = "page", onClose }: FunnelProps) {
             </span>
             <h2 className="mt-6 font-display text-2xl font-bold text-navy-900">{SUC.title}</h2>
             <p className="mt-3 text-[15px] leading-relaxed text-ink-600">{SUC.text}</p>
+
+            {/* Regelbasierte, unverbindliche Sofort-Orientierung. */}
+            {(() => {
+              const themes = assessThemes(values);
+              if (themes.length === 0) return null;
+              return (
+                <div className="mt-6 rounded-2xl border border-navy-900/10 bg-paper p-5 text-left">
+                  <span className="eyebrow">{SUC.assessmentTitle}</span>
+                  <p className="mt-3 text-sm text-ink-600">{SUC.assessmentIntro}</p>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {themes.map((t) => (
+                      <li key={t} className="chip">{t}</li>
+                    ))}
+                  </ul>
+                  <p className="mt-4 text-xs leading-relaxed text-ink-500">
+                    {SUC.assessmentDisclaimer}
+                  </p>
+                </div>
+              );
+            })()}
+
             <div className="mt-8 flex flex-col gap-3">
               <Link href="/" className="btn-primary" onClick={onClose}>
                 {SUC.home}

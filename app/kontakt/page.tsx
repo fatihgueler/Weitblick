@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { kontaktPage, contact, ctaLabels } from "@/lib/content";
 import { PageHero } from "@/components/PageHero";
 import { ContactForm } from "@/components/ContactForm";
@@ -48,6 +48,11 @@ export default function KontaktPage() {
                 <span className="font-medium opacity-80">{contact.location}</span>
               </li>
             </ul>
+
+            <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-teal-50 px-3.5 py-1.5 text-sm font-medium text-teal-800">
+              <Clock className="h-4 w-4" strokeWidth={2} />
+              Antwort in der Regel innerhalb von 24 Stunden
+            </p>
 
             {/* So geht's weiter – kompakte Roadmap (Signatur-Echo). */}
             <div className="mt-10">

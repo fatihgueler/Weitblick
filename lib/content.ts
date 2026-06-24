@@ -447,7 +447,7 @@ export const kontaktPage = {
 /* Vorlagen (z. B. e-recht24.de) ersetzen.                                      */
 
 export const legalNote =
-  "Hinweis: Dies ist ein Platzhalter. Bitte vor Veröffentlichung durch einen rechtssicheren Text ersetzen (z. B. mit dem Impressum-/Datenschutz-Generator von e-recht24.de).";
+  "Hinweis: Entwurf auf Basis der aktuellen technischen Umsetzung (Hosting bei Vercel, E-Mail-Versand über Resend, keine Tracking-Tools). Bitte vor Veröffentlichung final prüfen lassen.";
 
 export const impressum = {
   title: "Impressum",
@@ -487,16 +487,32 @@ export const datenschutz = {
       body: "Verantwortlich für die Datenverarbeitung auf dieser Website ist: Enes Aktürk, Weitblick Energieberatung, Hermann-Weinhauser-Str. 65, 81673 München, E-Mail: info@weitblick-energieberatung.de, Telefon: +49 176 80020590.",
     },
     {
-      heading: "Erhebung und Verarbeitung personenbezogener Daten",
-      body: "Beim Besuch dieser Website werden technisch notwendige Daten verarbeitet. [Konkrete Angaben zu Hosting, Server-Logs und Speicherdauer ergänzen.]",
+      heading: "Hosting und Server-Logfiles",
+      body: "Diese Website wird bei der Vercel Inc. (340 S Lemon Ave #4133, Walnut, CA 91789, USA) gehostet. Beim Aufruf der Seite verarbeitet Vercel technisch notwendige Daten in Server-Logfiles, etwa IP-Adresse, Browsertyp, Betriebssystem sowie Datum und Uhrzeit des Zugriffs. Diese Verarbeitung dient dem sicheren und stabilen Betrieb der Website. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse). Mit Vercel besteht ein Auftragsverarbeitungsvertrag; die Übermittlung in die USA wird auf die EU-Standardvertragsklauseln gestützt.",
     },
     {
-      heading: "Kontaktformular & Fördercheck",
-      body: "Wenn Sie das Kontaktformular oder den Fördercheck nutzen, werden Ihre Angaben (z. B. Name, E-Mail, Telefon, Angaben zum Gebäude) zur Bearbeitung Ihrer Anfrage verarbeitet und per E-Mail übermittelt. [Rechtsgrundlage, Empfänger und Speicherdauer ergänzen.]",
+      heading: "Kontaktformular und Fördercheck",
+      body: "Wenn Sie das Kontaktformular oder den Fördercheck nutzen, verarbeiten wir die von Ihnen angegebenen Daten (z. B. Name, E-Mail-Adresse, Telefonnummer sowie Angaben zu Ihrem Gebäude und Vorhaben), um Ihre Anfrage zu bearbeiten und mit Ihnen Kontakt aufzunehmen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen) bzw. lit. f DSGVO. Wir löschen die Daten, sobald sie für die Bearbeitung nicht mehr erforderlich sind und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.",
+    },
+    {
+      heading: "E-Mail-Versand über Resend",
+      body: "Für den Versand der Anfragen per E-Mail nutzen wir den Dienst Resend (Resend, Inc., USA). Dabei werden die Inhalte Ihrer Anfrage an Resend übermittelt. Mit Resend besteht ein Auftragsverarbeitungsvertrag; die Übermittlung in die USA wird auf die EU-Standardvertragsklauseln gestützt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.",
+    },
+    {
+      heading: "Schriftarten",
+      body: "Die verwendeten Schriftarten werden lokal von unserem Server ausgeliefert. Eine Verbindung zu Servern Dritter (z. B. Google Fonts) besteht dabei nicht.",
+    },
+    {
+      heading: "Cookies und Tracking",
+      body: "Diese Website verwendet keine Cookies zu Analyse- oder Marketingzwecken und bindet keine Tracking-Dienste ein. Es werden ausschließlich technisch notwendige Daten zum Betrieb der Website verarbeitet.",
     },
     {
       heading: "Ihre Rechte",
-      body: "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch sowie ein Beschwerderecht bei einer Aufsichtsbehörde. [Kontakt für Betroffenenrechte ergänzen.]",
+      body: "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Wenden Sie sich dafür an die oben genannten Kontaktdaten. Zudem haben Sie das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren.",
+    },
+    {
+      heading: "SSL-/TLS-Verschlüsselung",
+      body: "Diese Website nutzt aus Sicherheitsgründen eine SSL-/TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie am „https://“ in der Adresszeile Ihres Browsers.",
     },
   ],
 } as const;

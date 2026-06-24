@@ -6,6 +6,7 @@ import { site } from "@/lib/content";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StickyFoerdercheck } from "@/components/StickyFoerdercheck";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { FoerdercheckProvider } from "@/components/foerdercheck/provider";
 
 /* Body – Inter: bewusst gewählte, hochlesbare Lauftext-Schrift. */
@@ -64,7 +65,18 @@ const jsonLd = {
   name: site.name,
   description: site.description,
   url: getSiteUrl().toString(),
-  areaServed: "DE",
+  // Standort München, Leistungsgebiet aber deutschlandweit.
+  areaServed: { "@type": "Country", name: "Deutschland" },
+  telephone: "+4917680020590",
+  email: "info@weitblick-energieberatung.de",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Hermann-Weinhauser-Str. 65",
+    postalCode: "81673",
+    addressLocality: "München",
+    addressRegion: "Bayern",
+    addressCountry: "DE",
+  },
   knowsAbout: [
     "Energieberatung",
     "Energieberatung Wohngebäude",
@@ -103,6 +115,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* Abstand, damit die mobile Sticky-Bar nichts verdeckt. */}
           <div className="h-20 lg:hidden" aria-hidden="true" />
           <StickyFoerdercheck />
+          <WhatsAppButton />
         </FoerdercheckProvider>
       </body>
     </html>

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { summarizeAnswers, type FunnelData } from "@/components/foerdercheck/content";
+import { summarizeAnswers, assessThemes, type FunnelData } from "@/components/foerdercheck/content";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -37,6 +37,7 @@ export async function POST(request: Request) {
   }
 
   const summary = summarizeAnswers(body);
+  const themes = assessThemes(body);
   const fullName = `${firstName} ${lastName}`;
   const subject = `Neue Fördercheck-Anfrage: ${fullName}`;
 
@@ -49,6 +50,9 @@ export async function POST(request: Request) {
     ``,
     `Angaben:`,
     ...summary.map((s) => `  • ${s.q}\n    ${s.a}`),
+    ``,
+    `Mögliche relevante Themen (automatisch, unverbindlich):`,
+    ...themes.map((t) => `  • ${t}`),
     ``,
     message ? `Nachricht:\n${message}` : `Nachricht: –`,
     ``,
@@ -77,6 +81,9 @@ export async function POST(request: Request) {
             )}</div><div style="font-weight:600">${escapeHtml(s.a)}</div></div>`,
         )
         .join("")}
+      <h3 style="margin:20px 0 8px;font-size:14px;color:#121f3a">Mögliche relevante Themen</h3>
+      <div style="font-size:13px;color:#334155">${themes.map((t) => escapeHtml(t)).join(" · ")}</div>
+      <div style="margin-top:4px;font-size:11px;color:#94a3b8">Automatisch ermittelt, unverbindlich.</div>
       ${
         message
           ? `<h3 style="margin:20px 0 8px;font-size:14px;color:#121f3a">Nachricht</h3><div style="font-size:14px;white-space:pre-wrap">${escapeHtml(message)}</div>`
