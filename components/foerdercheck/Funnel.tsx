@@ -454,7 +454,7 @@ function ChoiceStep({
       </legend>
       {q.hint && <p className="mt-1 text-sm text-ink-500">{q.hint}</p>}
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+      <div className="mt-6 grid gap-3 sm:grid-cols-2 sm:items-start">
         {q.options.map((opt) => {
           const isSel = multi
             ? ((selected as string[]) ?? []).includes(opt.value)
