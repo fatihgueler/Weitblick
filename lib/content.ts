@@ -19,7 +19,7 @@ export const site = {
 } as const;
 
 export const contact = {
-  email: "info@weitblick-energieberatung.de",
+  email: "kontakt@weitblick-energieberatung.de",
   phone: "+49 176 80020590",
   location: "Hermann-Weinhauser-Str. 65, 81673 München",
 } as const;
@@ -446,9 +446,6 @@ export const kontaktPage = {
 /* Keine erfundenen Rechtstexte. Vor Veröffentlichung mit rechtssicheren        */
 /* Vorlagen (z. B. e-recht24.de) ersetzen.                                      */
 
-export const legalNote =
-  "Hinweis: Entwurf auf Basis der aktuellen technischen Umsetzung (Hosting bei Vercel, E-Mail-Versand über Resend, keine Tracking-Tools). Bitte vor Veröffentlichung final prüfen lassen.";
-
 export const impressum = {
   title: "Impressum",
   sections: [
@@ -463,7 +460,7 @@ export const impressum = {
     },
     {
       heading: "Kontakt",
-      lines: ["Telefon: +49 176 80020590", "E-Mail: info@weitblick-energieberatung.de"],
+      lines: ["Telefon: +49 176 80020590", "E-Mail: kontakt@weitblick-energieberatung.de"],
     },
     {
       heading: "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV",
@@ -484,7 +481,7 @@ export const datenschutz = {
   sections: [
     {
       heading: "Verantwortlicher",
-      body: "Verantwortlich für die Datenverarbeitung auf dieser Website ist: Enes Aktürk, Weitblick Energieberatung, Hermann-Weinhauser-Str. 65, 81673 München, E-Mail: info@weitblick-energieberatung.de, Telefon: +49 176 80020590.",
+      body: "Verantwortlich für die Datenverarbeitung auf dieser Website ist: Enes Aktürk, Weitblick Energieberatung, Hermann-Weinhauser-Str. 65, 81673 München, E-Mail: kontakt@weitblick-energieberatung.de, Telefon: +49 176 80020590.",
     },
     {
       heading: "Hosting und Server-Logfiles",

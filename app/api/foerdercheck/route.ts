@@ -138,9 +138,10 @@ export async function POST(request: Request) {
       const { error } = await resend.emails.send({
         from: FROM_EMAIL,
         to: email,
+        replyTo: KONTAKT_EMAIL,
         subject: "Ihre Fördercheck-Anfrage bei Weitblick Energieberatung",
-        html: confirmationHtml(firstName),
-        text: confirmationText(firstName),
+        html: confirmationHtml(firstName, lastName),
+        text: confirmationText(firstName, lastName),
       });
       if (error) {
         console.error("[foerdercheck] Bestätigungsmail-Fehler", error);
@@ -180,23 +181,26 @@ export async function POST(request: Request) {
   return NextResponse.json({ ok: true });
 }
 
-function confirmationText(firstName: string): string {
+function confirmationText(firstName: string, lastName: string): string {
   return [
-    `Hallo ${firstName},`,
+    `Sehr geehrte(r) ${firstName} ${lastName},`,
     ``,
-    `vielen Dank für Ihre Anfrage über unseren Fördercheck.`,
-    `Wir haben Ihre Angaben erhalten und melden uns zeitnah bei Ihnen mit einer ersten Einschätzung.`,
+    `vielen Dank für Ihre Anfrage über den Fördercheck von Weitblick Energieberatung.`,
+    `Wir haben Ihre Angaben sorgfältig erfasst und werden diese zeitnah prüfen. Ein Berater aus unserem Team meldet sich in Kürze persönlich bei Ihnen, um die möglichen nächsten Schritte und Fördermöglichkeiten für Ihr Vorhaben zu besprechen.`,
     ``,
-    `Viele Grüße`,
+    `Bei Rückfragen erreichen Sie uns jederzeit unter kontakt@weitblick-energieberatung.de.`,
+    ``,
+    `Mit freundlichen Grüßen`,
     `Ihr Team von Weitblick Energieberatung`,
   ].join("\n");
 }
 
-function confirmationHtml(firstName: string): string {
+function confirmationHtml(firstName: string, lastName: string): string {
   return `
   <div style="font-family:Inter,Arial,sans-serif;max-width:480px;margin:auto;color:#1e293b;font-size:15px;line-height:1.6">
-    <p>Hallo ${escapeHtml(firstName)},</p>
-    <p>vielen Dank für Ihre Anfrage über unseren Fördercheck. Wir haben Ihre Angaben erhalten und melden uns zeitnah bei Ihnen mit einer ersten Einschätzung.</p>
-    <p>Viele Grüße<br/>Ihr Team von Weitblick Energieberatung</p>
+    <p>Sehr geehrte(r) ${escapeHtml(firstName)} ${escapeHtml(lastName)},</p>
+    <p>vielen Dank für Ihre Anfrage über den Fördercheck von Weitblick Energieberatung. Wir haben Ihre Angaben sorgfältig erfasst und werden diese zeitnah prüfen. Ein Berater aus unserem Team meldet sich in Kürze persönlich bei Ihnen, um die möglichen nächsten Schritte und Fördermöglichkeiten für Ihr Vorhaben zu besprechen.</p>
+    <p>Bei Rückfragen erreichen Sie uns jederzeit unter <a href="mailto:kontakt@weitblick-energieberatung.de" style="color:#0b7063">kontakt@weitblick-energieberatung.de</a>.</p>
+    <p>Mit freundlichen Grüßen<br/>Ihr Team von Weitblick Energieberatung</p>
   </div>`;
 }

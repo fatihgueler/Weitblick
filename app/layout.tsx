@@ -68,7 +68,7 @@ const jsonLd = {
   // Standort München, Leistungsgebiet aber deutschlandweit.
   areaServed: { "@type": "Country", name: "Deutschland" },
   telephone: "+4917680020590",
-  email: "info@weitblick-energieberatung.de",
+  email: "kontakt@weitblick-energieberatung.de",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Hermann-Weinhauser-Str. 65",
