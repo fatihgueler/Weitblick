@@ -1,52 +1,70 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { summarizeAnswers, estimateFunding, formatEuro, type FunnelData } from "@/components/foerdercheck/content";
+import { createLead } from "@/lib/leads";
+import { escapeHtml, formatTimestampBerlin, getResendClient, FROM_EMAIL, KONTAKT_EMAIL } from "@/lib/email";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-type Payload = Partial<FunnelData> & {
-  meta?: Record<string, unknown>;
-};
+const payloadSchema = z.object({
+  building: z.string().min(1),
+  measures: z.array(z.string()).default([]),
+  year: z.string().min(1),
+  usage: z.string().min(1),
+  plz: z.string().min(1),
+  ort: z.string().min(1),
+  timing: z.string().min(1),
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  email: z.string().email(),
+  phone: z.string().min(1),
+  message: z.string().optional(),
+  meta: z.record(z.string(), z.unknown()).optional(),
+});
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+/**
+ * Kein Feld für Heizungsalter vorhanden – als nächstbeste Näherung gilt ein
+ * Gebäude als "hoher Handlungsdruck", wenn es vor 1996 gebaut wurde (Baujahr
+ * "vor1977" oder "1977_1995"), da die Heizungsanlage in diesen Fällen
+ * erfahrungsgemäß mindestens so alt wie das Gebäude und damit über 20 Jahre
+ * alt ist.
+ */
+const URGENT_YEARS = new Set(["vor1977", "1977_1995"]);
 
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+function isUrgent(data: Pick<FunnelData, "year">): boolean {
+  return URGENT_YEARS.has(data.year);
 }
 
 export async function POST(request: Request) {
-  let body: Payload;
+  let json: unknown;
   try {
-    body = (await request.json()) as Payload;
+    json = await request.json();
   } catch {
     return NextResponse.json({ ok: false, error: "invalid_json" }, { status: 400 });
   }
 
-  const firstName = (body.firstName ?? "").trim();
-  const lastName = (body.lastName ?? "").trim();
-  const email = (body.email ?? "").trim();
-  const phone = (body.phone ?? "").trim();
-  const message = (body.message ?? "").trim();
-
-  if (!firstName || !lastName || !EMAIL_RE.test(email) || !phone) {
+  const parsed = payloadSchema.safeParse(json);
+  if (!parsed.success) {
     return NextResponse.json({ ok: false, error: "validation" }, { status: 422 });
   }
+  const body = parsed.data;
+  const { firstName, lastName, email, phone, message } = body;
+  const timestamp = formatTimestampBerlin();
 
   const summary = summarizeAnswers(body);
   const estimate = estimateFunding(body);
   const fullName = `${firstName} ${lastName}`;
-  const subject = `Neue Fördercheck-Anfrage: ${fullName}`;
+  const urgent = isUrgent(body);
+  const subject = urgent ? "🔥 Hoher Handlungsdruck – Neuer Fördercheck-Lead" : "Neuer Fördercheck-Lead";
 
   const textLines = [
     `Neue Fördercheck-Anfrage über Weitblick Energieberatung`,
     ``,
-    `Name:     ${fullName}`,
-    `E-Mail:   ${email}`,
-    `Telefon:  ${phone}`,
+    `Zeitpunkt: ${timestamp}`,
+    `Name:      ${fullName}`,
+    `E-Mail:    ${email}`,
+    `Telefon:   ${phone}`,
     ``,
     `Angaben:`,
     ...summary.map((s) => `  • ${s.q}\n    ${s.a}`),
@@ -69,6 +87,7 @@ export async function POST(request: Request) {
     </div>
     <div style="border:1px solid #e0e7f0;border-top:none;border-radius:0 0 16px 16px;padding:24px">
       <table style="width:100%;font-size:14px;border-collapse:collapse">
+        <tr><td style="padding:6px 0;color:#64748b">Zeitpunkt</td><td style="padding:6px 0;font-weight:600">${escapeHtml(timestamp)}</td></tr>
         <tr><td style="padding:6px 0;color:#64748b">Name</td><td style="padding:6px 0;font-weight:600">${escapeHtml(fullName)}</td></tr>
         <tr><td style="padding:6px 0;color:#64748b">E-Mail</td><td style="padding:6px 0;font-weight:600"><a href="mailto:${escapeHtml(email)}" style="color:#0b7063">${escapeHtml(email)}</a></td></tr>
         <tr><td style="padding:6px 0;color:#64748b">Telefon</td><td style="padding:6px 0;font-weight:600"><a href="tel:${escapeHtml(phone)}" style="color:#0b7063">${escapeHtml(phone)}</a></td></tr>
@@ -95,46 +114,45 @@ export async function POST(request: Request) {
     </div>
   </div>`;
 
-  const results: Record<string, unknown> = {};
-
-  // 1) E-Mail über Resend (https://resend.com) – konfigurierbar via ENV.
-  const resendKey = process.env.RESEND_API_KEY;
-  const to = process.env.LEAD_EMAIL_TO;
-  const from = process.env.LEAD_EMAIL_FROM;
-  if (resendKey && to && from) {
+  const resend = getResendClient();
+  if (resend) {
     try {
-      const res = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${resendKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from,
-          to: to.split(",").map((s) => s.trim()),
-          reply_to: email,
-          subject,
-          html,
-          text,
-        }),
+      const { error } = await resend.emails.send({
+        from: FROM_EMAIL,
+        to: KONTAKT_EMAIL,
+        replyTo: email,
+        subject,
+        html,
+        text,
       });
-      results.email = res.ok ? "sent" : `error_${res.status}`;
-      if (!res.ok) {
-        console.error("[foerdercheck] Resend error", res.status, await res.text());
+      if (error) {
+        console.error("[foerdercheck] Resend error", error);
         return NextResponse.json({ ok: false, error: "email_failed" }, { status: 502 });
       }
     } catch (err) {
       console.error("[foerdercheck] Resend exception", err);
       return NextResponse.json({ ok: false, error: "email_failed" }, { status: 502 });
     }
+
+    try {
+      const { error } = await resend.emails.send({
+        from: FROM_EMAIL,
+        to: email,
+        subject: "Ihre Fördercheck-Anfrage bei Weitblick Energieberatung",
+        html: confirmationHtml(firstName),
+        text: confirmationText(firstName),
+      });
+      if (error) {
+        console.error("[foerdercheck] Bestätigungsmail-Fehler", error);
+      }
+    } catch (err) {
+      console.error("[foerdercheck] Bestätigungsmail-Exception", err);
+    }
   } else {
-    results.email = "skipped_no_config";
-    console.warn(
-      "[foerdercheck] E-Mail nicht versendet – RESEND_API_KEY / LEAD_EMAIL_TO / LEAD_EMAIL_FROM fehlen.",
-    );
+    console.warn("[foerdercheck] E-Mail nicht versendet – RESEND_API_KEY fehlt.");
   }
 
-  // 2) Optionaler Webhook (Zapier / Make / CRM).
+  // Optionaler Webhook (Zapier / Make / CRM).
   const webhook = process.env.LEAD_WEBHOOK_URL;
   if (webhook) {
     try {
@@ -147,14 +165,38 @@ export async function POST(request: Request) {
           meta: body.meta ?? {},
         }),
       });
-      results.webhook = res.ok ? "sent" : `error_${res.status}`;
+      if (!res.ok) console.error("[foerdercheck] Webhook error", res.status);
     } catch (err) {
       console.error("[foerdercheck] Webhook exception", err);
-      results.webhook = "error";
     }
   }
 
-  console.log("[foerdercheck] lead", { name: fullName, email, phone, results });
+  try {
+    await createLead("foerdercheck", body);
+  } catch (err) {
+    console.error("[foerdercheck] Lead-Persistierung fehlgeschlagen", err);
+  }
 
   return NextResponse.json({ ok: true });
+}
+
+function confirmationText(firstName: string): string {
+  return [
+    `Hallo ${firstName},`,
+    ``,
+    `vielen Dank für Ihre Anfrage über unseren Fördercheck.`,
+    `Wir haben Ihre Angaben erhalten und melden uns zeitnah bei Ihnen mit einer ersten Einschätzung.`,
+    ``,
+    `Viele Grüße`,
+    `Ihr Team von Weitblick Energieberatung`,
+  ].join("\n");
+}
+
+function confirmationHtml(firstName: string): string {
+  return `
+  <div style="font-family:Inter,Arial,sans-serif;max-width:480px;margin:auto;color:#1e293b;font-size:15px;line-height:1.6">
+    <p>Hallo ${escapeHtml(firstName)},</p>
+    <p>vielen Dank für Ihre Anfrage über unseren Fördercheck. Wir haben Ihre Angaben erhalten und melden uns zeitnah bei Ihnen mit einer ersten Einschätzung.</p>
+    <p>Viele Grüße<br/>Ihr Team von Weitblick Energieberatung</p>
+  </div>`;
 }

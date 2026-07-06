@@ -1,54 +1,45 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import { createLead } from "@/lib/leads";
+import { escapeHtml, formatTimestampBerlin, getResendClient, FROM_EMAIL, KONTAKT_EMAIL } from "@/lib/email";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-type Payload = {
-  name?: string;
-  email?: string;
-  phone?: string;
-  subject?: string;
-  message?: string;
-  meta?: Record<string, unknown>;
-};
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
+const payloadSchema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+  phone: z.string().optional(),
+  subject: z.string().optional(),
+  message: z.string().min(1),
+  meta: z.record(z.string(), z.unknown()).optional(),
+});
 
 export async function POST(request: Request) {
-  let body: Payload;
+  let json: unknown;
   try {
-    body = (await request.json()) as Payload;
+    json = await request.json();
   } catch {
     return NextResponse.json({ ok: false, error: "invalid_json" }, { status: 400 });
   }
 
-  const name = (body.name ?? "").trim();
-  const email = (body.email ?? "").trim();
-  const phone = (body.phone ?? "").trim();
-  const subject = (body.subject ?? "").trim();
-  const message = (body.message ?? "").trim();
-
-  if (!name || !EMAIL_RE.test(email) || !message) {
+  const parsed = payloadSchema.safeParse(json);
+  if (!parsed.success) {
     return NextResponse.json({ ok: false, error: "validation" }, { status: 422 });
   }
+  const { name, email, phone, subject, message } = parsed.data;
+  const timestamp = formatTimestampBerlin();
 
-  const mailSubject = `Neue Kontaktanfrage: ${name}${subject ? ` (${subject})` : ""}`;
+  const mailSubject = "Neue Kontaktanfrage";
 
   const text = [
     `Neue Kontaktanfrage über Weitblick Energieberatung`,
     ``,
-    `Name:     ${name}`,
-    `E-Mail:   ${email}`,
-    `Telefon:  ${phone || "–"}`,
-    `Anliegen: ${subject || "–"}`,
+    `Zeitpunkt: ${timestamp}`,
+    `Name:      ${name}`,
+    `E-Mail:    ${email}`,
+    `Telefon:   ${phone || "–"}`,
+    `Anliegen:  ${subject || "–"}`,
     ``,
     `Nachricht:`,
     message,
@@ -62,6 +53,7 @@ export async function POST(request: Request) {
     </div>
     <div style="border:1px solid #e0e7f0;border-top:none;border-radius:0 0 16px 16px;padding:24px">
       <table style="width:100%;font-size:14px;border-collapse:collapse">
+        <tr><td style="padding:6px 0;color:#64748b">Zeitpunkt</td><td style="padding:6px 0;font-weight:600">${escapeHtml(timestamp)}</td></tr>
         <tr><td style="padding:6px 0;color:#64748b">Name</td><td style="padding:6px 0;font-weight:600">${escapeHtml(name)}</td></tr>
         <tr><td style="padding:6px 0;color:#64748b">E-Mail</td><td style="padding:6px 0;font-weight:600"><a href="mailto:${escapeHtml(email)}" style="color:#0b7063">${escapeHtml(email)}</a></td></tr>
         <tr><td style="padding:6px 0;color:#64748b">Telefon</td><td style="padding:6px 0;font-weight:600">${escapeHtml(phone || "–")}</td></tr>
@@ -72,28 +64,19 @@ export async function POST(request: Request) {
     </div>
   </div>`;
 
-  const resendKey = process.env.RESEND_API_KEY;
-  const to = process.env.LEAD_EMAIL_TO;
-  const from = process.env.LEAD_EMAIL_FROM;
-  if (resendKey && to && from) {
+  const resend = getResendClient();
+  if (resend) {
     try {
-      const res = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${resendKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from,
-          to: to.split(",").map((s) => s.trim()),
-          reply_to: email,
-          subject: mailSubject,
-          html,
-          text,
-        }),
+      const { error } = await resend.emails.send({
+        from: FROM_EMAIL,
+        to: KONTAKT_EMAIL,
+        replyTo: email,
+        subject: mailSubject,
+        html,
+        text,
       });
-      if (!res.ok) {
-        console.error("[kontakt] Resend error", res.status, await res.text());
+      if (error) {
+        console.error("[kontakt] Resend error", error);
         return NextResponse.json({ ok: false, error: "email_failed" }, { status: 502 });
       }
     } catch (err) {
@@ -101,7 +84,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "email_failed" }, { status: 502 });
     }
   } else {
-    console.warn("[kontakt] E-Mail nicht versendet – RESEND_API_KEY / LEAD_EMAIL_TO / LEAD_EMAIL_FROM fehlen.");
+    console.warn("[kontakt] E-Mail nicht versendet – RESEND_API_KEY fehlt.");
+  }
+
+  try {
+    await createLead("kontakt", parsed.data);
+  } catch (err) {
+    console.error("[kontakt] Lead-Persistierung fehlgeschlagen", err);
   }
 
   return NextResponse.json({ ok: true });
