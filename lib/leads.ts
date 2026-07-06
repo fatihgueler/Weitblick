@@ -1,4 +1,4 @@
-import { sql } from "@vercel/postgres";
+import postgres from "postgres";
 
 export type LeadType = "kontakt" | "foerdercheck";
 
@@ -10,9 +10,27 @@ export type Lead = {
   status: string;
 };
 
+let client: postgres.Sql | null = null;
+
+/**
+ * Lazily erzeugter Postgres-Client (statt @vercel/postgres, das intern an Neons
+ * WebSocket-Proxy gebunden ist und nicht mit anderen Postgres-Anbietern wie
+ * Supabase funktioniert). `prepare: false`, da der Verbindungsstring über
+ * einen Connection-Pooler (pgbouncer) laufen kann, der keine Prepared
+ * Statements unterstützt.
+ */
+function getClient(): postgres.Sql {
+  if (!client) {
+    const connectionString = process.env.POSTGRES_URL;
+    if (!connectionString) throw new Error("POSTGRES_URL ist nicht gesetzt.");
+    client = postgres(connectionString, { ssl: "require", prepare: false });
+  }
+  return client;
+}
+
 let schemaReady: Promise<void> | null = null;
 
-function ensureLeadsTable(): Promise<void> {
+function ensureLeadsTable(sql: postgres.Sql): Promise<void> {
   if (!schemaReady) {
     schemaReady = sql`
       CREATE TABLE IF NOT EXISTS leads (
@@ -33,7 +51,8 @@ function ensureLeadsTable(): Promise<void> {
 
 /** Speichert einen Lead. Wirft bei DB-Fehlern (Aufrufer entscheidet, ob das den Request scheitern lässt). */
 export async function createLead(type: LeadType, rawData: Record<string, unknown>): Promise<void> {
-  await ensureLeadsTable();
+  const sql = getClient();
+  await ensureLeadsTable(sql);
   await sql`
     INSERT INTO leads (type, raw_data, status)
     VALUES (${type}, ${JSON.stringify(rawData)}::jsonb, 'neu')
@@ -41,8 +60,9 @@ export async function createLead(type: LeadType, rawData: Record<string, unknown
 }
 
 export async function getLeadsSince(since: Date): Promise<Lead[]> {
-  await ensureLeadsTable();
-  const { rows } = await sql<Lead>`
+  const sql = getClient();
+  await ensureLeadsTable(sql);
+  const rows = await sql<Lead[]>`
     SELECT id, created_at, type, raw_data, status
     FROM leads
     WHERE created_at >= ${since.toISOString()}
@@ -52,8 +72,9 @@ export async function getLeadsSince(since: Date): Promise<Lead[]> {
 }
 
 export async function getAllLeads(): Promise<Lead[]> {
-  await ensureLeadsTable();
-  const { rows } = await sql<Lead>`
+  const sql = getClient();
+  await ensureLeadsTable(sql);
+  const rows = await sql<Lead[]>`
     SELECT id, created_at, type, raw_data, status
     FROM leads
     ORDER BY created_at DESC
