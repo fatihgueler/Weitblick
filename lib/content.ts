@@ -390,6 +390,40 @@ export const faqAll: Faq[] = [
   },
 ];
 
+export type QuestionAnswer = { question: string; answer: string };
+
+/**
+ * FAQ für die Fördercheck-Seite (SEO/GEO – FaqSchema + sichtbares Akkordeon).
+ * Faktisch geprüft, Stand 2026. Werte hier NICHT verändern.
+ */
+export const foerdercheckFaq: QuestionAnswer[] = [
+  {
+    question: "Wie hoch ist die BAFA-Förderung 2026 für eine Energieberatung?",
+    answer:
+      "Das BAFA übernimmt 50 % der Beratungskosten – bis zu 650 € bei Ein- und Zweifamilienhäusern, bis zu 850 € bei Mehrfamilienhäusern.",
+  },
+  {
+    question: "Was bringt der individuelle Sanierungsfahrplan (iSFP) finanziell?",
+    answer:
+      "Mit iSFP steigt die Förderung für Einzelmaßnahmen von 15 % auf 20 %, und die förderfähigen Kosten verdoppeln sich von 30.000 € auf 60.000 € pro Wohneinheit und Jahr.",
+  },
+  {
+    question: "Wie hoch ist die BAFA-Förderung für Dämmung, Fenster & Co.?",
+    answer:
+      "15 % Grundförderung, mit gültigem iSFP 20 % – maximal 12.000 € je Maßnahme und Wohneinheit.",
+  },
+  {
+    question: "Muss der iSFP vor dem Förderantrag vorliegen?",
+    answer:
+      "Ja. Der iSFP muss vor Antragstellung der jeweiligen Maßnahme vorliegen – rückwirkend lässt sich der Bonus nicht anrechnen.",
+  },
+  {
+    question: "Läuft der Heizungstausch auch über die BAFA?",
+    answer:
+      "Nein, seit 2024 läuft der Heizungstausch über die KfW (Programm 458), nicht mehr über die BAFA.",
+  },
+];
+
 /* ---- CTAs / Abschluss ----------------------------------------------------- */
 
 export const finalCta = {

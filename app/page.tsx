@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Check, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -13,6 +14,7 @@ import {
   faqHome,
   ctaLabels,
   routes,
+  site,
 } from "@/lib/content";
 import { serviceIcons } from "@/components/icons";
 import { Reveal } from "@/components/Reveal";
@@ -22,6 +24,30 @@ import { HorizonScene } from "@/components/HorizonScene";
 import { ServiceCard } from "@/components/ServiceCard";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { FinalCta } from "@/components/FinalCta";
+
+/*
+ * Titel wird hier vollständig ausgeschrieben (statt nur "Kunden-Titel"), weil
+ * Next.js das title.template aus dem Root-Layout nicht auf die Seite anwendet,
+ * die exakt dieselbe Route ("/") wie das Layout selbst belegt – bei allen
+ * Unterseiten (z. B. /kontakt) greift das Template dagegen normal.
+ */
+const title = "Weitblick Energieberatung – BAFA Fördercheck & Sanierungsfahrplan";
+const description =
+  "Kostenloser BAFA Fördercheck, individueller Sanierungsfahrplan (iSFP) und Fördermittelberatung für Ihr Wohngebäude – unabhängige Energieberatung aus München, deutschlandweit.";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title,
+    description,
+    url: "/",
+    siteName: site.name,
+    locale: "de_DE",
+    type: "website",
+  },
+};
 
 export default function HomePage() {
   return (

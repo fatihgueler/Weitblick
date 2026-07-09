@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { StickyFoerdercheck } from "@/components/StickyFoerdercheck";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { FoerdercheckProvider } from "@/components/foerdercheck/provider";
+import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
 
 /* Body – Inter: bewusst gewählte, hochlesbare Lauftext-Schrift. */
 const inter = Inter({
@@ -59,42 +60,12 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: site.name,
-  description: site.description,
-  url: getSiteUrl().toString(),
-  // Standort München, Leistungsgebiet aber deutschlandweit.
-  areaServed: { "@type": "Country", name: "Deutschland" },
-  telephone: "+4917680020590",
-  email: "kontakt@weitblick-energieberatung.de",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Hermann-Weinhauser-Str. 65",
-    postalCode: "81673",
-    addressLocality: "München",
-    addressRegion: "Bayern",
-    addressCountry: "DE",
-  },
-  knowsAbout: [
-    "Energieberatung",
-    "Energieberatung Wohngebäude",
-    "Individueller Sanierungsfahrplan",
-    "Fördermittelberatung",
-    "BAFA Förderung",
-    "KfW Förderung",
-    "Heizlastberechnung",
-    "Hydraulischer Abgleich",
-    "Energieausweis",
-    "Wärmepumpenberatung",
-    "Lüftungskonzept",
-  ],
-};
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="de" className={`${inter.variable} ${display.variable} ${mono.variable}`}>
+      <head>
+        <LocalBusinessSchema />
+      </head>
       <body className="min-h-screen bg-paper font-sans text-ink-800 antialiased">
         <a
           href="#main"
@@ -102,10 +73,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Zum Inhalt springen
         </a>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
         <FoerdercheckProvider>
           <Header />
           <main id="main" className="min-h-[60vh]">
