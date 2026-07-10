@@ -175,7 +175,7 @@ export type FunnelData = {
   message?: string;
 };
 
-function labelOf(q: ChoiceQuestion, value: string): string {
+export function labelOf(q: ChoiceQuestion, value: string): string {
   return q.options.find((o) => o.value === value)?.label ?? value;
 }
 

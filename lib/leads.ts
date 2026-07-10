@@ -81,3 +81,23 @@ export async function getAllLeads(): Promise<Lead[]> {
   `;
   return rows;
 }
+
+/** Nur Fördercheck-Leads, optional auf einen Zeitraum eingeschränkt. Für die Admin-Leads-Übersicht. */
+export async function getFoerdercheckLeads(since?: Date): Promise<Lead[]> {
+  const sql = getClient();
+  await ensureLeadsTable(sql);
+  const rows = since
+    ? await sql<Lead[]>`
+        SELECT id, created_at, type, raw_data, status
+        FROM leads
+        WHERE type = 'foerdercheck' AND created_at >= ${since.toISOString()}
+        ORDER BY created_at DESC
+      `
+    : await sql<Lead[]>`
+        SELECT id, created_at, type, raw_data, status
+        FROM leads
+        WHERE type = 'foerdercheck'
+        ORDER BY created_at DESC
+      `;
+  return rows;
+}
