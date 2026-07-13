@@ -28,6 +28,30 @@ function getClient(): postgres.Sql {
   return client;
 }
 
+/**
+ * Normalisiert `raw_data` zu einem echten Objekt. In manchen Fällen (z. B. über
+ * den Connection-Pooler) liefert der Treiber JSONB-Spalten als rohen JSON-String
+ * statt als bereits geparstes Objekt zurück – ohne diese Absicherung blieben
+ * dann alle Felder (Name, E-Mail, Fördercheck-Antworten) leer, obwohl die
+ * Daten korrekt gespeichert sind.
+ */
+function normalizeRawData(value: unknown): Record<string, unknown> {
+  if (typeof value === "string") {
+    try {
+      const parsed: unknown = JSON.parse(value);
+      return parsed && typeof parsed === "object" ? (parsed as Record<string, unknown>) : {};
+    } catch {
+      return {};
+    }
+  }
+  if (value && typeof value === "object") return value as Record<string, unknown>;
+  return {};
+}
+
+function normalizeLeads(rows: Lead[]): Lead[] {
+  return rows.map((row) => ({ ...row, raw_data: normalizeRawData(row.raw_data) }));
+}
+
 let schemaReady: Promise<void> | null = null;
 
 function ensureLeadsTable(sql: postgres.Sql): Promise<void> {
@@ -68,7 +92,7 @@ export async function getLeadsSince(since: Date): Promise<Lead[]> {
     WHERE created_at >= ${since.toISOString()}
     ORDER BY created_at DESC
   `;
-  return rows;
+  return normalizeLeads(rows);
 }
 
 export async function getAllLeads(): Promise<Lead[]> {
@@ -79,7 +103,7 @@ export async function getAllLeads(): Promise<Lead[]> {
     FROM leads
     ORDER BY created_at DESC
   `;
-  return rows;
+  return normalizeLeads(rows);
 }
 
 /** Nur Fördercheck-Leads, optional auf einen Zeitraum eingeschränkt. Für die Admin-Leads-Übersicht. */
@@ -99,5 +123,5 @@ export async function getFoerdercheckLeads(since?: Date): Promise<Lead[]> {
         WHERE type = 'foerdercheck'
         ORDER BY created_at DESC
       `;
-  return rows;
+  return normalizeLeads(rows);
 }
